@@ -10,3 +10,4 @@ snippets
 .coverage
 coverage.xml
 *.pyc
+db.sqlite3
