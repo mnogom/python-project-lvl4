@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load .env
 load_dotenv()
@@ -86,14 +87,15 @@ _dev_db = {
     'NAME': BASE_DIR / 'db.sqlite3',
 }
 
-_prod_db = {
-    'ENGINE': os.getenv('DB_ENGINE'),
-    'NAME': os.getenv('DB_NAME'),
-    'USER': os.getenv('DB_USER'),
-    'PASSWORD': os.getenv('DB_PASSWORD'),
-    'HOST': os.getenv('DB_HOST'),
-    'PORT': os.getenv('DB_PORT'),
-}
+# _prod_db = {
+#     'ENGINE': os.getenv('DB_ENGINE'),
+#     'NAME': os.getenv('DB_NAME'),
+#     'USER': os.getenv('DB_USER'),
+#     'PASSWORD': os.getenv('DB_PASSWORD'),
+#     'HOST': os.getenv('DB_HOST'),
+#     'PORT': os.getenv('DB_PORT'),
+# }
+_prod_db = dj_database_url.config(os.getenv('DATABASE_URL'))
 
 DATABASES = {
     'default': _dev_db if DEBUG else _prod_db
