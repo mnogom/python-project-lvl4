@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'task_manager',
 ]
 
 MIDDLEWARE = [
@@ -87,18 +88,8 @@ _dev_db = {
     'NAME': BASE_DIR / 'db.sqlite3',
 }
 
-# _prod_db = {
-#     'ENGINE': os.getenv('DB_ENGINE'),
-#     'NAME': os.getenv('DB_NAME'),
-#     'USER': os.getenv('DB_USER'),
-#     'PASSWORD': os.getenv('DB_PASSWORD'),
-#     'HOST': os.getenv('DB_HOST'),
-#     'PORT': os.getenv('DB_PORT'),
-# }
-_prod_db = dj_database_url.config(os.getenv('DATABASE_URL'))
-
 DATABASES = {
-    'default': _dev_db if DEBUG else _prod_db
+    'default': _dev_db if DEBUG else dj_database_url.config(os.getenv('DATABASE_URL'))
 }
 
 
