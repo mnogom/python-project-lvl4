@@ -5,6 +5,9 @@
     <title>Example</title>
 </head>
 <body>
+    {# load locale #}
+    {% load i18n %}
+
     {# Load the tag library #}
     {% load bootstrap4 %}
 
@@ -18,15 +21,14 @@
     {# Display a form #}
     <form action="/url/to/submit/" method="post" class="form">
     {% csrf_token %}
-    {% bootstrap_form form %}
+    {# bootstrap_form form #}
     {% buttons %}
-    <button type="submit" class="btn btn-primary">
-        Submit
-    </button>
+    <input type="submit" class="btn btn-primary" value="{% translate 'Submit' %}">
+
     {% endbuttons %}
     </form>
   <div>
-      Mode: {{ env }}
+      {% translate 'Mode' %}: {{ env }}
   </div>
 </body>
 </html>
