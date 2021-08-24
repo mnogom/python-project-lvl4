@@ -1,3 +1,5 @@
+"""Views."""
+
 import os
 
 from django.views import View

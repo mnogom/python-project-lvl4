@@ -9,6 +9,7 @@ from .views import (ListUsersView,
                     LoginView,
                     LogoutView)
 
+
 urlpatterns = [
     path('users/', ListUsersView.as_view(), name='users'),
     path('users/create/', NewUserView.as_view(), name='create_user'),

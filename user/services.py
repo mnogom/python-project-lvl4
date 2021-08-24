@@ -1,10 +1,16 @@
-from django.contrib.auth.models import User
+"""Services."""
 
-from .forms import UserForm
+from .forms import CreateUserForm
 
 
 def create_user(user_data):
-    form = UserForm(data=user_data)
+    """Create user.
+
+    :param user_data: data of user
+    :return: created User
+    """
+
+    form = CreateUserForm(data=user_data)
     if form.is_valid():
         return form.save() # TODO: Password hash!
     raise Exception(f'{form.errors}')
