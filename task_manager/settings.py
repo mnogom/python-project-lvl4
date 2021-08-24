@@ -91,7 +91,7 @@ _dev_db = {
 }
 
 DATABASES = {
-    'default': _dev_db if DEBUG else dj_database_url.config(os.getenv('DATABASE_URL'))
+    'default': _dev_db if DEBUG else dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 

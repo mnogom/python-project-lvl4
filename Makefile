@@ -1,6 +1,12 @@
 install:
 	poetry install
 
+migrations:
+	poetry run python manage.py makemigrations
+
+migrate:
+	poetry run python manage.py migrate
+
 requirements:
 	poetry export -f requirements.txt --output requriments.txt
 
@@ -9,6 +15,9 @@ run:
 
 lint:
 	poetry run flake8 task_manager
+
+django-shell:
+	poetry run python manage.py shell
 
 start-locale:
 	poetry run python manage.py makemessages -l ru ; \
