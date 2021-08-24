@@ -10,8 +10,9 @@ run:
 lint:
 	poetry run flake8 task_manager
 
-prepare-locale:
-	poetry run python manage.py makemessages -l ru
+start-locale:
+	poetry run python manage.py makemessages -l ru ; \
+	subl */locale/ru/LC_messages/django.po
 
 locale:
 	poetry run python manage.py compilemessages

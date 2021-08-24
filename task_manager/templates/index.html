@@ -1,34 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Example</title>
-</head>
-<body>
-    {# load locale #}
-    {% load i18n %}
+{% extends "base.html" %}
 
-    {# Load the tag library #}
-    {% load bootstrap4 %}
+{# load locale #}
+{% load i18n %}
 
-    {# Load CSS and JavaScript #}
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
+{# Load the tag library #}
+{% load bootstrap4 %}
 
-    {# Display django.contrib.messages as Bootstrap alerts #}
-    {% bootstrap_messages %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
 
-    {# Display a form #}
-    <form action="/url/to/submit/" method="post" class="form">
-    {% csrf_token %}
-    {# bootstrap_form form #}
-    {% buttons %}
-    <input type="submit" class="btn btn-primary" value="{% translate 'Submit' %}">
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 
-    {% endbuttons %}
-    </form>
-  <div>
+{% block container %}
+
+    <div>
       {% translate 'Mode' %}: {{ env }}
-  </div>
-</body>
-</html>
+    </div>
+
+{% endblock %}
