@@ -16,7 +16,10 @@
 {% block container %}
 
     <div>
-      {% translate 'Mode' %}: {{ env }}
+        {% translate 'Mode' %}: {{ env }}
+    </div>
+    <div>
+        {% translate 'User auth' %} {{ user_auth }}
     </div>
 
 {% endblock %}

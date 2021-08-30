@@ -15,14 +15,16 @@
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
 
-    {# Display django.contrib.messages as Bootstrap alerts #}
-    {% bootstrap_messages %}
-
     <nav class="nav justify-content-center py-3 border-bottom">
         <a class="nav-link active" href="/">{% translate 'Home' %}</a>
         <a class="nav-link" href="{% url 'users' %}">{% translate 'Users' %}</a>
         <a class="nav-link" href="{% url 'login' %}">{% translate 'Login' %}</a>
         <a class="nav-link" href="{% url 'create_user' %}">{% translate 'Register' %}</a>
+        <form action="/logout/" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="nav-link btn btn-link" href="{% url 'logout' %}" value="{% translate 'Logout' %}"/>
+        </form>
+
     </nav>
 
     {% block container %}{% endblock %}

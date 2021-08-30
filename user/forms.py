@@ -5,80 +5,53 @@ from django.utils.translation import gettext
 
 from django.contrib.auth.models import User
 
+from .fields import (username_field,
+                     first_name_field,
+                     last_name_field,
+                     email_field,
+                     password_field,
+                     password_confirm_field)
+
 
 class UserForm(forms.ModelForm):
     """User form."""
 
-    # password = forms.CharField(widget=forms.PasswordInput)
+    username = username_field
+    first_name = first_name_field
+    last_name = last_name_field
+    email = email_field
+    password = password_field
 
     class Meta:
         """Meta class."""
 
         model = User
-        fields = (
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'password',
-        )
+        fields = ('username',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'password',)
 
 
 class CreateUserForm(forms.ModelForm):
     """Create user form."""
 
-    username = forms.CharField(
-        label=gettext('Username'),
-        widget=forms.TextInput(
-            attrs={'placeholder': ''}
-        )
-    )
-
-    first_name = forms.CharField(
-        label=gettext('First name'),
-        widget=forms.TextInput(
-            attrs={'placeholder': ''}
-        ),
-    )
-
-    last_name = forms.CharField(
-        label=gettext('Last name'),
-        widget=forms.TextInput(
-            attrs={'placeholder': ''}
-        )
-    )
-
-    email = forms.EmailField(
-        label=gettext('Email'),
-        widget=forms.TextInput(
-            attrs={'placeholder': 'example@domain.com'}
-        ),
-        help_text=gettext('I will not check, but I believe that it is working')
-    )
-
-    password = forms.CharField(
-        label=gettext('Password'),
-        widget=forms.PasswordInput(
-            attrs={'placeholder': ''}
-        ))
-
-    password_confirm = forms.CharField(
-        label=gettext('Repeat password'),
-        widget=forms.PasswordInput(
-            attrs={'placeholder': ''}
-        ))
+    username = username_field
+    first_name = first_name_field
+    last_name = last_name_field
+    email = email_field
+    password = password_field
+    password_confirm = password_confirm_field
 
     class Meta:
         """Meta class."""
 
         model = User
-        fields = (
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'password',
-        )
+        fields = ('username',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'password',)
 
     def clean(self):
         """Clean method."""
@@ -95,3 +68,17 @@ class CreateUserForm(forms.ModelForm):
 
         self.cleaned_data.pop('password_confirm')
         User.objects.create_user(**self.cleaned_data)
+
+
+class LoginForm(forms.ModelForm):
+    """Login form"""
+
+    username = username_field
+    password = password_field
+
+    class Meta:
+        """Meta class."""
+
+        model = User
+        fields = ('username',
+                  'password',)

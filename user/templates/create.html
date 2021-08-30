@@ -10,14 +10,14 @@
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
 {% block title %}
 {% translate 'Registration' %}
 {% endblock %}
 
 {% block container %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+
     <div class="container flex-grow-1 text-left">
         <div class="card mx-auto mt-5 shadow" style="width: 500px; min-width: 300px;">
             <h5 class="card-title text-center mt-4">
@@ -27,11 +27,8 @@
                 <form action="/users/create/" method="post">
                     {% csrf_token %}
                     {% bootstrap_form form %}
-                    <input type="submit" class="btn btn-primary float-right mt-3">
+                    <input type="submit" class="btn btn-primary float-right mt-3" value="{% translate 'Register' %}">
                 </form>
-            </div>
-            <div class="card-footer text-muted text-center">
-                {% translate 'well, you understand' %}
             </div>
         </div>
     </div>

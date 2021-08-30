@@ -1,6 +1,9 @@
 """Selectors."""
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+
+from .exceptions import UserDoesNotExist
 
 
 def get_all_users():
@@ -19,4 +22,7 @@ def get_user_by_pk(pk: int):
     :return: User object
     """
 
-    return User.objects.get(pk=pk)
+    try:
+        return User.objects.get(pk=pk)
+    except ObjectDoesNotExist:
+        raise UserDoesNotExist
