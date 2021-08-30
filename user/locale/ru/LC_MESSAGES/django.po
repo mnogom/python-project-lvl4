@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-24 16:04+0000\n"
+"POT-Creation-Date: 2021-08-30 11:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,38 +20,83 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: user/forms.py:9
+#: user/fields.py:8 user/templates/users.html:26
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: user/forms.py:16
+#: user/fields.py:16 user/templates/users.html:27
 msgid "First name"
 msgstr "Имя"
 
-#: user/forms.py:23
+#: user/fields.py:24 user/templates/users.html:28
 msgid "Last name"
 msgstr "Фамилия"
 
-#: user/forms.py:30
+#: user/fields.py:32 user/templates/users.html:29
 msgid "Email"
 msgstr "Электронная почта"
 
-#: user/forms.py:34
+#: user/fields.py:37
 msgid "I will not check, but I believe that it is working"
 msgstr "Я не буду проверять, но надеюсь, она рабочая"
 
-#: user/forms.py:38
+#: user/fields.py:41 user/fields.py:49
 msgid "Password"
 msgstr "Пароль"
 
-#: user/forms.py:44
-msgid "Repeat password"
-msgstr "А ну-ка, повтори?"
-
-#: user/templates/create.html:11
+#: user/templates/create.html:14 user/templates/create.html:24
 msgid "Registration"
 msgstr "Регистрация"
 
-#: user/templates/create.html:21
-msgid "well, you understand"
-msgstr "ну, ты понял"
+#: user/templates/create.html:30
+#, fuzzy
+#| msgid "Registration"
+msgid "Register"
+msgstr "Зарегистрировать"
+
+#: user/templates/edit.html:14 user/templates/login.html:14
+#: user/templates/users.html:14
+msgid "Edit user"
+msgstr "Обновить пользователя"
+
+#: user/templates/edit.html:24
+msgid "Update user information"
+msgstr "Обновить информацию пользователя"
+
+#: user/templates/login.html:24
+msgid "Login"
+msgstr "Войти"
+
+#: user/templates/users.html:25
+msgid "ID"
+msgstr "ID"
+
+#: user/templates/users.html:30
+msgid "Registration date"
+msgstr "Дата регистрации"
+
+#: user/templates/users.html:31
+msgid "Actions"
+msgstr "Действия"
+
+#: user/templates/users.html:46
+msgid "update"
+msgstr "обновить"
+
+#: user/templates/users.html:54
+msgid "delete"
+msgstr "удалить"
+
+#: user/views.py:62
+msgid "Nice! Now you can login"
+msgstr "Готово! Теперь можешь зайти"
+
+#: user/views.py:103
+msgid "User was deleted"
+msgstr "Пользователь был удалён"
+
+#~ msgid "Repeat password"
+#~ msgstr "А ну-ка, повтори?"
+
+#~ msgid "well, you understand"
+#~ msgstr "ну, ты понял"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-24 16:04+0000\n"
+"POT-Creation-Date: 2021-08-30 11:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,22 +20,34 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: task_manager/templates/base.html:22
+#: task_manager/templates/base.html:19
 msgid "Home"
 msgstr "Домой"
 
-#: task_manager/templates/base.html:23
+#: task_manager/templates/base.html:21
 msgid "Users"
 msgstr "Юзвери"
 
-#: task_manager/templates/base.html:24
-msgid "Login"
-msgstr "Вход"
+#: task_manager/templates/base.html:22
+msgid "Profile"
+msgstr "Профиль"
 
 #: task_manager/templates/base.html:25
+msgid "Logout"
+msgstr "Выйти"
+
+#: task_manager/templates/base.html:28
+msgid "Login"
+msgstr "Войти"
+
+#: task_manager/templates/base.html:29
 msgid "Register"
 msgstr "Регистрация"
 
-#: task_manager/templates/index.html:8
+#: task_manager/templates/index.html:20
 msgid "Mode"
 msgstr "Режим"
+
+#: task_manager/templates/index.html:23
+msgid "User auth"
+msgstr "Пользователь авторизован"

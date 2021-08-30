@@ -2,8 +2,9 @@
 
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import CreateUserForm, LoginForm
+from .forms import CreateUserForm
 from .exceptions import UserFormIsNotValid
+from .selectors import get_user_by_pk
 
 
 def create_user(user_data):
@@ -34,3 +35,11 @@ def logout_user(request):
     """Logout user."""
 
     logout(request)
+
+
+def delete_user(request, pk):
+    """Delete user."""
+
+    logout_user(request)
+    user = get_user_by_pk(pk)
+    user.delete()

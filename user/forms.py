@@ -13,7 +13,7 @@ from .fields import (username_field,
                      password_confirm_field)
 
 
-class UserForm(forms.ModelForm):
+class UpdateUserForm(forms.ModelForm):
     """User form."""
 
     username = username_field
@@ -70,15 +70,8 @@ class CreateUserForm(forms.ModelForm):
         User.objects.create_user(**self.cleaned_data)
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
     """Login form"""
 
     username = username_field
     password = password_field
-
-    class Meta:
-        """Meta class."""
-
-        model = User
-        fields = ('username',
-                  'password',)

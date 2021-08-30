@@ -2,31 +2,40 @@
 
 from django.shortcuts import render, redirect, resolve_url
 from django.views import View
+from django.views.generic.list import ListView
 from django.utils.translation import gettext
 from django.http import HttpResponse
 from django.contrib import messages
 
+from django.contrib.auth.models import User
+
 from task_manager import status
 
-from .forms import (UserForm,
+from .forms import (UpdateUserForm,
                     CreateUserForm,
                     LoginForm)
 from .selectors import (get_all_users,
                         get_user_by_pk)
 from .services import (create_user,
                        login_user,
-                       logout_user)
+                       logout_user,
+                       delete_user)
 from .exceptions import UserFormIsNotValid
 
 
-class ListUsersView(View):
+class ListUsersView(ListView):
     """List of users view."""
 
-    def get(self, request):
-        """Method GET."""
+    model = User
+    template_name = 'users.html'
 
-        print(get_all_users())
-        return HttpResponse('страница со списком всех пользователей')
+    # def get(self, request):
+    #     """Method GET."""
+    #
+    #     print(get_all_users())
+    #     return render(request=request,
+    #                   template_name='users.html',
+    #                   status=status.HTTP_200_OK)
 
 
 class NewUserView(View):
@@ -34,6 +43,9 @@ class NewUserView(View):
 
     def get(self, request):
         """Method GET."""
+
+        if request.user.is_authenticated:
+            return redirect(resolve_url('update_user', pk=request.user.pk))
 
         return render(request=request,
                       template_name='create.html',
@@ -65,7 +77,7 @@ class EditUserView(View):
         user = get_user_by_pk(pk)
         return render(request=request,
                       template_name='edit.html',
-                      context={'form': UserForm(instance=user)},
+                      context={'form': UpdateUserForm(instance=user)},
                       status=status.HTTP_200_OK)
 
     def post(self, request, pk: int):
@@ -85,7 +97,11 @@ class DeleteUserView(View):
     def post(self, request, pk: int):
         """Method POST."""
 
-        return HttpResponse(f'удаление пользователя {pk}')
+        delete_user(request, pk)
+        messages.add_message(request=request,
+                             level=messages.SUCCESS,
+                             message=gettext('User was deleted'))
+        return redirect(resolve_url('index'))
 
 
 class LoginView(View):
@@ -93,6 +109,7 @@ class LoginView(View):
 
     def get(self, request):
         """Method GET."""
+
         if request.user.is_authenticated:
             return redirect(resolve_url('update_user', pk=request.user.pk))
 
