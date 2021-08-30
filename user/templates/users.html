@@ -19,55 +19,61 @@
     {% bootstrap_messages %}
 
     <div class="container flex-grow-1 text-left">
-        <table class="table text-center mt-5">
-            <thead>
-                <tr>
-                    <th scope="col">{% translate 'ID' %}</th>
-                    <th scope="col">{% translate 'Username' %}</th>
-                    <th scope="col">{% translate 'First name' %}</th>
-                    <th scope="col">{% translate 'Last name' %}</th>
-                    <th scope="col">{% translate 'Email' %}</th>
-                    <th scope="col">{% translate 'Registration date' %}</th>
-                    <th scope="col">{% translate 'Actions' %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cur_user in object_list %}
-                    {% if cur_user.pk == user.pk %}
-                        <tr class="table-active">
-                            <th rowspan="2" scope="row" class="align-middle">{{ cur_user.pk }}</th>
-                            <td rowspan="2" class="align-middle">{{ cur_user.username }}</td>
-                            <td rowspan="2" class="align-middle">{{ cur_user.first_name }}</td>
-                            <td rowspan="2" class="align-middle">{{ cur_user.last_name }}</td>
-                            <td rowspan="2" class="align-middle">{{ cur_user.email }}</td>
-                            <td rowspan="2" class="align-middle">{{ cur_user.date_joined|date:'d b Y' }}</td>
-                            <td class="border-bottom-0">
-                                <a class="btn btn-sm btn-outline-primary" href="{% url 'update_user' user.pk %}">
-                                    {% translate 'update' %}
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="table-active">
-                            <td class="border-top-0">
-                                <form action="{% url 'delete_user' user.pk %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="submit" class="btn btn-sm btn-outline-danger" value="{% translate 'delete' %}">
-                                </form>
-                            </td>
-                        </tr>
-                    {% else %}
+        <div class="card mx-auto mt-5 shadow" style="min-width: 1000px;">
+            <h5 class="card-title text-center mt-4">
+                {% translate 'Users' %}
+            </h5>
+            <div class="card-body">
+                <table class="table text-center mt-3">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ cur_user.pk }}</th>
-                            <td>{{ cur_user.username }}</td>
-                            <td>{{ cur_user.first_name }}</td>
-                            <td>{{ cur_user.last_name }}</td>
-                            <td>{{ cur_user.email }}</td>
-                            <td>{{ cur_user.date_joined|date:'d b Y' }}</td>
-                            <td></td>
+                            <th scope="col">{% translate 'ID' %}</th>
+                            <th scope="col">{% translate 'Username' %}</th>
+                            <th scope="col">{% translate 'First name' %}</th>
+                            <th scope="col">{% translate 'Last name' %}</th>
+                            <th scope="col">{% translate 'Email' %}</th>
+                            <th scope="col">{% translate 'Registration date' %}</th>
+                            <th scope="col">{% translate 'Actions' %}</th>
                         </tr>
-                    {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                        {% for cur_user in object_list %}
+                            {% if cur_user.pk == user.pk %}
+                                <tr class="table-active">
+                                    <th rowspan="2" scope="row" class="align-middle">{{ cur_user.pk }}</th>
+                                    <td rowspan="2" class="align-middle">{{ cur_user.username }}</td>
+                                    <td rowspan="2" class="align-middle">{{ cur_user.first_name }}</td>
+                                    <td rowspan="2" class="align-middle">{{ cur_user.last_name }}</td>
+                                    <td rowspan="2" class="align-middle">{{ cur_user.email }}</td>
+                                    <td rowspan="2" class="align-middle">{{ cur_user.date_joined|date:'d b Y' }}</td>
+                                    <td class="border-bottom-0 py-1">
+                                        <a class="btn btn-sm btn-outline-primary my-0 py-0" href="{% url 'update_user' user.pk %}">
+                                            {% translate 'update' %}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr class="table-active">
+                                    <td class="border-top-0 py-1">
+                                        <a class="btn btn-sm btn-outline-danger my-0 py-0" href="{% url 'delete_user' user.pk %}">
+                                            {% translate 'delete' %}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <th scope="row">{{ cur_user.pk }}</th>
+                                    <td>{{ cur_user.username }}</td>
+                                    <td>{{ cur_user.first_name }}</td>
+                                    <td>{{ cur_user.last_name }}</td>
+                                    <td>{{ cur_user.email }}</td>
+                                    <td>{{ cur_user.date_joined|date:'d b Y' }}</td>
+                                    <td></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}

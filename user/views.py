@@ -29,14 +29,6 @@ class ListUsersView(ListView):
     model = User
     template_name = 'users.html'
 
-    # def get(self, request):
-    #     """Method GET."""
-    #
-    #     print(get_all_users())
-    #     return render(request=request,
-    #                   template_name='users.html',
-    #                   status=status.HTTP_200_OK)
-
 
 class NewUserView(View):
     """New user view."""
@@ -77,7 +69,8 @@ class EditUserView(View):
         user = get_user_by_pk(pk)
         return render(request=request,
                       template_name='edit.html',
-                      context={'form': UpdateUserForm(instance=user)},
+                      context={'form': UpdateUserForm(instance=user),
+                               'user_pk': pk},
                       status=status.HTTP_200_OK)
 
     def post(self, request, pk: int):
@@ -92,7 +85,10 @@ class DeleteUserView(View):
     def get(self, request, pk: int):
         """Method GET."""
 
-        return HttpResponse(f'страница удаления пользователя {pk}')
+        return render(request=request,
+                      template_name='delete.html',
+                      context={'user': get_user_by_pk(pk)},
+                      status=status.HTTP_200_OK)
 
     def post(self, request, pk: int):
         """Method POST."""
