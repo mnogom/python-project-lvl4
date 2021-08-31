@@ -1,0 +1,90 @@
+- model: auth.User
+  pk: 1
+  fields:
+    username: VladNeVlad
+    first_name: Vladimir
+    last_name: Rijiy
+    email: vladrij@ya.ru
+    password: pbkdf2_sha256$260000$Vqkf0ouZ6I0rkZEiATJffd$B3hyGJYjLxy1mpqeF4doHcoRTPMK0tSMUIIe1C03u/A= # 123
+
+- model: auth.User
+  pk: 2
+  fields:
+    username: asd
+    first_name: asd
+    last_name: asd
+    email: asd@asd.asd
+    password: pbkdf2_sha256$260000$JDo8ZEWcsT7qBBK4rLyuxf$MgBWYeuNO48Lsx5VVL3nd41Wn0omQdARShWthljJFKE= # asd
+
+- model: auth.User
+  pk: 1
+  fields:
+    username: qwe
+    first_name: qwe
+    last_name: qwe
+    email: qwe@qwe.qwe
+    password: pbkdf2_sha256$260000$pf97AMSyz8vrODAVhsomSE$dRlsFzIji90wJp1jzwAaLEXaYzqubIRs4Q3PPLrNog4= # qwe
+
+- model: auth.User
+  pk: 3
+  fields:
+    username:
+    first_name:
+    last_name:
+    email:
+    password:
+
+- model: auth.User
+  pk: 4
+  fields:
+    username:
+    first_name:
+    last_name:
+    email:
+    password:
+
+- model: auth.User
+  pk: 5
+  fields:
+    username:
+    first_name:
+    last_name:
+    email:
+    password:
+
+- model: auth.User
+  pk: 6
+  fields:
+    username:
+    first_name:
+    last_name:
+    email:
+    password:
+
+- model: auth.User
+  pk: 7
+  fields:
+    username:
+    first_name:
+    last_name:
+    email:
+    password:
+
+- model: auth.User
+  pk: 8
+  fields:
+    username:
+    first_name:
+    last_name:
+    email:
+    password:
+
+- model: auth.User
+  pk: 9
+  fields:
+    username:
+    first_name:
+    last_name:
+    email:
+    password:
+
