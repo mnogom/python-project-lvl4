@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='index'),
     path('', include('user.urls')),
+    path('statuses/', include('status.urls')),
 ]

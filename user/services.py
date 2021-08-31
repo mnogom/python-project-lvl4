@@ -2,7 +2,7 @@
 
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import EditUserForm
+from .forms import UserForm
 from .selectors import get_user_by_pk
 
 
@@ -13,11 +13,10 @@ def create_user(user_data):
     :return: created Form
     """
 
-    form = EditUserForm(data=user_data)
+    form = UserForm(data=user_data)
     if form.is_valid():
-        user = form.save()
-        return user
-    return None
+        form.save()
+    return form
 
 
 def login_user(request):
@@ -47,9 +46,8 @@ def delete_user(pk):
 
 def update_user(new_user_data, pk):
     user = get_user_by_pk(pk)
-    form = EditUserForm(instance=user,
-                        data=new_user_data)
-
+    form = UserForm(instance=user,
+                    data=new_user_data)
     if form.is_valid():
         form.save()
     return form

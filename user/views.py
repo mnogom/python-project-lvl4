@@ -8,9 +8,9 @@ from django.contrib import messages
 
 from django.contrib.auth.models import User
 
-from task_manager import status
+from task_manager import http_status
 
-from .forms import (EditUserForm,
+from .forms import (UserForm,
                     LoginForm)
 from .selectors import get_user_by_pk
 from .services import (create_user,
@@ -30,11 +30,7 @@ class ListUsersView(ListView):
     template_name = 'users.html'
 
 
-    def get(self, request, *args, **kwargs):
-        return super().get(self, request, *args, **kwargs)
-
-
-class NewUserView(View):
+class CreateUserView(View):
     """New user view."""
 
     @required_not_login
@@ -42,25 +38,24 @@ class NewUserView(View):
         """Method GET."""
 
         return render(request=request,
-                      template_name='create.html',
-                      context={'form': EditUserForm},
-                      status=status.HTTP_200_OK)
+                      template_name='create_user.html',
+                      context={'form': UserForm},
+                      status=http_status.HTTP_200_OK)
 
     @required_not_login
     def post(self, request):
         """Method POST."""
 
-        user = create_user(request.POST)
-        if user is not None:
+        form = create_user(request.POST)
+        if form.is_valid():
             messages.add_message(request=request,
                                  level=messages.SUCCESS,
                                  message=gettext('Nice! Now you can login'))
             return redirect(resolve_url('login'))
-        else:
-            return render(request=request,
-                          template_name='create.html',
-                          context={'form': EditUserForm(request.POST)},
-                          status=status.HTTP_400_BAD_REQUEST)
+        return render(request=request,
+                      template_name='create_user.html',
+                      context={'form': form},
+                      status=http_status.HTTP_400_BAD_REQUEST)
 
 
 class EditUserView(View):
@@ -72,12 +67,12 @@ class EditUserView(View):
         """Method GET."""
 
         user = get_user_by_pk(pk)
-        form = EditUserForm(instance=user)
+        form = UserForm(instance=user)
         return render(request=request,
-                      template_name='edit.html',
+                      template_name='edit_user.html',
                       context={'form': form,
                                'user_pk': pk},
-                      status=status.HTTP_200_OK)
+                      status=http_status.HTTP_200_OK)
 
     @required_login
     @user_pk_check
@@ -93,10 +88,10 @@ class EditUserView(View):
             return redirect(resolve_url('update_user', pk=pk))
 
         return render(request=request,
-                      template_name='edit.html',
+                      template_name='edit_user.html',
                       context={'form': form,
                                'user_pk': pk},
-                      status=status.HTTP_400_BAD_REQUEST)
+                      status=http_status.HTTP_400_BAD_REQUEST)
 
 
 class DeleteUserView(View):
@@ -109,9 +104,9 @@ class DeleteUserView(View):
 
         user = get_user_by_pk(pk)
         return render(request=request,
-                      template_name='delete.html',
+                      template_name='delete_user.html',
                       context={'user': user},
-                      status=status.HTTP_200_OK)
+                      status=http_status.HTTP_200_OK)
 
     @required_login
     @user_pk_check
@@ -133,16 +128,15 @@ class LoginView(View):
         """Method GET."""
 
         return render(request=request,
-                      template_name='login.html',
+                      template_name='login_user.html',
                       context={'form': LoginForm},
-                      status=status.HTTP_200_OK)
+                      status=http_status.HTTP_200_OK)
 
     @required_not_login
     def post(self, request):
         """Method POST."""
 
-        login_success = login_user(request)
-        if login_success:
+        if login_user(request):
             return redirect(resolve_url('index'))
 
         messages.add_message(request=request,

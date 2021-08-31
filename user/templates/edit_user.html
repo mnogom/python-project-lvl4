@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{# load locale #}
+{% load i18n %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+{% translate 'Edit user' %}
+{% endblock %}
+
+{% block container %}
+    <div class="card shadow">
+        <div class="card-body text-left">
+            <h3 class="card-title">
+                {% translate 'Profile' %}
+            </h3>
+            <form action="{% url 'update_user' user_pk %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="submit" class="btn btn-primary float-right mt-3 mx-1" value="{% translate 'Update' %}">
+                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'delete_user' user_pk %}">{% translate 'Delete' %}</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{#        <div class="modal-footer bg-light">#}

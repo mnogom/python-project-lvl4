@@ -11,7 +11,7 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block title %}
-{% translate 'Edit user' %}
+{% translate 'Edit status' %}
 {% endblock %}
 
 {% block container %}
@@ -20,12 +20,12 @@
             <h3 class="card-title">
                 {% translate 'Profile' %}
             </h3>
-            <form action="{% url 'update_user' user_pk %}" method="post">
+            <form action="{% url 'update_status' status_pk %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <input type="submit" class="btn btn-primary float-right mt-3" value="{% translate 'Update' %}">
+                <input type="submit" class="btn btn-primary float-right mt-3 mx-1" value="{% translate 'Update' %}">
+                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'delete_status' status_pk %}">{% translate 'Delete' %}</a>
             </form>
-            <a class="btn btn-outline-danger mt-3" href="{% url 'delete_user' user_pk %}">{% translate 'Delete' %}</a>
         </div>
     </div>
 {% endblock %}

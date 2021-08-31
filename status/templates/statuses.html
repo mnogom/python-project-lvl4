@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{# load locale #}
+{% load i18n %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+{% translate 'Status' %}
+{% endblock %}
+
+{% block container %}
+
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="card-title">
+                {% translate 'Statuses' %}
+                <a class="btn btn-sm btn-outline-primary float-right rounded-circle" href="{% url 'create_status' %}" style="width: 2rem; height: 2rem;">
+                    +
+                </a>
+            </h3>
+
+            <div class="table-responsive">
+                <table class="table text-center mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">{% translate 'ID' %}</th>
+                            <th scope="col">{% translate 'Name' %}</th>
+                            <th scope="col">{% translate 'Created at' %}</th>
+                            <th scope="col">{% translate 'Actions' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cur_status in object_list %}
+                            <tr>
+                                <th rowspan="2" scope="row" class="align-middle">{{ cur_status.pk }}</th>
+                                <td rowspan="2" class="align-middle">{{ cur_status.name }}</td>
+                                <td rowspan="2" class="align-middle">{{ cur_status.created_at|date:'d b Y' }}</td>
+                                <td class="border-bottom-0 py-1">
+                                    <a class="btn btn-sm btn-outline-primary my-0 py-0 w-100 border-0" href="{% url 'update_status' cur_status.pk %}">
+                                        {% translate 'update' %}
+                                    </a>
+                                </td>
+                            </tr>
+                                {% if cur_status.pk == user.pk %}
+                                    <tr class="bg-light">
+                                {% else %}
+                                    <tr>
+                                {% endif %}
+                                    <td class="border-top-0 py-1">
+                                        <a class="btn btn-sm btn-outline-danger my-0 py-0 w-100 border-0" href="{% url 'delete_status' cur_status.pk %}">
+                                            {% translate 'delete' %}
+                                        </a>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

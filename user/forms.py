@@ -2,7 +2,6 @@
 
 from django.forms import (ModelForm,
                           Form)
-from django.utils.translation import gettext
 
 from django.contrib.auth.models import User
 
@@ -14,7 +13,7 @@ from .fields import (username_field,
                      password2)
 
 
-class EditUserForm(ModelForm):
+class UserForm(ModelForm):
     """Create user form."""
 
     username = username_field

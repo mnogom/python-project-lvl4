@@ -28,16 +28,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 {# NAME #}
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">{% translate 'Home' %}</a>
                 </li>
 
                 {# USER APP #}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="userNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% translate 'Users' %}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="userNavbarDropdown">
                         <a class="dropdown-item" href="{% url 'users' %}">{% translate 'Users list' %}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{% url 'create_user' %}">{% translate 'Registration' %}</a>
@@ -54,10 +54,22 @@
                         </form>
                     </div>
                 </li>
+
+                {# STATUS APP #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="statusNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% translate 'Statuses' %}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="statusNavbarDropdown">
+                        <a class="dropdown-item" href="{% url 'statuses' %}">{% translate 'Statuses' %}</a>
+                        <a class="dropdown-item" href="{% url 'create_status' %}">{% translate 'Create status' %}</a>
+                    </div>
+                </li>
+
             </ul>
 
             {# AUTH SHORTCATS #}
-            <ul class="nav justify-content-end">
+            <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <a class="nav-link" href="{% url 'update_user' user.pk %}">{% translate 'Update user' %}</a>
                     <div class="nav-item">
@@ -67,10 +79,10 @@
                         </form>
                     </div>
                 {% else %}
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_user' %}">{% translate 'Registration' %}</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">{% translate 'Login' %}</a>
                     </li>
                 {% endif %}
@@ -86,7 +98,7 @@
             {% bootstrap_messages %}
         </div>
 
-        <div class="card-deck mt-5">
+        <div class="mt-5">
             {% block container %}{% endblock %}
         </div>
     </div>
