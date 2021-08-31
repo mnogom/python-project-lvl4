@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'task_manager.middleware.trace_middleware.trace_middleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -140,3 +141,19 @@ STATIC_ROOT = 'task_manager/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# TraceMiddleware setup
+
+APPS_TO_TRACE = [
+    'task_manager',
+    'user',
+]
+
+REQUEST_PARAMS_TO_LOG = [
+    'method',
+    'path',
+    'headers',
+    'COOKIES',
+    'data',
+    'GET',
+]

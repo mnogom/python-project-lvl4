@@ -2,8 +2,7 @@
 
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import CreateUserForm
-from .exceptions import UserFormIsNotValid
+from .forms import EditUserForm
 from .selectors import get_user_by_pk
 
 
@@ -11,24 +10,26 @@ def create_user(user_data):
     """Create user.
 
     :param user_data: data of user
-    :return: created User
+    :return: created Form
     """
 
-    form = CreateUserForm(data=user_data)
+    form = EditUserForm(data=user_data)
     if form.is_valid():
-        return form.save() # TODO: Password hash!
-    raise UserFormIsNotValid
+        user = form.save()
+        return user
+    return None
 
 
 def login_user(request):
     """Login user."""
 
-    user_data = request.POST.dict()
-    user = authenticate(request, **user_data)
+    username = request.POST.get('username')
+    password = request.POST.get('password1')
+    user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-    else:
-        raise Exception
+        return True
+    return False
 
 
 def logout_user(request):
@@ -37,9 +38,18 @@ def logout_user(request):
     logout(request)
 
 
-def delete_user(request, pk):
+def delete_user(pk):
     """Delete user."""
 
-    logout_user(request)
     user = get_user_by_pk(pk)
     user.delete()
+
+
+def update_user(new_user_data, pk):
+    user = get_user_by_pk(pk)
+    form = EditUserForm(instance=user,
+                        data=new_user_data)
+
+    if form.is_valid():
+        form.save()
+    return form

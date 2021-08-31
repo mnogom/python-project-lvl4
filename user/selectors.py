@@ -25,4 +25,4 @@ def get_user_by_pk(pk: int):
     try:
         return User.objects.get(pk=pk)
     except ObjectDoesNotExist:
-        raise UserDoesNotExist
+        return None

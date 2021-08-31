@@ -37,7 +37,7 @@ email_field = forms.EmailField(
     help_text=gettext('I will not check, but I believe that it is working')
 )
 
-password_field = forms.CharField(
+password1 = forms.CharField(
     label=gettext('Password'),
     widget=forms.PasswordInput(
         attrs={'placeholder': '',
@@ -45,8 +45,8 @@ password_field = forms.CharField(
     )
 )
 
-password_confirm_field = forms.CharField(
-    label=gettext('Password'),
+password2 = forms.CharField(
+    label=gettext('Repeat password'),
     widget=forms.PasswordInput(
         attrs={'placeholder': '',
                'id': 'id_password2'}

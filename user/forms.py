@@ -1,6 +1,7 @@
 """Forms."""
 
-from django import forms
+from django.forms import (ModelForm,
+                          Form)
 from django.utils.translation import gettext
 
 from django.contrib.auth.models import User
@@ -9,39 +10,19 @@ from .fields import (username_field,
                      first_name_field,
                      last_name_field,
                      email_field,
-                     password_field,
-                     password_confirm_field)
+                     password1,
+                     password2)
 
 
-class UpdateUserForm(forms.ModelForm):
-    """User form."""
-
-    username = username_field
-    first_name = first_name_field
-    last_name = last_name_field
-    email = email_field
-    password = password_field
-
-    class Meta:
-        """Meta class."""
-
-        model = User
-        fields = ('username',
-                  'first_name',
-                  'last_name',
-                  'email',
-                  'password',)
-
-
-class CreateUserForm(forms.ModelForm):
+class EditUserForm(ModelForm):
     """Create user form."""
 
     username = username_field
     first_name = first_name_field
     last_name = last_name_field
     email = email_field
-    password = password_field
-    password_confirm = password_confirm_field
+    password1 = password1
+    password2 = password2
 
     class Meta:
         """Meta class."""
@@ -51,27 +32,30 @@ class CreateUserForm(forms.ModelForm):
                   'first_name',
                   'last_name',
                   'email',
-                  'password',)
+                  'password1',)
 
     def clean(self):
         """Clean method."""
 
         cleaned_data = super().clean()
-        password = cleaned_data.get('password', None)
-        password_confirm = cleaned_data.get('password_confirm', None)
-        if password != password_confirm:
-            self.add_error('password_confirm', 'Password doesn\'t match')
+
+        password1 = cleaned_data.get('password1', None)
+        password2 = cleaned_data.get('password2', None)
+        if password1 != password2:
+            self.add_error('password2', 'Password doesn\'t match')
         return cleaned_data
 
     def save(self, **kwargs):
         """Save user method."""
 
-        self.cleaned_data.pop('password_confirm')
-        User.objects.create_user(**self.cleaned_data)
+        user = super().save(**kwargs)
+        user.set_password(self.cleaned_data["password1"])
+        user.save()
+        return user
 
 
-class LoginForm(forms.Form):
+class LoginForm(Form):
     """Login form"""
 
     username = username_field
-    password = password_field
+    password1 = password1

@@ -40,6 +40,9 @@
                         {% for cur_user in object_list %}
                             {% if cur_user.pk == user.pk %}
                                 <tr class="table-active">
+                            {% else %}
+                                <tr>
+                            {% endif %}
                                     <th rowspan="2" scope="row" class="align-middle">{{ cur_user.pk }}</th>
                                     <td rowspan="2" class="align-middle">{{ cur_user.username }}</td>
                                     <td rowspan="2" class="align-middle">{{ cur_user.first_name }}</td>
@@ -47,29 +50,22 @@
                                     <td rowspan="2" class="align-middle">{{ cur_user.email }}</td>
                                     <td rowspan="2" class="align-middle">{{ cur_user.date_joined|date:'d b Y' }}</td>
                                     <td class="border-bottom-0 py-1">
-                                        <a class="btn btn-sm btn-outline-primary my-0 py-0" href="{% url 'update_user' user.pk %}">
+                                        <a class="btn btn-sm btn-outline-primary my-0 py-0" href="{% url 'update_user' cur_user.pk %}">
                                             {% translate 'update' %}
                                         </a>
                                     </td>
                                 </tr>
-                                <tr class="table-active">
+                                {% if cur_user.pk == user.pk %}
+                                    <tr class="table-active">
+                                {% else %}
+                                    <tr>
+                                {% endif %}
                                     <td class="border-top-0 py-1">
-                                        <a class="btn btn-sm btn-outline-danger my-0 py-0" href="{% url 'delete_user' user.pk %}">
+                                        <a class="btn btn-sm btn-outline-danger my-0 py-0" href="{% url 'delete_user' cur_user.pk %}">
                                             {% translate 'delete' %}
                                         </a>
                                     </td>
                                 </tr>
-                            {% else %}
-                                <tr>
-                                    <th scope="row">{{ cur_user.pk }}</th>
-                                    <td>{{ cur_user.username }}</td>
-                                    <td>{{ cur_user.first_name }}</td>
-                                    <td>{{ cur_user.last_name }}</td>
-                                    <td>{{ cur_user.email }}</td>
-                                    <td>{{ cur_user.date_joined|date:'d b Y' }}</td>
-                                    <td></td>
-                                </tr>
-                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
