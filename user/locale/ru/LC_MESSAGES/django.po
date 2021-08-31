@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 11:53+0000\n"
+"POT-Creation-Date: 2021-08-31 13:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,19 +20,31 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: user/fields.py:8 user/templates/users.html:26
+#: user/decorators.py:16
+msgid "You need to login"
+msgstr "Вам необходимо выполнить вход"
+
+#: user/decorators.py:27
+msgid "You have no permission edit other users."
+msgstr "У Вас нет доступа к измению других пользователей"
+
+#: user/decorators.py:38
+msgid "You already logged in"
+msgstr "Вы уже вошли"
+
+#: user/fields.py:8 user/templates/users.html:31
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: user/fields.py:16 user/templates/users.html:27
+#: user/fields.py:16 user/templates/users.html:32
 msgid "First name"
 msgstr "Имя"
 
-#: user/fields.py:24 user/templates/users.html:28
+#: user/fields.py:24 user/templates/users.html:33
 msgid "Last name"
 msgstr "Фамилия"
 
-#: user/fields.py:32 user/templates/users.html:29
+#: user/fields.py:32 user/templates/users.html:34
 msgid "Email"
 msgstr "Электронная почта"
 
@@ -40,63 +52,105 @@ msgstr "Электронная почта"
 msgid "I will not check, but I believe that it is working"
 msgstr "Я не буду проверять, но надеюсь, она рабочая"
 
-#: user/fields.py:41 user/fields.py:49
+#: user/fields.py:41
 msgid "Password"
 msgstr "Пароль"
+
+#: user/fields.py:49
+msgid "Repeat password"
+msgstr "А ну-ка, повтори?"
 
 #: user/templates/create.html:14 user/templates/create.html:24
 msgid "Registration"
 msgstr "Регистрация"
 
 #: user/templates/create.html:30
-#, fuzzy
-#| msgid "Registration"
 msgid "Register"
 msgstr "Зарегистрировать"
 
-#: user/templates/edit.html:14 user/templates/login.html:14
-#: user/templates/users.html:14
+#: user/templates/delete.html:14 user/templates/edit.html:14
+#: user/templates/login.html:14 user/templates/users.html:14
 msgid "Edit user"
 msgstr "Обновить пользователя"
 
+#: user/templates/delete.html:25
+#, fuzzy
+#| msgid "Edit user"
+msgid "Delete user"
+msgstr "Обновить пользователя"
+
+#: user/templates/delete.html:29
+msgid "Do you really want to delete user "
+msgstr "Вы действительно хотите удалить пользователя "
+
+#: user/templates/delete.html:33
+msgid "After deletion, the account will not be subject to recovery."
+msgstr "После удаления аккаунт будет невозможно восстановить."
+
+#: user/templates/delete.html:36
+msgid "Back"
+msgstr "Назад"
+
+#: user/templates/delete.html:39 user/templates/edit.html:32
+msgid "Delete"
+msgstr "Удалить"
+
 #: user/templates/edit.html:24
-msgid "Update user information"
-msgstr "Обновить информацию пользователя"
+msgid "Profile"
+msgstr "Профиль"
+
+#: user/templates/edit.html:30
+msgid "Update"
+msgstr "Обновить"
 
 #: user/templates/login.html:24
 msgid "Login"
 msgstr "Войти"
 
-#: user/templates/users.html:25
+#: user/templates/users.html:24
+#, fuzzy
+#| msgid "Username"
+msgid "Users"
+msgstr "Имя пользователя"
+
+#: user/templates/users.html:30
 msgid "ID"
 msgstr "ID"
 
-#: user/templates/users.html:30
+#: user/templates/users.html:35
 msgid "Registration date"
 msgstr "Дата регистрации"
 
-#: user/templates/users.html:31
+#: user/templates/users.html:36
 msgid "Actions"
 msgstr "Действия"
 
-#: user/templates/users.html:46
+#: user/templates/users.html:54
 msgid "update"
 msgstr "обновить"
 
-#: user/templates/users.html:54
+#: user/templates/users.html:65
 msgid "delete"
 msgstr "удалить"
 
-#: user/views.py:62
+#: user/views.py:57
 msgid "Nice! Now you can login"
 msgstr "Готово! Теперь можешь зайти"
 
-#: user/views.py:103
+#: user/views.py:91
+msgid "User profile was updated"
+msgstr "Пользователь был обновлён"
+
+#: user/views.py:124
 msgid "User was deleted"
 msgstr "Пользователь был удалён"
 
-#~ msgid "Repeat password"
-#~ msgstr "А ну-ка, повтори?"
+#: user/views.py:150
+msgid "Username or password (or both) are wrong"
+msgstr "Имя пользователя и/или пароль неверны"
+
+#~ msgid "Update user information"
+#~ msgstr "Обновить информацию пользователя"
 
 #~ msgid "well, you understand"
 #~ msgstr "ну, ты понял"

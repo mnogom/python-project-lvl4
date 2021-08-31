@@ -15,24 +15,37 @@
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
 
-    <div class="container flex-grow-1">
-        <div class="card mx-auto mt-5 shadow" style="width: 500px; min-width: 300px;">
-            <h5 class="card-title text-center mt-4">
+    <div class="card shadow">
+        <div class="card-body text-center">
+            <h5 class="card-title mb-3">
                 {% translate 'Home' %}
             </h5>
-                <div class="card-body">
-                <div>{% translate 'Mode' %}: {{ env }}</div>
-                <div>{% translate 'User auth' %} {{ user.is_authenticated }}</div>
-                <div><a href="{% url 'index' %}">index page</a></div>
-                <div><a href="{% url 'users' %}">users</a></div>
-                <div><a href="{% url 'create_user' %}">create user</a></div>
+            <a class="btn btn-secondary" href="{% url 'index' %}">index page</a>
+        </div>
+        <div class="card-footer text-muted">
+            <div>{% translate 'Mode' %}: {{ env }}</div>
+            <div>{% translate 'User auth' %} {{ user.is_authenticated }}</div>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body text-center">
+            <h5 class="card-title mb-3">
+                {% translate 'Users' %}
+            </h5>
+            <div class="btn-group-vertical" role="group">
+                <a class="btn btn-secondary" href="{% url 'users' %}">users</a>
+                <a class="btn btn-secondary" href="{% url 'create_user' %}">create user</a>
                 {% if user.is_authenticated %}
-                    <div><a href="{% url 'update_user' user.pk %}">update user</a></div>
-                    <div><a href="{% url 'delete_user' user.pk %}">delete user</a></div>
+                    <a class="btn btn-success" href="{% url 'update_user' user.pk %}">update user</a>
+                    <a class="btn btn-success" href="{% url 'delete_user' user.pk %}">delete user</a>
                 {%  endif %}
-                <div><a href="{% url 'login' %}">login</a></div>
-                <div><a href="{% url 'logout' %}">logout</a></div>
+                <a class="btn btn-secondary" href="{% url 'login' %}">login</a>
             </div>
+            <form class="mt-1" action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-outline-warning" value="logout"/>
+            </form>
         </div>
     </div>
 
