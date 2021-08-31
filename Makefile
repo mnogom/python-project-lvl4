@@ -25,3 +25,6 @@ start-locale:
 
 locale:
 	poetry run python manage.py compilemessages
+
+heroku-shell:
+	heroku run bash
