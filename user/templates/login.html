@@ -15,14 +15,12 @@
 {% endblock %}
 
 {% block container %}
-    {# Display django.contrib.messages as Bootstrap alerts #}
-    {% bootstrap_messages %}
 
     <div class="card shadow">
         <div class="card-body">
-            <h5 class="card-title mb-3">
+            <h3 class="card-title">
                 {% translate 'Login' %}
-            </h5>
+            </h3>
             <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}

@@ -15,31 +15,85 @@
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
 
-    <nav class="nav justify-content-center py-3 border-bottom">
-        <a class="nav-link active" href="/">{% translate 'Home' %}</a>
-        {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'users' %}">{% translate 'Users' %}</a>
-            <a class="nav-link" href="{% url  'update_user' user.pk %}">{% translate "Profile" %}</a>
-            <form action="/logout/" method="POST">
-                {% csrf_token %}
-                <input type="submit" class="nav-link btn btn-link" value="{% translate 'Logout' %}"/>
-            </form>
-        {% else %}
-            <a class="nav-link" href="{% url 'login' %}">{% translate 'Login' %}</a>
-            <a class="nav-link" href="{% url 'create_user' %}">{% translate 'Register' %}</a>
-        {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <a class="navbar-brand" href="{% url 'index' %}">Mask Manger</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {# NAME #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'index' %}">{% translate 'Home' %}</a>
+                </li>
+
+                {# USER APP #}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% translate 'Users' %}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'users' %}">{% translate 'Users list' %}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'create_user' %}">{% translate 'Registration' %}</a>
+                        <a class="dropdown-item" href="{% url 'login' %}">{% translate 'Login' %}</a>
+                        {% if user.is_authenticated %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'update_user' user.pk %}">{% translate 'Update user' %}</a>
+                            <a class="dropdown-item" href="{% url 'delete_user' user.pk %}">{% translate 'Delete user' %}</a>
+                        {% endif %}
+                        <div class="dropdown-divider"></div>
+                        <form action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="dropdown-item" value="{% translate 'Logout' %}"/>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+            {# AUTH SHORTCATS #}
+            <ul class="nav justify-content-end">
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'update_user' user.pk %}">{% translate 'Update user' %}</a>
+                    <div class="nav-item">
+                        <form action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="nav-link btn btn-link border-0" value="{% translate 'Logout' %}"/>
+                        </form>
+                    </div>
+                {% else %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'create_user' %}">{% translate 'Registration' %}</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'login' %}">{% translate 'Login' %}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
 
     </nav>
 
     <div class="container flex-grow-1">
+
+        {# Display django.contrib.messages as Bootstrap alerts #}
+        <div class="mt-2 mx-5">
+            {% bootstrap_messages %}
+        </div>
+
         <div class="card-deck mt-5">
             {% block container %}{% endblock %}
         </div>
     </div>
 
     <footer>
-      <div class="container mt-5 py-3 border-top text-center">
-        <span class="text-muted">Task manager @ 2021 by m</span>
+      <div class="mt-2 py-2 border-top bg-light text-center">
+        <small class="text-muted">Task manager @ 2021 by m</small>
       </div>
     </footer>
 
