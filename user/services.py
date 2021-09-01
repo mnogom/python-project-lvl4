@@ -19,6 +19,22 @@ def create_user(user_data):
     return form
 
 
+def delete_user(pk):
+    """Delete user."""
+
+    user = get_user_by_pk(pk)
+    user.delete()
+
+
+def update_user(new_user_data, pk):
+    user = get_user_by_pk(pk)
+    form = UserForm(instance=user,
+                    data=new_user_data)
+    if form.is_valid():
+        form.save()
+    return form
+
+
 def login_user(request):
     """Login user."""
 
@@ -35,19 +51,3 @@ def logout_user(request):
     """Logout user."""
 
     logout(request)
-
-
-def delete_user(pk):
-    """Delete user."""
-
-    user = get_user_by_pk(pk)
-    user.delete()
-
-
-def update_user(new_user_data, pk):
-    user = get_user_by_pk(pk)
-    form = UserForm(instance=user,
-                    data=new_user_data)
-    if form.is_valid():
-        form.save()
-    return form

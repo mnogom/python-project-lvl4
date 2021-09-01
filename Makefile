@@ -20,6 +20,10 @@ test:
 	poetry run python manage.py test
 
 
+coverage:
+	poetry run coverage run --source='.' manage.py test
+
+
 test-user:
 	poetry run python manage.py test user
 

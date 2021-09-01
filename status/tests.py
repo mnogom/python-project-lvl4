@@ -4,7 +4,6 @@ from django.test import TestCase, tag
 from django.forms.models import model_to_dict
 import yaml
 
-from .models import Status
 from .exceptions import StatusDoesNotExist
 from .selectors import (get_all_statuses,
                         get_status_by_pk)
@@ -63,13 +62,12 @@ class StatusServicesCase(TestCase):
         # Check if all fields created right
         pk = form.instance.pk
         new_status = get_status_by_pk(pk)
-        self.assertEqual(getattr(new_status, 'name', None),
+        self.assertEqual(getattr(new_status, 'name'),
                          valid_data['name'])
-        self.assertEqual(getattr(new_status, 'description', None),
+        self.assertEqual(getattr(new_status, 'description'),
                          valid_data['description'])
-        self.assertEqual(getattr(new_status, 'junk_key', None),
-                         None)
-        self.assertNotEqual(getattr(new_status, 'created_at', None),
+        self.assertIsNone(getattr(new_status, 'junk_key', None))
+        self.assertNotEqual(getattr(new_status, 'created_at'),
                             valid_data['created_at'])
 
         # Check if skip required data
@@ -79,9 +77,10 @@ class StatusServicesCase(TestCase):
 
         # Check if 'name' is not unique
         unique_data = {'name': '?unique?'}
-        _ = create_status(unique_data)
-        form = create_status(unique_data)
-        self.assertFalse(form.is_valid())
+        form_1 = create_status(unique_data)
+        form_2 = create_status(unique_data)
+        self.assertTrue(form_1.is_valid())
+        self.assertFalse(form_2.is_valid())
 
     @tag('edit-service')
     def test_edit(self):
@@ -99,10 +98,15 @@ class StatusServicesCase(TestCase):
                          new_status_data)
 
         # Check editing Status has unique protect
-        unique_data = {'name': '?unique_edit?'}
-        create_status(unique_data)
-        form = update_status(unique_data, pk=1)
-        self.assertFalse(form.is_valid())
+        unique_data_1 = {'name': '?unique_edit_1?'}
+        unique_data_2 = {'name': '?unique_edit_?2'}
+        not_unique_data = unique_data_1
+        form_1 = create_status(unique_data_1)
+        form_2 = create_status(unique_data_2)
+        form_2_updated = update_status(not_unique_data, pk=form_2.instance.pk)
+        self.assertTrue(form_1.is_valid())
+        self.assertTrue(form_2.is_valid())
+        self.assertFalse(form_2_updated.is_valid())
 
 
     @tag('delete-service')
