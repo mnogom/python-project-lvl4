@@ -8,7 +8,7 @@ from django.utils.translation import gettext
 from task_manager import http_status
 from user.decorators import required_login
 
-from .selectors import (get_all_status,
+from .selectors import (get_all_statuses,
                         get_status_by_pk)
 from .services import (create_status,
                        update_status,

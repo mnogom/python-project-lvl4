@@ -39,7 +39,7 @@
                         {% for cur_status in object_list %}
                             <tr>
                                 <th rowspan="2" scope="row" class="align-middle">{{ cur_status.pk }}</th>
-                                <td rowspan="2" class="align-middle">{{ cur_status.name }}</td>
+                                <td rowspan="2" class="align-middle" title="{{ cur_status.description }}">{{ cur_status.name }}</td>
                                 <td rowspan="2" class="align-middle">{{ cur_status.created_at|date:'d b Y' }}</td>
                                 <td class="border-bottom-0 py-1">
                                     <a class="btn btn-sm btn-outline-primary my-0 py-0 w-100 border-0" href="{% url 'update_status' cur_status.pk %}">

@@ -16,6 +16,18 @@ run:
 lint:
 	poetry run flake8 task_manager
 
+test:
+	poetry run python manage.py test
+
+
+test-user:
+	poetry run python manage.py test user
+
+
+test-status:
+	poetry run python manage.py test status
+
+
 django-shell:
 	poetry run python manage.py shell
 

@@ -1,4 +1,4 @@
 """Exceptions."""
 
-class UserDoesNotExist(Exception):
+class StatusDoesNotExist(Exception):
     pass
