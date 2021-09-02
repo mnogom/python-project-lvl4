@@ -1,3 +1,5 @@
+"""Models."""
+
 from django.db import models
 
 
@@ -9,3 +11,6 @@ class Status(models.Model):
     description = models.TextField(blank=True,
                                    null=False)
     created_at = models.DateField(auto_now_add=True, editable=False)
+
+    def __str__(self):
+        return self.name

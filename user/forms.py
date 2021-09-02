@@ -3,7 +3,7 @@
 from django.forms import (ModelForm,
                           Form)
 
-from django.contrib.auth.models import User
+from .models import User
 
 from .fields import (username_field,
                      first_name_field,

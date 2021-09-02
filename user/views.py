@@ -6,10 +6,10 @@ from django.views.generic.list import ListView
 from django.utils.translation import gettext
 from django.contrib import messages
 
-from django.contrib.auth.models import User
 
 from task_manager import http_status
 
+from .models import User
 from .forms import (UserForm,
                     LoginForm)
 from .selectors import get_user_by_pk

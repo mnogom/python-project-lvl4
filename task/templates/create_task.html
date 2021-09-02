@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{# load locale #}
+{% load i18n %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+{% translate 'New task' %}
+{% endblock %}
+
+{% block container %}
+
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="card-title">
+                {% translate 'New task' %}
+            </h3>
+            <form action="{% url 'create_task' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="submit" class="btn btn-primary float-right mt-3" value="{% translate 'Create' %}">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

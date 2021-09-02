@@ -2,8 +2,8 @@
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from .exceptions import UserDoesNotExist
 from .models import User
+from .exceptions import UserDoesNotExist
 
 
 def get_all_users():

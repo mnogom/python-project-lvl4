@@ -5,7 +5,6 @@ import yaml
 from django.test import TestCase, tag
 from django.forms.models import model_to_dict
 from django.shortcuts import resolve_url
-from django.contrib.auth.decorators import login_required
 
 from task_manager import http_status
 
