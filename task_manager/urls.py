@@ -25,4 +25,5 @@ urlpatterns = [
     path('', HomeView.as_view(), name='index'),
     path('', include('user.urls')),
     path('statuses/', include('status.urls')),
+    path('tasks/', include('task.urls')),
 ]

@@ -49,7 +49,9 @@
                 <small>{% translate 'User manager' %}</small>
             </div>
         </div>
+    </div>
 
+    <div class="card-deck mt-3">
         <div class="card shadow">
             <div class="card-body text-center">
                 <h3 class="card-title">
@@ -58,6 +60,35 @@
                 <div class="btn-group-vertical" role="group">
                     <a class="btn btn-secondary" href="{% url 'statuses' %}">statuses</a>
                     <a class="btn btn-secondary" href="{% url 'create_status' %}">create status</a>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <small>{% translate 'Status manager' %}</small>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h3 class="card-title">
+                    {% translate 'Labels' %}
+                </h3>
+                <span>TBD</span>
+            </div>
+            <div class="card-footer text-muted">
+                <small>{% translate 'Label manager' %}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-deck mt-3">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h3 class="card-title">
+                    {% translate 'Tasks' %}
+                </h3>
+                <div class="btn-group-vertical" role="group">
+                    <a class="btn btn-secondary" href="{% url 'tasks' %}">tasks</a>
+                    <a class="btn btn-secondary" href="{% url 'create_task' %}">create_tasks</a>
                 </div>
             </div>
             <div class="card-footer text-muted">

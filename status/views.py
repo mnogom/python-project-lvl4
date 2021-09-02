@@ -17,7 +17,7 @@ from .forms import StatusForm
 from .models import Status
 
 
-class StatusView(ListView):
+class ListStatusView(ListView):
     """List of users view."""
 
     model = Status

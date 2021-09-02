@@ -1,8 +1,9 @@
 """Tests."""
 
+import yaml
+
 from django.test import TestCase, tag
 from django.forms.models import model_to_dict
-import yaml
 
 from .exceptions import StatusDoesNotExist
 from .selectors import (get_all_statuses,
@@ -48,70 +49,80 @@ class StatusSelectorsCase(TestCase):
 class StatusServicesCase(TestCase):
     fixtures = ['status/fixtures/statuses.yaml', ]
 
+    def setUp(self):
+        self.overfull_data = {'name': 'test_name',
+                              'description': 'test_description',
+                              'junk_key': 'junk_value',
+                              'created_at': '1990-01-01'}
+        self.not_full_data = {'description': 'A'}
+        self.unique_data_1 = {'name': 'unique_name_1',
+                              'description': 'unique_description_1'}
+        self.unique_data_2 = {'name': 'unique_name_2',
+                              'description': 'unique_description_2'}
+
     @tag('create-service')
     def test_create(self):
+        """Check if service can create Status."""
 
-        # Check if service can create Status
-        valid_data = {'name': 'test_name',
-                      'description': 'test_description',
-                      'junk_key': 'junk_value',
-                      'created_at': '1990-01-01'}
-        form = create_status(valid_data)
+        form = create_status(self.overfull_data)
         self.assertTrue(form.is_valid())
 
         # Check if all fields created right
-        pk = form.instance.pk
-        new_status = get_status_by_pk(pk)
+        new_status = form.instance
         self.assertEqual(getattr(new_status, 'name'),
-                         valid_data['name'])
+                         self.overfull_data['name'])
         self.assertEqual(getattr(new_status, 'description'),
-                         valid_data['description'])
+                         self.overfull_data['description'])
         self.assertIsNone(getattr(new_status, 'junk_key', None))
         self.assertNotEqual(getattr(new_status, 'created_at'),
-                            valid_data['created_at'])
+                            self.overfull_data['created_at'])
 
-        # Check if skip required data
-        wrong_data = {'description': 'A'}
-        form = create_status(wrong_data)
+    @tag('create-service-exception')
+    def test_create_exception_not_full_data(self):
+        """Check if skip required data."""
+
+        form = create_status(self.not_full_data)
         self.assertFalse(form.is_valid())
 
-        # Check if 'name' is not unique
-        unique_data = {'name': '?unique?'}
-        form_1 = create_status(unique_data)
-        form_2 = create_status(unique_data)
+    @tag('create-service-exception')
+    def test_create_exception_unique(self):
+        """Check if 'name' is not unique."""
+
+        form_1 = create_status(self.unique_data_1)
+        form_2 = create_status(self.unique_data_1)
         self.assertTrue(form_1.is_valid())
         self.assertFalse(form_2.is_valid())
 
     @tag('edit-service')
     def test_edit(self):
+        """Check if service can edit Status."""
 
-        # Check if service can edit Status
-        new_status_data = {'name': 'updated_name',
-                           'description': 'updated_description'}
-        status = get_status_by_pk(1)
-        form = update_status(new_status_data, pk=1)
-        updated_status = get_status_by_pk(1)
-        self.assertTrue(form.is_valid())
-        self.assertNotEqual(model_to_dict(status),
-                            model_to_dict(updated_status))
-        self.assertEqual(model_to_dict(updated_status, exclude=('id', )),
-                         new_status_data)
-
-        # Check editing Status has unique protect
-        unique_data_1 = {'name': '?unique_edit_1?'}
-        unique_data_2 = {'name': '?unique_edit_?2'}
-        not_unique_data = unique_data_1
-        form_1 = create_status(unique_data_1)
-        form_2 = create_status(unique_data_2)
-        form_2_updated = update_status(not_unique_data, pk=form_2.instance.pk)
+        form_1 = create_status(self.unique_data_1)
+        form_2 = update_status(self.unique_data_2, pk=form_1.instance.pk)
         self.assertTrue(form_1.is_valid())
         self.assertTrue(form_2.is_valid())
-        self.assertFalse(form_2_updated.is_valid())
+        self.assertNotEqual(model_to_dict(form_1.instance),
+                            model_to_dict(form_2.instance))
+        self.assertEqual(model_to_dict(form_2.instance,
+                                       fields=('name',
+                                               'description')),
+                         self.unique_data_2)
 
+    @tag('edit-service-exception')
+    def test_edit_exception_unique(self):
+        """Check editing Status has unique protect."""
+
+        not_unique_data = self.unique_data_1
+        form = create_status(self.unique_data_1)
+        form_before_update = create_status(self.unique_data_2)
+        form_after_update = update_status(not_unique_data, pk=form_before_update.instance.pk)
+        self.assertTrue(form.is_valid())
+        self.assertTrue(form_before_update.is_valid())
+        self.assertFalse(form_after_update.is_valid())
 
     @tag('delete-service')
     def test_delete(self):
-        status_to_del = create_status({'name': 'delete'})
+        status_to_del = create_status(self.unique_data_1)
         before_delete_len = len(get_all_statuses())
         delete_status(status_to_del.instance.pk)
         after_delete_len = len(get_all_statuses())

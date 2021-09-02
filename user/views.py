@@ -58,7 +58,7 @@ class CreateUserView(View):
                       status=http_status.HTTP_400_BAD_REQUEST)
 
 
-class EditUserView(View):
+class UpdateUserView(View):
     """Edit user view."""
 
     @required_login
@@ -142,7 +142,10 @@ class LoginView(View):
         messages.add_message(request=request,
                              level=messages.WARNING,
                              message=gettext('Username or password (or both) are wrong'))
-        return redirect(resolve_url('login'))
+        return render(request=request,
+                      template_name='login_user.html',
+                      context={'form': LoginForm},
+                      status=http_status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutView(View):

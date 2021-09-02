@@ -1,18 +1,20 @@
 """Tests."""
 
-from django.test import TestCase, tag
-from django.forms.models import model_to_dict
 import yaml
 
-from .models import User
+from django.test import TestCase, tag
+from django.forms.models import model_to_dict
+from django.shortcuts import resolve_url
+from django.contrib.auth.decorators import login_required
+
+from task_manager import http_status
+
 from .exceptions import UserDoesNotExist
 from .selectors import (get_all_users,
                         get_user_by_pk)
 from .services import (create_user,
                        delete_user,
-                       update_user,
-                       login_user,
-                       logout_user)
+                       update_user)
 
 
 class UserSelectorsCase(TestCase):
@@ -52,138 +54,226 @@ class UserSelectorsCase(TestCase):
 
 
 class UserServicesCase(TestCase):
-    fixtures = ['user/fixtures/users.yaml']
+    fixtures = ['user/fixtures/users.yaml', ]
+
+    def setUp(self):
+        self.overfull_data = {'username': 'test_username',
+                              'first_name': 'test_first_name',
+                              'last_name': 'test_last_name',
+                              'email': 'test.address@domain.com',
+                              'password1': 'qwerty',
+                              'password2': 'qwerty',
+                              'junk_key': 'junk_value'}
+        self.not_full_data = {'username': 'Simon',
+                              'first_name': 'Simon',
+                              'password1': '123',
+                              'password2': '123'}
+        self.unique_data_1 = {'username': 'unique_1',
+                              'first_name': 'Unique first name 1',
+                              'last_name': 'Unique last name 1',
+                              'email': 'un_1@iq.ue',
+                              'password1': 'unique_1',
+                              'password2': 'unique_1'}
+        self.unique_data_2 = {'username': 'unique_2',
+                              'first_name': 'Unique first name 2',
+                              'last_name': 'Unique first name 2',
+                              'email': 'un_2@iq.ue',
+                              'password1': 'unique_2',
+                              'password2': 'unique_2'}
 
     @tag('create-service')
     def test_create(self):
-        # Check if service can create Status
-        valid_data = {'username': 'test_username',
-                      'first_name': 'test_first_name',
-                      'last_name': 'test_last_name',
-                      'email': 'test.address@domain.com',
-                      'password1': 'qwerty',
-                      'password2': 'qwerty',
-                      'junk_key': 'junk_value'}
-        form = create_user(valid_data)
+        """Check if service can create User."""
+
+        form = create_user(self.overfull_data)
         self.assertTrue(form.is_valid())
 
         # Check if all fields created right
-        pk = form.instance.pk
-        new_user = get_user_by_pk(pk)
+        new_user = form.instance
         self.assertEqual(getattr(new_user, 'username'),
-                         valid_data['username'])
+                         self.overfull_data['username'])
         self.assertEqual(getattr(new_user, 'first_name'),
-                         valid_data['first_name'])
+                         self.overfull_data['first_name'])
         self.assertEqual(getattr(new_user, 'last_name'),
-                         valid_data['last_name'])
+                         self.overfull_data['last_name'])
         self.assertEqual(getattr(new_user, 'email'),
-                         valid_data['email'])
+                         self.overfull_data['email'])
         self.assertIsNone(getattr(new_user, 'junk_value', None))
 
         # Check if created password is secured
         self.assertNotEqual(getattr(new_user, 'password'),
-                            valid_data['password1'])
+                            self.overfull_data['password1'])
 
-        # Check if skip required data
-        wrong_data = {'username': 'Simon',
-                      'first_name': 'Simon',
-                      'password1': '123',
-                      'password2': '123'}
-        form = create_user(wrong_data)
+    @tag('create-service-exception')
+    def test_create_exception_not_full_data(self):
+        """Check if skip required data."""
+
+        form = create_user(self.not_full_data)
         self.assertFalse(form.is_valid())
 
-        # Check if 'name' is not unique
-        unique_data = {'username': 'unique',
-                       'first_name': '?unique?',
-                       'last_name': '?unique?',
-                       'email': 'un@iq.ue',
-                       'password1': '?unique?',
-                       'password2': '?unique?'}
-        form_1 = create_user(unique_data)
-        form_2 = create_user(unique_data)
+    @tag('create-service-exception')
+    def test_create_exception_unique(self):
+        """Check if 'name' is not unique."""
+
+        form_1 = create_user(self.unique_data_1)
+        form_2 = create_user(self.unique_data_1)
         self.assertTrue(form_1.is_valid())
         self.assertFalse(form_2.is_valid())
 
-        # Check if password doesn't match
-        unique_data = {'username': 'password_does_not_match',
-                       'first_name': 'password_does_not_match',
-                       'last_name': 'password_does_not_match',
-                       'email': 'password_does@not.match',
-                       'password1': 'password_does_not_match',
-                       'password2': 'password??'}
-        form = create_user(unique_data)
+    @tag('create-service-exception')
+    def test_create_exception_passwords(self):
+        """Check if password doesn't match."""
+
+        user_data = self.unique_data_1
+        user_data['password2'] = user_data['password1'] + '_'
+        form = create_user(user_data)
         self.assertFalse(form.is_valid())
 
     @tag('edit-service')
     def test_edit(self):
-        # Check if service can edit Status
-        new_user_data = {'username': 'test_username',
-                         'first_name': 'test_first_name',
-                         'last_name': 'test_last_name',
-                         'email': 'test.address@domain.com',
-                         'password1': 'qwerty',
-                         'password2': 'qwerty'}
-        _new_user_data = new_user_data.copy()
-        _new_user_data.pop('password1')
-        _new_user_data.pop('password2')
+        """Check if service can edit User."""
 
-        user = get_user_by_pk(1)
-        form = update_user(new_user_data, pk=1)
-        updated_user = get_user_by_pk(1)
-        self.assertTrue(form.is_valid())
-        self.assertNotEqual(model_to_dict(user),
-                            model_to_dict(updated_user))
-        self.assertEqual(
-            model_to_dict(updated_user, fields=('username',
-                                                'first_name',
-                                                'last_name',
-                                                'email')),
-            _new_user_data)
-
-        # Check if created password is secured
-        self.assertNotEqual(getattr(updated_user, 'password'),
-                            new_user_data['password1'])
-
-        # Check editing Status has unique protect
-        unique_data_1 = {'username': 'unique_1',
-                         'first_name': '?unique_1?',
-                         'last_name': '?unique_1?',
-                         'email': 'un_1@iq.ue',
-                         'password1': '?unique_1?',
-                         'password2': '?unique_1?'}
-        unique_data_2 = {'username': 'unique_2',
-                         'first_name': '?unique_2?',
-                         'last_name': '?unique_2?',
-                         'email': 'un_2@iq.ue',
-                         'password1': '?unique_2?',
-                         'password2': '?unique_2?'}
-        not_unique_data = unique_data_1
-        form_1 = create_user(unique_data_1)
-        form_2 = create_user(unique_data_2)
-        form_2_updated = update_user(not_unique_data, pk=form_2.instance.pk)
+        _unique_data = self.unique_data_2.copy()
+        _unique_data.pop('password1')
+        _unique_data.pop('password2')
+        form_1 = create_user(self.unique_data_1)
+        form_2 = update_user(self.unique_data_2, pk=form_1.instance.pk)
         self.assertTrue(form_1.is_valid())
         self.assertTrue(form_2.is_valid())
-        self.assertFalse(form_2_updated.is_valid())
+        self.assertNotEqual(model_to_dict(form_1.instance),
+                            model_to_dict(form_2.instance))
+        self.assertEqual(model_to_dict(form_2.instance,
+                                       fields=('username',
+                                               'first_name',
+                                               'last_name',
+                                               'email',)),
+                         _unique_data)
 
-    @tag('delete-services')
+        # Check if updated password is secured
+        self.assertNotEqual(getattr(form_2.instance, 'password'),
+                            self.unique_data_2['password1'])
+
+    @tag('edit-service-exception')
+    def test_edit_exception_unique(self):
+        """Check editing User has unique protect."""
+
+        not_unique_data = self.unique_data_1
+        form = create_user(self.unique_data_1)
+        form_before_update = create_user(self.unique_data_2)
+        form_after_update = update_user(not_unique_data, pk=form_before_update.instance.pk)
+        self.assertTrue(form.is_valid())
+        self.assertTrue(form_before_update.is_valid())
+        self.assertFalse(form_after_update.is_valid())
+
+    @tag('delete-service')
     def test_delete(self):
-        user_data = {'username': 'test_username',
-                     'first_name': 'test_first_name',
-                     'last_name': 'test_last_name',
-                     'email': 'test.address@domain.com',
-                     'password1': 'qwerty',
-                     'password2': 'qwerty'}
-        user_to_del = create_user(user_data)
+        user_to_del = create_user(self.unique_data_1)
         before_delete_len = len(get_all_users())
         delete_user(user_to_del.instance.pk)
         after_delete_len = len(get_all_users())
         self.assertNotEqual(before_delete_len,
                             after_delete_len)
 
-    @tag('login_user')
-    def test_login(self):
-        pass
 
-    @tag('logout_user')
-    def test_logout(self):
-        pass
+class UserAuthCase(TestCase):
+    login_url = resolve_url('login')
+
+    def setUp(self):
+        self.existing_user = {'username': 'User',
+                              'password1': 'qwerty'}
+        self.existing_user_with_wrong_password = self.existing_user
+        self.existing_user['password1'] += 'wrong_password'
+        self.not_existing_user = {'username': 'Not_existing_user',
+                                  'password1': 'qwerty'}
+
+        user_data = {'username': self.existing_user['username'],
+                     'first_name': 'test_first_name',
+                     'last_name': 'test_last_name',
+                     'email': 'test.address@domain.com',
+                     'password1': self.existing_user['password1'],
+                     'password2': self.existing_user['password1']}
+        create_user(user_data)
+
+    def test_login(self):
+        """Login."""
+
+        response = self.client.post(self.login_url,
+                                    data=self.existing_user)
+        self.assertTrue(response.status_code, http_status.HTTP_302_FOUND)
+
+        response = self.client.post(self.login_url,
+                                    data=self.existing_user_with_wrong_password)
+        self.assertTrue(response.status_code, http_status.HTTP_400_BAD_REQUEST)
+
+        response = self.client.post(self.login_url,
+                                    data=self.not_existing_user)
+        self.assertTrue(response.status_code, http_status.HTTP_400_BAD_REQUEST)
+
+
+class UserAccessCase(TestCase):
+
+    def setUp(self):
+        self.user = {'username': 'User',
+                     'password1': 'qwerty'}
+        user_data = {'username': self.user['username'],
+                     'first_name': 'test_first_name',
+                     'last_name': 'test_last_name',
+                     'email': 'test.address@domain.com',
+                     'password1': self.user['password1'],
+                     'password2': self.user['password1']}
+        form = create_user(user_data)
+
+        self.users_url = resolve_url('users')
+        self.create_user_url = resolve_url('create_user')
+        self.update_user_url = resolve_url('update_user', form.instance.pk)
+        self.delete_user_url = resolve_url('delete_user', form.instance.pk)
+        self.login_url = resolve_url('login')
+        self.logout_url = resolve_url('logout')
+
+    def test_unauth_user(self):
+        response = self.client.get(self.users_url)
+        self.assertTrue(response.status_code, http_status.HTTP_200_OK)
+
+        response = self.client.get(self.create_user_url)
+        self.assertTrue(response.status_code, http_status.HTTP_200_OK)
+
+        response = self.client.get(self.update_user_url)
+        self.assertTrue(response.status_code, http_status.HTTP_302_FOUND)
+        self.assertTrue(response.get('location', None),
+                        resolve_url('login'))
+
+        response = self.client.get(self.delete_user_url)
+        self.assertTrue(response.status_code, http_status.HTTP_302_FOUND)
+        self.assertTrue(response.get('location', None),
+                        resolve_url('login'))
+
+        response = self.client.get(self.login_url)
+        self.assertTrue(response.status_code, http_status.HTTP_200_OK)
+
+        response = self.client.get(self.logout_url)
+        self.assertTrue(response.status_code,
+                        http_status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_auth_user(self):
+        self.client.post(resolve_url(self.login_url), data=self.user)
+
+        response = self.client.get(self.users_url)
+        self.assertTrue(response.status_code, http_status.HTTP_200_OK)
+
+        response = self.client.get(self.create_user_url)
+        self.assertTrue(response.status_code, http_status.HTTP_302_FOUND)
+
+        response = self.client.get(self.update_user_url)
+        self.assertTrue(response.status_code, http_status.HTTP_200_OK)
+
+        response = self.client.get(self.delete_user_url)
+        self.assertTrue(response.status_code, http_status.HTTP_200_OK)
+
+        response = self.client.get(self.login_url)
+        self.assertTrue(response.status_code, http_status.HTTP_302_FOUND)
+
+        response = self.client.get(self.logout_url)
+        self.assertTrue(response.status_code,
+                        http_status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
