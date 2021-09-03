@@ -91,8 +91,13 @@ class DeleteStatusView(View):
 
     @required_login
     def post(self, request, pk, *args, **kwargs):
-        delete_status(pk)
-        messages.add_message(request=request,
-                             level=messages.SUCCESS,
-                             message=gettext('Status was deleted'))
+        status = delete_status(pk)
+        if status:
+            messages.add_message(request=request,
+                                 level=messages.SUCCESS,
+                                 message=gettext('Status was deleted'))
+        else:
+            messages.add_message(request=request,
+                                 level=messages.ERROR,
+                                 message=gettext('Status in use'))
         return redirect(resolve_url('statuses'))

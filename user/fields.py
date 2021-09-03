@@ -15,24 +15,21 @@ username_field = forms.CharField(
 first_name_field = forms.CharField(
     label=gettext('First name'),
     widget=forms.TextInput(
-        attrs={'placeholder': '',
-               'id': 'id_first_name'}
+        attrs={'placeholder': ''}
     )
 )
 
 last_name_field = forms.CharField(
     label=gettext('Last name'),
     widget=forms.TextInput(
-        attrs={'placeholder': '',
-               'id': 'id_last_name'}
+        attrs={'placeholder': ''}
     )
 )
 
 email_field = forms.EmailField(
     label=gettext('Email'),
     widget=forms.TextInput(
-        attrs={'placeholder': 'example@domain.com',
-               'id': 'id_email'},
+        attrs={'placeholder': 'example@domain.com'},
     ),
     help_text=gettext('I will not check, but I believe that it is working')
 )
@@ -40,15 +37,13 @@ email_field = forms.EmailField(
 password1 = forms.CharField(
     label=gettext('Password'),
     widget=forms.PasswordInput(
-        attrs={'placeholder': '',
-               'id': 'id_password1'}
+        attrs={'placeholder': ''}
     )
 )
 
 password2 = forms.CharField(
     label=gettext('Repeat password'),
     widget=forms.PasswordInput(
-        attrs={'placeholder': '',
-               'id': 'id_password2'}
+        attrs={'placeholder': ''}
     )
 )

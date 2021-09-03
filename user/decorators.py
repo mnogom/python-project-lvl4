@@ -1,11 +1,10 @@
+"""Decorators."""
+
 from django.shortcuts import redirect, resolve_url
 from django.utils.translation import gettext
 from django.contrib import messages
 
-
-def _back_url(request, default='index'):
-    _url = request.META.get('HTTP_REFERER')
-    return _url if _url else default
+from task_manager.shortcuts import back_url
 
 
 def required_login(fn):
@@ -25,7 +24,7 @@ def user_pk_check(fn):
             messages.add_message(request=request,
                                  level=messages.ERROR,
                                  message=gettext('You have no permission edit other users.'))
-            return redirect(_back_url(request, 'users'))
+            return redirect(back_url(request, 'users'))
         return fn(obj, request, *args, **kwargs)
     return inner
 
@@ -36,6 +35,6 @@ def required_not_login(fn):
             messages.add_message(request,
                                  level=messages.INFO,
                                  message=gettext('You already logged in'))
-            return redirect(_back_url(request, 'index'))
+            return redirect(back_url(request, 'index'))
         return fn(obj, request, *args, **kwargs)
     return inner

@@ -10,6 +10,9 @@ migrate:
 requirements:
 	poetry export -f requirements.txt --output requriments.txt
 
+load-demo-data:
+	poetry run python manage.py loaddata */fixtures/*.yaml
+
 run:
 	poetry run python manage.py runserver
 

@@ -11,7 +11,7 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block title %}
-{% translate 'Status' %}
+{% translate 'Tasks' %}
 {% endblock %}
 
 {% block container %}
@@ -19,8 +19,8 @@
     <div class="card shadow">
         <div class="card-body">
             <h3 class="card-title">
-                {% translate 'Statuses' %}
-                <a class="btn btn-sm btn-outline-primary float-right rounded-circle" href="{% url 'create_status' %}" style="width: 2rem; height: 2rem;">
+                {% translate 'Tasks' %}
+                <a class="btn btn-sm btn-outline-primary float-right rounded-circle" href="{% url 'create_task' %}" style="width: 2rem; height: 2rem;">
                     +
                 </a>
             </h3>
@@ -31,21 +31,29 @@
                         <tr>
                             <th scope="col">{% translate 'ID' %}</th>
                             <th scope="col">{% translate 'Name' %}</th>
+                            <th scope="col">{% translate 'Author' %}</th>
+                            <th scope="col">{% translate 'Executor' %}</th>
+                            <th scope="col">{% translate 'Status' %}</th>
                             <th scope="col">{% translate 'Created at' %}</th>
                             <th scope="col">{% translate 'Actions' %}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for cur_status in object_list %}
-                            <tr title="{{ cur_status.description }}">
-                                <th scope="row" class="align-middle">{{ cur_status.pk }}</th>
-                                <td class="align-middle">{{ cur_status.name }}</td>
-                                <td class="align-middle">{{ cur_status.created_at|date:'d b Y' }}</td>
+                        {% for cur_task in object_list %}
+                            <tr>
+                                <th scope="row" class="align-middle">{{ cur_task.pk }}</th>
+                                <td class="align-middle">
+                                    <a href="{% url 'task' cur_task.pk %}">{{ cur_task.name }}</a>
+                                </td>
+                                <td class="align-middle">{{ cur_task.author }}</td>
+                                <td class="align-middle">{{ cur_task.executor }}</td>
+                                <td class="align-middle">{{ cur_task.status }}</td>
+                                <td class="align-middle">{{ cur_task.created_at|date:'d b Y' }}</td>
                                 <td class="border-bottom-0 py-1">
-                                    <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_status' cur_status.pk %}">
+                                    <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_task' cur_task.pk %}">
                                         {% translate 'update' %}
                                     </a>
-                                    <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_status' cur_status.pk %}">
+                                    <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_task' cur_task.pk %}">
                                         {% translate 'delete' %}
                                     </a>
                                 </td>

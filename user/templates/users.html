@@ -42,25 +42,21 @@
                             {% else %}
                                 <tr>
                             {% endif %}
-                                    <th rowspan="2" scope="row" class="align-middle">{{ cur_user.pk }}</th>
-                                    <td rowspan="2" class="align-middle">{{ cur_user.username }}</td>
-                                    <td rowspan="2" class="align-middle">{{ cur_user.first_name }}</td>
-                                    <td rowspan="2" class="align-middle">{{ cur_user.last_name }}</td>
-                                    <td rowspan="2" class="align-middle">{{ cur_user.email }}</td>
-                                    <td rowspan="2" class="align-middle">{{ cur_user.date_joined|date:'d b Y' }}</td>
-                                    <td class="border-bottom-0 py-1">
-                                        <a class="btn btn-sm btn-outline-primary my-0 py-0 w-100 border-0" href="{% url 'update_user' cur_user.pk %}">
-                                            {% translate 'update' %}
+                                    <th scope="row" class="align-middle">{{ cur_user.pk }}</th>
+                                    <td class="align-middle">
+                                        <a href="{% url 'user' cur_user.pk %}">
+                                            {{ cur_user.username }}
                                         </a>
                                     </td>
-                                </tr>
-                                {% if cur_user.pk == user.pk %}
-                                    <tr class="bg-light">
-                                {% else %}
-                                    <tr>
-                                {% endif %}
-                                    <td class="border-top-0 py-1">
-                                        <a class="btn btn-sm btn-outline-danger my-0 py-0 w-100 border-0" href="{% url 'delete_user' cur_user.pk %}">
+                                    <td class="align-middle">{{ cur_user.first_name }}</td>
+                                    <td class="align-middle">{{ cur_user.last_name }}</td>
+                                    <td class="align-middle">{{ cur_user.email }}</td>
+                                    <td class="align-middle">{{ cur_user.date_joined|date:'d b Y' }}</td>
+                                    <td class="border-bottom-0 py-1">
+                                        <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_user' cur_user.pk %}">
+                                            {% translate 'update' %}
+                                        </a>
+                                        <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_user' cur_user.pk %}">
                                             {% translate 'delete' %}
                                         </a>
                                     </td>

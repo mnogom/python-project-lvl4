@@ -44,6 +44,7 @@
                         <a class="dropdown-item" href="{% url 'login' %}">{% translate 'Login' %}</a>
                         {% if user.is_authenticated %}
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'user' user.pk %}">{% translate 'Profile' %}</a>
                             <a class="dropdown-item" href="{% url 'update_user' user.pk %}">{% translate 'Update user' %}</a>
                             <a class="dropdown-item" href="{% url 'delete_user' user.pk %}">{% translate 'Delete user' %}</a>
                         {% endif %}
@@ -66,12 +67,22 @@
                     </div>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="statusNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% translate 'Tasks' %}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="statusNavbarDropdown">
+                        <a class="dropdown-item" href="{% url 'tasks' %}">{% translate 'Tasks' %}</a>
+                        <a class="dropdown-item" href="{% url 'create_task' %}">{% translate 'Create task' %}</a>
+                    </div>
+                </li>
+
             </ul>
 
             {# AUTH SHORTCATS #}
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'update_user' user.pk %}">{% translate 'Update user' %}</a>
+                    <a class="nav-link" href="{% url 'user' user.pk %}">{% translate 'Profile' %}</a>
                     <div class="nav-item">
                         <form action="{% url 'logout' %}" method="POST">
                             {% csrf_token %}

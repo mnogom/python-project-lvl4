@@ -11,20 +11,20 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block title %}
-{% translate 'Edit status' %}
+{% translate 'Edit task' %}
 {% endblock %}
 
 {% block container %}
     <div class="card shadow">
         <div class="card-body text-left">
             <h3 class="card-title">
-                {% translate 'Status' %}
+                {% translate 'Task' %}
             </h3>
-            <form action="{% url 'update_status' status_pk %}" method="post">
+            <form action="{% url 'update_task' task_pk %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <input type="submit" class="btn btn-primary float-right mt-3 mx-1" value="{% translate 'Update' %}">
-                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'delete_status' status_pk %}">{% translate 'Delete' %}</a>
+                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'delete_task' task_pk %}">{% translate 'Delete' %}</a>
             </form>
         </div>
     </div>

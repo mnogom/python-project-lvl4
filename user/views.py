@@ -113,11 +113,16 @@ class DeleteUserView(View):
     def post(self, request, pk: int):
         """Method POST."""
 
-        delete_user(pk=pk)
-        messages.add_message(request=request,
-                             level=messages.SUCCESS,
-                             message=gettext('User was deleted'))
-        return redirect(resolve_url('index'))
+        user = delete_user(pk=pk)
+        if user:
+            messages.add_message(request=request,
+                                 level=messages.SUCCESS,
+                                 message=gettext('User was deleted'))
+        else:
+            messages.add_message(request=request,
+                                 level=messages.ERROR,
+                                 message=gettext('User in use'))
+        return redirect(resolve_url('users'))
 
 
 class LoginView(View):
@@ -157,3 +162,15 @@ class LogoutView(View):
 
         logout_user(request)
         return redirect(resolve_url('index'))
+
+
+class UserView(View):
+    """User view."""
+
+    @required_login
+    def get(self, request, pk):
+        user = get_user_by_pk(pk)
+        return render(request=request,
+                      template_name='user.html',
+                      context={'user': user},
+                      status=http_status.HTTP_200_OK)

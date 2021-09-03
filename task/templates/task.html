@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{# load locale #}
+{% load i18n %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+{% translate 'Task' %}
+{% endblock %}
+
+{% block container %}
+
+    <div class="card shadow">
+        <div class="card-header">
+            {% translate 'Task' %} # {{ task.pk }}
+            <a class="btn btn-sm btn-outline-primary float-right mx-1" href="{% url 'update_task' task.pk%}">
+                {% translate 'Update' %}
+            </a>
+            <a class="btn btn-sm btn-outline-danger float-right mx-1" href="{% url 'delete_task' task.pk %}">
+                {% translate 'Delete' %}
+            </a>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                {{ task.name }}
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                {{ task.status }}
+            </h6>
+            <p class="card-text">
+                {{ task.description }}
+            </p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{% translate 'Executor' %}: {{ task.executor }}</li>
+            <li class="list-group-item">{% translate 'Author' %}: {{ task.author }}</li>
+        </ul>
+        <div class="card-footer text-muted">
+            <small>
+                {% translate 'Created at' %} {{ task.created_at }}
+            </small>
+        </div>
+    </div>
+
+{% endblock %}

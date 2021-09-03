@@ -1,5 +1,7 @@
 """Services."""
 
+from django.db.models import ProtectedError
+
 from .forms import StatusForm
 from .selectors import get_status_by_pk
 
@@ -15,7 +17,10 @@ def create_status(status_data):
 def delete_status(pk):
 
     status = get_status_by_pk(pk)
-    status.delete()
+    try:
+        return status.delete()
+    except ProtectedError:
+        return None
 
 
 def update_status(new_status_data, pk):
