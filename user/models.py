@@ -1,5 +1,8 @@
 """Models."""
 
+# TODO: Read about User model
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
+
 from django.contrib.auth.models import User
 
 

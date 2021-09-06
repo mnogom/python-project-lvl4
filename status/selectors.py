@@ -12,7 +12,7 @@ def get_all_statuses():
     :return: QuerySet of Statuses
     """
 
-    return Status.objects.all()
+    return Status.objects.all().order_by('pk')
 
 
 def get_status_by_pk(pk: int):

@@ -12,7 +12,7 @@ def get_all_users():
     :return: QuerySet of Users
     """
 
-    return User.objects.all()
+    return User.objects.all().order_by('pk')
 
 
 def get_user_by_pk(pk: int):

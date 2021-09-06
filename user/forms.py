@@ -1,7 +1,6 @@
 """Forms."""
 
-from django.forms import (ModelForm,
-                          Form)
+from django.forms import ModelForm
 
 from .models import User
 
@@ -51,10 +50,3 @@ class UserForm(ModelForm):
         user.set_password(self.cleaned_data["password1"])
         user.save()
         return user
-
-
-class LoginForm(Form):
-    """Login form"""
-
-    username = username_field
-    password1 = password1

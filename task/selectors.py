@@ -12,7 +12,7 @@ def get_all_tasks():
     :return: QuerySet of Users
     """
 
-    return Task.objects.all()
+    return Task.objects.all().order_by('pk')
 
 
 def get_task_by_pk(pk: int):

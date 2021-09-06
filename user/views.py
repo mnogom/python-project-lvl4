@@ -1,26 +1,22 @@
 """Views."""
 
-from django.shortcuts import render, redirect, resolve_url
-from django.views import View
+from django.urls import reverse_lazy
+from django.http import HttpResponseForbidden
 from django.views.generic.list import ListView
+from django.views.generic.edit import (CreateView,
+                                       UpdateView,
+                                       DeleteView)
+from django.views.generic.detail import DetailView
 from django.utils.translation import gettext
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import (LoginView,
+                                       LogoutView)
 
-
-from task_manager import http_status
 
 from .models import User
-from .forms import (UserForm,
-                    LoginForm)
-from .selectors import get_user_by_pk
-from .services import (create_user,
-                       login_user,
-                       logout_user,
-                       delete_user,
-                       update_user)
-from .decorators import (required_login,
-                         user_pk_check,
-                         required_not_login)
+from .forms import UserForm
+from .services import login_user
 
 
 class ListUsersView(ListView):
@@ -30,147 +26,62 @@ class ListUsersView(ListView):
     template_name = 'users.html'
 
 
-class CreateUserView(View):
+class CreateUserView(CreateView):
     """New user view."""
 
-    @required_not_login
-    def get(self, request):
-        """Method GET."""
-
-        return render(request=request,
-                      template_name='create_user.html',
-                      context={'form': UserForm},
-                      status=http_status.HTTP_200_OK)
-
-    @required_not_login
-    def post(self, request):
-        """Method POST."""
-
-        form = create_user(request.POST)
-        if form.is_valid():
-            messages.add_message(request=request,
-                                 level=messages.SUCCESS,
-                                 message=gettext('Nice! Now you can login'))
-            return redirect(resolve_url('login'))
-        return render(request=request,
-                      template_name='create_user.html',
-                      context={'form': form},
-                      status=http_status.HTTP_400_BAD_REQUEST)
+    model = User
+    form_class = UserForm
+    template_name = 'create_user.html'
+    success_url = reverse_lazy('login')
 
 
-class UpdateUserView(View):
+class UpdateUserView(LoginRequiredMixin, UpdateView):
     """Edit user view."""
 
-    @required_login
-    @user_pk_check
-    def get(self, request, pk: int):
-        """Method GET."""
+    model = User
+    form_class = UserForm
+    template_name = 'update_user.html'
 
-        user = get_user_by_pk(pk)
-        form = UserForm(instance=user)
-        return render(request=request,
-                      template_name='edit_user.html',
-                      context={'form': form,
-                               'user_pk': pk},
-                      status=http_status.HTTP_200_OK)
+    def get_success_url(self):
+        return reverse_lazy('user', kwargs={'pk': self.kwargs['pk']})
 
-    @required_login
-    @user_pk_check
-    def post(self, request, pk: int):
-        """Method POST."""
-
-        form = update_user(request.POST, pk)
-        if form.is_valid():
-            messages.add_message(request=request,
-                                 level=messages.SUCCESS,
-                                 message=gettext('User profile was updated'))
-            login_user(request)
-            return redirect(resolve_url('update_user', pk=pk))
-
-        return render(request=request,
-                      template_name='edit_user.html',
-                      context={'form': form,
-                               'user_pk': pk},
-                      status=http_status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        login_user(request)
+        messages.add_message(request=self.request,
+                             message=gettext('User profile was updated'),
+                             level=messages.SUCCESS)
+        return response
 
 
-class DeleteUserView(View):
+class DeleteUserView(DeleteView):
     """Delete user view."""
 
-    @required_login
-    @user_pk_check
-    def get(self, request, pk: int):
-        """Method GET."""
-
-        user = get_user_by_pk(pk)
-        return render(request=request,
-                      template_name='delete_user.html',
-                      context={'user': user},
-                      status=http_status.HTTP_200_OK)
-
-    @required_login
-    @user_pk_check
-    def post(self, request, pk: int):
-        """Method POST."""
-
-        user = delete_user(pk=pk)
-        if user:
-            messages.add_message(request=request,
-                                 level=messages.SUCCESS,
-                                 message=gettext('User was deleted'))
-        else:
-            messages.add_message(request=request,
-                                 level=messages.ERROR,
-                                 message=gettext('User in use'))
-        return redirect(resolve_url('users'))
+    model = User
+    template_name = 'delete_user.html'
+    success_url = reverse_lazy('index')
 
 
-class LoginView(View):
+class LoginUserView(LoginView):
     """Login view."""
 
-    @required_not_login
-    def get(self, request):
-        """Method GET."""
-
-        return render(request=request,
-                      template_name='login_user.html',
-                      context={'form': LoginForm},
-                      status=http_status.HTTP_200_OK)
-
-    @required_not_login
-    def post(self, request):
-        """Method POST."""
-
-        if login_user(request):
-            return redirect(resolve_url('index'))
-
-        messages.add_message(request=request,
-                             level=messages.WARNING,
-                             message=gettext('Username or password (or both) are wrong'))
-        return render(request=request,
-                      template_name='login_user.html',
-                      context={'form': LoginForm},
-                      status=http_status.HTTP_400_BAD_REQUEST)
+    template_name = 'login_user.html'
+    success_url = reverse_lazy('index')
+    redirect_authenticated_user = True
 
 
-class LogoutView(View):
+class LogoutUserView(LogoutView):
     """Logout view."""
 
-    @required_login
-    def post(self, request):
-        """Method POST."""
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == 'GET':
+            return HttpResponseForbidden('Unexpected method.') # TODO: make error page
+        else:
+            return super().dispatch(request, *args, **kwargs)
 
-        logout_user(request)
-        return redirect(resolve_url('index'))
 
-
-class UserView(View):
+class UserView(DetailView):
     """User view."""
 
-    @required_login
-    def get(self, request, pk):
-        user = get_user_by_pk(pk)
-        return render(request=request,
-                      template_name='user.html',
-                      context={'user': user},
-                      status=http_status.HTTP_200_OK)
+    template_name = 'user.html'
+    model = User

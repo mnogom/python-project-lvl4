@@ -38,8 +38,8 @@
             </p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{% translate 'Executor' %}: {{ task.executor }}</li>
-            <li class="list-group-item">{% translate 'Author' %}: {{ task.author }}</li>
+            <li class="list-group-item">{% translate 'Executor' %}: <a href="{% url 'user' task.executor_id %}">{{ task.executor }}</a></li>
+            <li class="list-group-item">{% translate 'Author' %}: <a href="{% url 'user' task.author_id %}">{{ task.author }}</a></li>
         </ul>
         <div class="card-footer text-muted">
             <small>

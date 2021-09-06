@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
+from django.urls import reverse_lazy
 
 # Load .env
 load_dotenv()
@@ -144,8 +145,14 @@ STATIC_ROOT = 'task_manager/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# TraceMiddleware setup
+# Login redirect
+# https://docs.djangoproject.com/en/3.2/topics/auth/default/
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGIN_URL = reverse_lazy('login')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
+
+# TraceMiddleware setup
 APPS_TO_TRACE = [
     'task_manager',
     'user',
