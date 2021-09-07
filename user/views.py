@@ -7,7 +7,7 @@ from django.views.generic import (DetailView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.views import (LoginView,
                                        LogoutView)
 
@@ -36,7 +36,7 @@ class CreateUserView(UserLoginUnRequiredMixin,
     form_class = UserForm
     template_name = 'create_user.html'
     success_url = reverse_lazy('login')
-    success_message = gettext('User profile was created. Now you can login')
+    success_message = _('User profile was created. Now you can login')
 
 
 class UpdateUserView(TMSuccessMessageMixin,
@@ -48,8 +48,8 @@ class UpdateUserView(TMSuccessMessageMixin,
     model = User
     form_class = UserForm
     template_name = 'update_user.html'
-    success_message = gettext('User profile was updated')
-    permission_denied_message = gettext('You have no permission to edit users')
+    success_message = _('User profile was updated')
+    permission_denied_message = _('You have no permission to edit users')
 
     def get_success_url(self):
         _ = super().get_success_url()
@@ -69,8 +69,8 @@ class DeleteUserView(TMSuccessMessageMixin,
 
     model = User
     template_name = 'delete_user.html'
-    success_message = gettext('User was deleted')
-    permission_denied_message = gettext('You have no permission to delete users')
+    success_message = _('User was deleted')
+    permission_denied_message = _('You have no permission to delete users')
     success_url = reverse_lazy('index')
 
 

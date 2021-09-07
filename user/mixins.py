@@ -3,7 +3,7 @@
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (AccessMixin,
                                         LoginRequiredMixin)
 
@@ -16,7 +16,7 @@ class UserLoginRequiredMixin(LoginRequiredMixin):
 
         if not request.user.is_authenticated:
             messages.add_message(request=request,
-                                 message=gettext('You need to login to do this'),
+                                 message=_('You need to login to do this'),
                                  level=messages.ERROR)
         return super().dispatch(request, *args, **kwargs)
 
@@ -40,7 +40,7 @@ class UserPermissionEditSelfMixin(AccessMixin):
 class UserLoginUnRequiredMixin(AccessMixin):
     """User login required mixin."""
 
-    already_login_message = gettext('You are already logged in')
+    already_login_message = _('You are already logged in')
 
     def dispatch(self, request, *args, **kwargs):
         """Dispatch method."""

@@ -2,8 +2,6 @@
 
 from django.forms import ModelForm
 
-from user.selectors import get_user_by_pk
-
 from .models import Task
 from .fields import (name_field,
                      description_field,

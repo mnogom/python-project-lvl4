@@ -3,7 +3,6 @@
 from django.forms import ModelForm
 
 from .models import User
-
 from .fields import (username_field,
                      first_name_field,
                      last_name_field,

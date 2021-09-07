@@ -1,0 +1,9 @@
+- model: task.Task
+  pk: 1
+  fields:
+    name: Проверить создание задач
+    description: Создай, измени, удали... ну ты понял
+    status_id: 3
+    author_id: 3
+    executor_id: 6
+    created_at: 2020-02-02
