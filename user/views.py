@@ -92,7 +92,7 @@ class LogoutUserView(UserLoginRequiredMixin,
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserView(DetailView):
+class UserView(UserLoginRequiredMixin, DetailView):
     """User view."""
 
     template_name = 'user.html'
