@@ -151,6 +151,9 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
+# Custom user
+AUTH_USER_MODEL = 'user.User'
+
 
 # TraceMiddleware setup
 APPS_TO_TRACE = [

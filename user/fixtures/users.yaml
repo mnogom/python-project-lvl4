@@ -1,4 +1,4 @@
-- model: auth.User
+- model: user.User
   pk: 1
   fields:
     username: EjikVTumane
@@ -7,7 +7,7 @@
     email: djon.snow@wall.com
     password: pbkdf2_sha256$260000$pDPFnNTPdfQ5r2HtHwAlr0$WbeE1puOqV3pRxzon0gimgjIIsBj+ACoZAQhah89FiQ= # password is pk 1
 
-- model: auth.User
+- model: user.User
   pk: 2
   fields:
     username: Karlson
@@ -16,7 +16,7 @@
     email: tirion.lannister@vesteross.it
     password: pbkdf2_sha256$260000$xIHk1WiBeRoQL0fOhbezhT$jyn0+qm3IeMxn0se/RbM3Ictk+dNK+RgkZCxkmv1u7o= # password is pk 2
 
-- model: auth.User
+- model: user.User
   pk: 3
   fields:
     username: Trubadoor
@@ -25,7 +25,7 @@
     email: ramsi.bolton@gmail.com
     password: pbkdf2_sha256$260000$fSjrEa20auY55hR1Fj13xi$XdNO1Lh+zkHr4BgXgsAqmrJe+90iJup6h1KRdIZO0Wo= # password is pk 3
 
-- model: auth.User
+- model: user.User
   pk: 4
   fields:
     username: KotMatroskin
@@ -34,7 +34,7 @@
     email: aria.stark@winterhold.io
     password: pbkdf2_sha256$260000$ud77Nyn2rSLrnOBFiGam9y$XIRH25uDWMGOPNsyS1lkGh2IMp93Hjg+vBObpoBNluQ= # password is pk 4
 
-- model: auth.User
+- model: user.User
   pk: 5
   fields:
     username: Cheburaka
@@ -43,7 +43,7 @@
     email: varis007@master.tv
     password: pbkdf2_sha256$260000$kBnk72ntIfxLwUQN1kefLz$ayg4sOn69DGQgYRYi0cAHDFgVFBdlK4s3/gSkVdNFcg= # password is pk 5
 
-- model: auth.User
+- model: user.User
   pk: 6
   fields:
     username: Vinnie-The-Puh
@@ -52,7 +52,7 @@
     email: serseya.lannister@vesteross.it
     password: pbkdf2_sha256$260000$X9wjIAjOzJ7pmmmyTDpuPl$aj1fZMtEz9mg8fr6cxCbasVhgyS7/vWP1nUMHt++Gz4= # password is pk 6
 
-- model: auth.User
+- model: user.User
   pk: 7
   fields:
     username: Maugli
@@ -61,7 +61,7 @@
     email: djeime.lannister@vesteross.it
     password: pbkdf2_sha256$260000$d3CEcMnAB5Gc1FrC0thW7w$kHsBrxbgvpqoyXMvAVvx1Mc8MSqu/z/waAMZwfCNC2g= # password is pk 7
 
-- model: auth.User
+- model: user.User
   pk: 8
   fields:
     username: VolkIZayac
@@ -70,7 +70,7 @@
     email: teon.greyjoy@enjoy.com
     password: pbkdf2_sha256$260000$m98MaDxr3TqYJb178apr6T$Nq3hFT6NgoSS1jwfCoJfFYygBabqOnjfUxKZSnbBXkU= # password is pk 8
 
-- model: auth.User
+- model: user.User
   pk: 9
   fields:
     username: alisa_v_strane_chudes
@@ -79,7 +79,7 @@
     email: keitlin.stark@winterhold.io
     password: pbkdf2_sha256$260000$9Swa62YRDc1i03g2wutPUg$QLUz40dHDKWPUwmqROL9CKNAEWRSpWh1q5KLDnK9V3A= # password is pk 9
 
-- model: auth.User
+- model: user.User
   pk: 10
   fields:
     username: bon_bonifaciy
