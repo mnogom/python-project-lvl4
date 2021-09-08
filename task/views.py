@@ -8,24 +8,24 @@ from django.views.generic import (DetailView,
                                   DeleteView)
 from django.utils.translation import gettext_lazy as _
 
-from task_manager.mixins import TMSuccessMessageMixin
+from task_manager.mixins import (SuccessMessageMixin,
+                                 RedirectOnProtectedMixin)
 from user.mixins import UserLoginRequiredMixin
 
 from .forms import TaskForm
 from .models import Task
+from .mixins import OnlyAuthorCanDeleteMixin
 
 
 class ListTaskView(UserLoginRequiredMixin,
                    ListView):
-
     model = Task
     template_name = 'tasks.html'
 
 
-class CreateTaskView(TMSuccessMessageMixin,
+class CreateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
                      CreateView):
-
     model = Task
     form_class = TaskForm
     template_name = 'create_task.html'
@@ -37,10 +37,9 @@ class CreateTaskView(TMSuccessMessageMixin,
         return super().form_valid(form)
 
 
-class UpdateTaskView(TMSuccessMessageMixin,
+class UpdateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
                      UpdateView):
-
     model = Task
     form_class = TaskForm
     template_name = 'update_task.html'
@@ -52,18 +51,21 @@ class UpdateTaskView(TMSuccessMessageMixin,
         return super().form_valid(form)
 
 
-class DeleteTaskView(TMSuccessMessageMixin,
+class DeleteTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
+                     RedirectOnProtectedMixin,
+                     OnlyAuthorCanDeleteMixin,
                      DeleteView):
 
     model = Task
     template_name = 'delete_task.html'
     success_url = reverse_lazy('tasks')
     success_message = _('Task was deleted')
+    denied_url = reverse_lazy('tasks')
+    denied_message = _('Task in use. You can not delete it.')
 
 
 class TaskView(UserLoginRequiredMixin,
                DetailView):
-
     template_name = 'task.html'
     model = Task

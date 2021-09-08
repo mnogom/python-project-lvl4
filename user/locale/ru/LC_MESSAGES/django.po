@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-08 12:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+#: user/fields.py:8
+msgid "Password"
+msgstr "Пароль"
+
+#: user/fields.py:15
+msgid "Repeat password"
+msgstr "Повторите пароль"
+
+#: user/forms.py:35
+msgid "Passwords does not match"
+msgstr "Пароли не совпадают"
+
+#: user/mixins.py:19
+msgid "You need to login to do this"
+msgstr "Вам необходимо войти для этого действия"
+
+#: user/mixins.py:43
+msgid "You are already logged in"
+msgstr "Вы уже вошли"
+
+#: user/models.py:16
+msgid "username"
+msgstr "имя пользователя"
+
+#: user/models.py:19
+msgid "Your username must be unique"
+msgstr "Ваше имя пользователя должно быть уникальным"
+
+#: user/models.py:22
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким именем пользователя уже существует"
+
+#: user/models.py:26
+msgid "email"
+msgstr "эл. почта"
+
+#: user/models.py:29
+msgid "Your email must exists and be unique."
+msgstr "Ваша жл. почта должна существовать и быть уникальной"
+
+#: user/models.py:32
+msgid "A user with that email already exists."
+msgstr "Пользователь с такой эл. почтой уже существует"
+
+#: user/templates/create_user.html:14 user/templates/create_user.html:22
+msgid "Registration"
+msgstr "Регистрация"
+
+#: user/templates/create_user.html:27 user/templates/login_user.html:22
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#: user/templates/delete_user.html:14
+msgid "Delete user"
+msgstr "Удалить пользователя"
+
+#: user/templates/delete_user.html:22
+msgid "Do you really want to delete user "
+msgstr "Вы действительно хотите удалить пользователя "
+
+#: user/templates/delete_user.html:26
+msgid "After deletion, the account will not be subject to recovery."
+msgstr "После удаления пользователя будет невозможно восстановить"
+
+#: user/templates/delete_user.html:31 user/templates/update_user.html:27
+#: user/templates/user.html:26
+msgid "Delete"
+msgstr "Удалить"
+
+#: user/templates/delete_user.html:33
+msgid "Back"
+msgstr "Назад"
+
+#: user/templates/login_user.html:14
+msgid "Login"
+msgstr "Войти"
+
+#: user/templates/login_user.html:22
+msgid "Login or"
+msgstr "Войти или"
+
+#: user/templates/update_user.html:14
+msgid "Edit user"
+msgstr "Изменить пользователя"
+
+#: user/templates/update_user.html:21
+msgid "Profile"
+msgstr ""
+
+#: user/templates/update_user.html:26 user/templates/user.html:23
+msgid "Update"
+msgstr "Обновить"
+
+#: user/templates/user.html:14 user/templates/user.html:21
+msgid "User"
+msgstr "Пользователь"
+
+#: user/templates/user.html:41
+msgid "Created tasks"
+msgstr "Созданные задачи"
+
+#: user/templates/user.html:51
+msgid "Executed tasks"
+msgstr "Исполняемые задачи"
+
+#: user/templates/user.html:63
+msgid "Joined at"
+msgstr "Зарегистрировался"
+
+#: user/templates/users.html:14 user/templates/users.html:22
+msgid "Users"
+msgstr "Пользователи"
+
+#: user/templates/users.html:29
+msgid "ID"
+msgstr "ID"
+
+#: user/templates/users.html:30
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: user/templates/users.html:31
+msgid "First name"
+msgstr "Имя"
+
+#: user/templates/users.html:32
+msgid "Last name"
+msgstr "Фамилия"
+
+#: user/templates/users.html:33
+msgid "Email"
+msgstr "эл. почта"
+
+#: user/templates/users.html:34
+msgid "Registration date"
+msgstr "Дата регистрации"
+
+#: user/templates/users.html:35
+msgid "Actions"
+msgstr "Действия"
+
+#: user/templates/users.html:57
+msgid "update"
+msgstr "изменить"
+
+#: user/templates/users.html:60
+msgid "delete"
+msgstr "удалить"
+
+#: user/views.py:41
+msgid "User profile was created. Now you can login"
+msgstr "Пользователь был создан. Теперь Вы можете войти"
+
+#: user/views.py:53
+msgid "User profile was updated"
+msgstr "Пользователь изменён"
+
+#: user/views.py:54
+msgid "You have no permission to edit users"
+msgstr "У Вас нет доступа изменять пользователей"
+
+#: user/views.py:75
+msgid "User was deleted"
+msgstr "Пользователь был удалён"
+
+#: user/views.py:76
+msgid "You have no permission to delete users"
+msgstr "У Вас нет доступа удалять пользователя"
+
+#: user/views.py:79
+msgid "User in use. You can not delete it."
+msgstr "Пользователь используется. Вы не можете удалить его."

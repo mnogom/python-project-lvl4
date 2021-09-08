@@ -11,7 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.views import (LoginView,
                                        LogoutView)
 
-from task_manager.mixins import TMSuccessMessageMixin
+from task_manager.mixins import (SuccessMessageMixin,
+                                 RedirectOnProtectedMixin)
 
 from .models import User
 from .forms import UserForm
@@ -19,6 +20,7 @@ from .services import login_user
 from .mixins import (UserLoginRequiredMixin,
                      UserLoginUnRequiredMixin,
                      UserPermissionEditSelfMixin)
+
 
 class ListUsersView(ListView):
     """List of users view."""
@@ -28,7 +30,7 @@ class ListUsersView(ListView):
 
 
 class CreateUserView(UserLoginUnRequiredMixin,
-                     TMSuccessMessageMixin,
+                     SuccessMessageMixin,
                      CreateView):
     """New user view."""
 
@@ -39,7 +41,7 @@ class CreateUserView(UserLoginUnRequiredMixin,
     success_message = _('User profile was created. Now you can login')
 
 
-class UpdateUserView(TMSuccessMessageMixin,
+class UpdateUserView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
                      UserPermissionEditSelfMixin,
                      UpdateView):
@@ -61,9 +63,10 @@ class UpdateUserView(TMSuccessMessageMixin,
         return response
 
 
-class DeleteUserView(TMSuccessMessageMixin,
+class DeleteUserView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
                      UserPermissionEditSelfMixin,
+                     RedirectOnProtectedMixin,
                      DeleteView):
     """Delete user view."""
 
@@ -72,6 +75,8 @@ class DeleteUserView(TMSuccessMessageMixin,
     success_message = _('User was deleted')
     permission_denied_message = _('You have no permission to delete users')
     success_url = reverse_lazy('index')
+    denied_url = reverse_lazy('users')
+    denied_message = _('User in use. You can not delete it.')
 
 
 class LoginUserView(UserLoginUnRequiredMixin, LoginView):

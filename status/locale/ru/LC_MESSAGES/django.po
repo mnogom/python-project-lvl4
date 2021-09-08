@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-08 12:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+#: status/templates/create_status.html:14
+#: status/templates/create_status.html:22
+msgid "New status"
+msgstr ""
+
+#: status/templates/create_status.html:27
+msgid "Create"
+msgstr "Создать"
+
+#: status/templates/delete_status.html:14
+msgid "Delete status"
+msgstr "Удалить статус"
+
+#: status/templates/delete_status.html:22
+msgid "Do you really want to delete status "
+msgstr "Вы действительно хотите удалить статус "
+
+#: status/templates/delete_status.html:26
+msgid "After deletion, the status will not be subject to recovery."
+msgstr "После удадения статус будет невозможно восстановить"
+
+#: status/templates/delete_status.html:31
+#: status/templates/update_status.html:27
+msgid "Delete"
+msgstr "Удалить"
+
+#: status/templates/delete_status.html:33
+msgid "Back"
+msgstr "Назад"
+
+#: status/templates/statuses.html:14 status/templates/update_status.html:21
+msgid "Status"
+msgstr "Статус"
+
+#: status/templates/statuses.html:22
+msgid "Statuses"
+msgstr "Статусы"
+
+#: status/templates/statuses.html:32
+msgid "ID"
+msgstr "ID"
+
+#: status/templates/statuses.html:33
+msgid "Name"
+msgstr "Название"
+
+#: status/templates/statuses.html:34
+msgid "Created at"
+msgstr "Создано"
+
+#: status/templates/statuses.html:35
+msgid "Actions"
+msgstr "Действия"
+
+#: status/templates/statuses.html:46
+msgid "update"
+msgstr "изменить"
+
+#: status/templates/statuses.html:49
+msgid "delete"
+msgstr "удалить"
+
+#: status/templates/update_status.html:14
+msgid "Edit status"
+msgstr "Изменить статус"
+
+#: status/templates/update_status.html:26
+msgid "Update"
+msgstr "Обновить"
+
+#: status/views.py:34
+msgid "Status was created"
+msgstr "Статус создан"
+
+#: status/views.py:45
+msgid "Status was updated"
+msgstr "Статус обновлён"
+
+#: status/views.py:56
+msgid "Status was deleted."
+msgstr "Статус удалён"
+
+#: status/views.py:58
+msgid "Status in use. You can not delete it."
+msgstr "Статус используется. Вы не можете её удалить."

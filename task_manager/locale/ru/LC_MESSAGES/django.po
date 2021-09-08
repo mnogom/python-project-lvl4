@@ -1,0 +1,129 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-08 12:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+#: task_manager/templates/base.html:32 task_manager/templates/index.html:37
+msgid "Home"
+msgstr "Домой"
+
+#: task_manager/templates/base.html:38 task_manager/templates/index.html:50
+msgid "Users"
+msgstr "Пользователи"
+
+#: task_manager/templates/base.html:41
+msgid "Users list"
+msgstr "Список пользователей"
+
+#: task_manager/templates/base.html:43 task_manager/templates/base.html:106
+#: task_manager/templates/index.html:116
+msgid "Registration"
+msgstr "Регистрация"
+
+#: task_manager/templates/base.html:44 task_manager/templates/base.html:109
+#: task_manager/templates/index.html:115
+msgid "Login"
+msgstr "Войти"
+
+#: task_manager/templates/base.html:47 task_manager/templates/base.html:97
+msgid "Profile"
+msgstr "Профиль"
+
+#: task_manager/templates/base.html:48
+msgid "Update user"
+msgstr "Изменить пользователя"
+
+#: task_manager/templates/base.html:49
+msgid "Delete user"
+msgstr "Удалить пользователя"
+
+#: task_manager/templates/base.html:54 task_manager/templates/base.html:101
+msgid "Logout"
+msgstr "Выйти"
+
+#: task_manager/templates/base.html:62 task_manager/templates/base.html:65
+#: task_manager/templates/index.html:77
+msgid "Statuses"
+msgstr "Статусы"
+
+#: task_manager/templates/base.html:66
+msgid "Create status"
+msgstr "Создать статус"
+
+#: task_manager/templates/base.html:73 task_manager/templates/base.html:76
+#: task_manager/templates/index.html:92
+msgid "Labels"
+msgstr "Метки"
+
+#: task_manager/templates/base.html:77
+msgid "Create label"
+msgstr "Создать метки"
+
+#: task_manager/templates/base.html:84 task_manager/templates/base.html:87
+#: task_manager/templates/index.html:20
+msgid "Tasks"
+msgstr "Задачи"
+
+#: task_manager/templates/base.html:88
+msgid "Create task"
+msgstr "Создать задачу"
+
+#: task_manager/templates/index.html:28 task_manager/templates/index.html:85
+msgid "Status manager"
+msgstr "Менеджер статусов"
+
+#: task_manager/templates/index.html:42
+msgid "Mode"
+msgstr "Режим"
+
+#: task_manager/templates/index.html:43
+msgid "User auth"
+msgstr "Пользователь авторизован"
+
+#: task_manager/templates/index.html:68
+msgid "User manager"
+msgstr "Менеджер пользователей"
+
+#: task_manager/templates/index.html:100
+msgid "Label manager"
+msgstr "Менеджер меток"
+
+#: task_manager/templates/index.html:106
+msgid "Hello! This is Educational project from"
+msgstr "Привет! Это учебный проект из"
+
+#: task_manager/templates/index.html:107
+msgid "All source code you can find on"
+msgstr "Весь исходный код Вы можете найти на"
+
+#: task_manager/templates/index.html:109
+msgid "You can start from here:"
+msgstr "Вы можете начать от сюда:"
+
+#: task_manager/templates/index.html:111
+msgid "Task list"
+msgstr "Список задач"
+
+#: task_manager/templates/index.html:112
+msgid "Label list"
+msgstr "Список меток"
+
+#: task_manager/templates/index.html:113
+msgid "Status list"
+msgstr "Список статусов"
