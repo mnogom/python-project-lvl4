@@ -7,7 +7,7 @@ migrations:
 migrate:
 	poetry run python manage.py migrate
 
-requirements:
+req:
 	poetry export -f requirements.txt --output requriments.txt
 
 load-demo-data:

@@ -1,11 +1,20 @@
 [tool.poetry]
 name = "hexlet-code"
-version = "0.1.13"
+version = "0.2.2"
 description = ""
 authors = ["Konstantin Freidlin <freidlinks@ya.ru>"]
+packages = [
+    { include = "task_manager" }
+]
+repository = "https://github.com/mnogom/python-project-lvl4"
+classifiers = [
+    "Topic :: Education",
+    "Topic :: Utilities",
+]
+
 
 [tool.poetry.dependencies]
-python = "3.9.6"
+python = "3.9.1"
 Django = "^3.2.6"
 python-dotenv = "^0.19.0"
 dj-database-url = "^0.5.0"
