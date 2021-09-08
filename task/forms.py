@@ -6,7 +6,7 @@ from .models import Task
 from .exceptions import TaskAuthorIsMissing
 
 
-class TaskForm(ModelForm):  # TODO: Make translation for fields
+class TaskForm(ModelForm):
     """Model form."""
 
     class Meta:

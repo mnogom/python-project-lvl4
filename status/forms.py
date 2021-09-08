@@ -5,7 +5,7 @@ from django.forms import ModelForm
 from .models import Status
 
 
-class StatusForm(ModelForm):  # TODO: Make translation for fields
+class StatusForm(ModelForm):
     """Status form"""
 
     class Meta:

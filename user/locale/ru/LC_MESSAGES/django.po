@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 12:33+0000\n"
+"POT-Creation-Date: 2021-09-08 16:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
 #: user/fields.py:8
 msgid "Password"
 msgstr "Пароль"
@@ -39,27 +40,27 @@ msgstr "Вам необходимо войти для этого действи�
 msgid "You are already logged in"
 msgstr "Вы уже вошли"
 
-#: user/models.py:16
+#: user/models.py:14
 msgid "username"
 msgstr "имя пользователя"
 
-#: user/models.py:19
+#: user/models.py:17
 msgid "Your username must be unique"
 msgstr "Ваше имя пользователя должно быть уникальным"
 
-#: user/models.py:22
+#: user/models.py:20
 msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем пользователя уже существует"
 
-#: user/models.py:26
+#: user/models.py:22
 msgid "email"
 msgstr "эл. почта"
 
-#: user/models.py:29
+#: user/models.py:25
 msgid "Your email must exists and be unique."
 msgstr "Ваша жл. почта должна существовать и быть уникальной"
 
-#: user/models.py:32
+#: user/models.py:28
 msgid "A user with that email already exists."
 msgstr "Пользователь с такой эл. почтой уже существует"
 

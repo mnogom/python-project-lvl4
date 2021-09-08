@@ -37,8 +37,8 @@
                 {{ user.first_name }} {{ user.last_name }}
             </p>
 
-            <div class="border-top"></div>
-            <p>{% translate 'Created tasks' %}</p>
+            <div class="border-top pt-2"></div>
+            <h6>{% translate 'Created tasks' %}</h6>
                 <ul>
                     {% for task in user.author.all %}
                         <li class="">
@@ -47,8 +47,8 @@
                     {% endfor %}
                 </ul>
 
-            <div class="border-top"></div>
-            <p>{% translate 'Executed tasks' %}</p>
+            <div class="border-top pt-2"></div>
+            <h6>{% translate 'Executed tasks' %}</h6>
                 <ul>
                     {% for task in user.executor.all %}
                         <li>

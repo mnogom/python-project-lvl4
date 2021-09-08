@@ -1,16 +1,20 @@
 """Models."""
 
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
-class Status(models.Model):
-    name = models.CharField(max_length=300,
+class Status(models.Model):  # TODO: rename name from 'имя' to 'название'
+    name = models.CharField(verbose_name=_('name'),
+                            max_length=300,
                             unique=True,
                             blank=False,
                             null=False)
-    description = models.TextField(blank=True,
+    description = models.TextField(verbose_name=_('description'),
+                                   blank=True,
                                    null=False)
-    created_at = models.DateField(auto_now_add=True,
+    created_at = models.DateField(verbose_name=_('created_at'),
+                                  auto_now_add=True,
                                   editable=False)
 
     def __str__(self):
