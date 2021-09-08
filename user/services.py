@@ -2,6 +2,7 @@
 
 from django.contrib.auth import authenticate, login
 
+
 def login_user(request):
     """Login user."""
 

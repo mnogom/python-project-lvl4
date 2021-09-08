@@ -36,6 +36,7 @@
                     <a class="btn btn-secondary" href="{% url 'login' %}">login</a>
                     <a class="btn btn-secondary" href="{% url 'create_user' %}">create user</a>
                     {% if user.is_authenticated %}
+                        <a class="btn btn-success" href="{% url 'user' user.pk %}">profile</a>
                         <a class="btn btn-success" href="{% url 'update_user' user.pk %}">update user</a>
                         <a class="btn btn-success" href="{% url 'delete_user' user.pk %}">delete user</a>
                     {%  endif %}

@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 username_field = forms.CharField(
-    label=_('Username'),
+    # label=_('Username'),
     widget=forms.TextInput(
         attrs={'placeholder': '',
                'id': 'id_username'}
@@ -13,21 +13,21 @@ username_field = forms.CharField(
 )
 
 first_name_field = forms.CharField(
-    label=_('First name'),
+    # label=_('First name'),
     widget=forms.TextInput(
         attrs={'placeholder': ''}
     )
 )
 
 last_name_field = forms.CharField(
-    label=_('Last name'),
+    # label=_('Last name'),
     widget=forms.TextInput(
         attrs={'placeholder': ''}
     )
 )
 
 email_field = forms.EmailField(
-    label=_('Email'),
+    # label=_('Email'),
     widget=forms.TextInput(
         attrs={'placeholder': 'example@domain.com'},
     ),

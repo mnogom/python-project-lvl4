@@ -14,10 +14,10 @@ from .fields import (username_field,
 class UserForm(ModelForm):
     """Create user form."""
 
-    username = username_field
-    first_name = first_name_field
-    last_name = last_name_field
-    email = email_field
+    # username = username_field
+    # first_name = first_name_field
+    # last_name = last_name_field
+    # email = email_field
     password1 = password1
     password2 = password2
 
