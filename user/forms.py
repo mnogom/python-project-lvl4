@@ -1,25 +1,18 @@
 """Forms."""
 
 from django.forms import ModelForm
+from django.utils.translation import gettext_lazy as _
 
 from .models import User
-from .fields import (username_field,
-                     first_name_field,
-                     last_name_field,
-                     email_field,
-                     password1,
-                     password2)
+from .fields import (password1_field,
+                     password2_field)
 
 
 class UserForm(ModelForm):
     """Create user form."""
 
-    # username = username_field
-    # first_name = first_name_field
-    # last_name = last_name_field
-    # email = email_field
-    password1 = password1
-    password2 = password2
+    password1 = password1_field
+    password2 = password2_field
 
     class Meta:
         """Meta class."""
@@ -39,7 +32,7 @@ class UserForm(ModelForm):
         password1 = cleaned_data.get('password1', None)
         password2 = cleaned_data.get('password2', None)
         if password1 != password2:
-            self.add_error('password2', 'Password doesn\'t match')
+            self.add_error('password2', _('Passwords does not match'))
         return cleaned_data
 
     def save(self, **kwargs):

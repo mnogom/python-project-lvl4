@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{# load locale #}
+{% load i18n %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+{% translate 'Edit label' %}
+{% endblock %}
+
+{% block container %}
+    <div class="card shadow">
+        <div class="card-body text-left">
+            <h3 class="card-title">
+                {% translate 'Label' %}
+            </h3>
+            <form action="{% url 'update_label' label.pk %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="submit" class="btn btn-primary float-right mt-3 mx-1" value="{% translate 'Update' %}">
+                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'delete_label' label.pk %}">{% translate 'Delete' %}</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -12,90 +12,110 @@
 
 {% block container %}
 
-    <div class="card-deck">
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h3 class="card-title">
-                    {% translate 'Home' %}
-                </h3>
-                <a class="btn btn-secondary" href="{% url 'index' %}">index page</a>
-            </div>
-            <div class="card-footer text-muted">
-                <div><small>{% translate 'Mode' %}: {{ env }}</small></div>
-                <div><small>{% translate 'User auth' %} {{ user.is_authenticated }}</small></div>
-            </div>
-        </div>
-
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h3 class="card-title">
-                    {% translate 'Users' %}
-                </h3>
-                <div class="btn-group-vertical" role="group">
-                    <a class="btn btn-secondary" href="{% url 'users' %}">users</a>
-                    <a class="btn btn-secondary" href="{% url 'login' %}">login</a>
-                    <a class="btn btn-secondary" href="{% url 'create_user' %}">create user</a>
-                    {% if user.is_authenticated %}
-                        <a class="btn btn-success" href="{% url 'user' user.pk %}">profile</a>
-                        <a class="btn btn-success" href="{% url 'update_user' user.pk %}">update user</a>
-                        <a class="btn btn-success" href="{% url 'delete_user' user.pk %}">delete user</a>
-                    {%  endif %}
+    {% if env == 'Development' %}
+        <div class="card-deck">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h3 class="card-title">
+                        {% translate 'Tasks' %}
+                    </h3>
+                    <div class="btn-group-vertical" role="group">
+                        <a class="btn btn-secondary" href="{% url 'tasks' %}">tasks</a>
+                        <a class="btn btn-secondary" href="{% url 'create_task' %}">create task</a>
+                    </div>
                 </div>
-                <form class="mt-1" action="{% url 'logout' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-outline-warning" value="logout"/>
-                </form>
-            </div>
-            <div class="card-footer text-muted">
-                <small>{% translate 'User manager' %}</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-deck mt-3">
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h3 class="card-title">
-                    {% translate 'Statuses' %}
-                </h3>
-                <div class="btn-group-vertical" role="group">
-                    <a class="btn btn-secondary" href="{% url 'statuses' %}">statuses</a>
-                    <a class="btn btn-secondary" href="{% url 'create_status' %}">create status</a>
+                <div class="card-footer text-muted">
+                    <small>{% translate 'Status manager' %}</small>
                 </div>
             </div>
-            <div class="card-footer text-muted">
-                <small>{% translate 'Status manager' %}</small>
-            </div>
         </div>
 
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h3 class="card-title">
-                    {% translate 'Labels' %}
-                </h3>
-                <span>TBD</span>
-            </div>
-            <div class="card-footer text-muted">
-                <small>{% translate 'Label manager' %}</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-deck mt-3">
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h3 class="card-title">
-                    {% translate 'Tasks' %}
-                </h3>
-                <div class="btn-group-vertical" role="group">
-                    <a class="btn btn-secondary" href="{% url 'tasks' %}">tasks</a>
-                    <a class="btn btn-secondary" href="{% url 'create_task' %}">create task</a>
+        <div class="card-deck mt-3">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h3 class="card-title">
+                        {% translate 'Home' %}
+                    </h3>
+                    <a class="btn btn-secondary" href="{% url 'index' %}">index page</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <div><small>{% translate 'Mode' %}: {{ env }}</small></div>
+                    <div><small>{% translate 'User auth' %} {{ user.is_authenticated }}</small></div>
                 </div>
             </div>
-            <div class="card-footer text-muted">
-                <small>{% translate 'Status manager' %}</small>
+
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h3 class="card-title">
+                        {% translate 'Users' %}
+                    </h3>
+                    <div class="btn-group-vertical" role="group">
+                        <a class="btn btn-secondary" href="{% url 'users' %}">users</a>
+                        <a class="btn btn-secondary" href="{% url 'login' %}">login</a>
+                        <a class="btn btn-secondary" href="{% url 'create_user' %}">create user</a>
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-success" href="{% url 'user' user.pk %}">profile</a>
+                            <a class="btn btn-success" href="{% url 'update_user' user.pk %}">update user</a>
+                            <a class="btn btn-success" href="{% url 'delete_user' user.pk %}">delete user</a>
+                        {%  endif %}
+                    </div>
+                    <form class="mt-1" action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-outline-warning" value="logout"/>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>{% translate 'User manager' %}</small>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="card-deck mt-3">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h3 class="card-title">
+                        {% translate 'Statuses' %}
+                    </h3>
+                    <div class="btn-group-vertical" role="group">
+                        <a class="btn btn-secondary" href="{% url 'statuses' %}">statuses</a>
+                        <a class="btn btn-secondary" href="{% url 'create_status' %}">create status</a>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>{% translate 'Status manager' %}</small>
+                </div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h3 class="card-title">
+                        {% translate 'Labels' %}
+                    </h3>
+                    <div class="btn-group-vertical" role="group">
+                        <a class="btn btn-secondary" href="{% url 'labels' %}">labels</a>
+                        <a class="btn btn-secondary" href="{% url 'create_label' %}">create label</a>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>{% translate 'Label manager' %}</small>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="jumbotron shadow bg-light">
+            <h1 class="display-4">{% translate 'Hello! This is Educational project from' %} <a href="https://hexlet.io">Hexlet</a> </h1>
+            <p class="lead">{% translate 'All source code you can find on' %} <a href="https://github.com/mnogom/python-project-lvl4">my github</a></p>
+            <hr class="my-4">
+            <p>{% translate 'You can start from here:' %}</p>
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary btn-lg" href="{% url 'tasks' %}">{% translate 'Task list' %}</a>
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'labels' %}">{% translate 'Label list' %}</a>
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'statuses' %}">{% translate 'Status list' %}</a>
+            {% else %}
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">{% translate 'Login' %}</a>
+                <a class="btn btn-primary btn-lg" href="{% url 'create_user' %}" role="button">{% translate 'Registration' %}</a>
+            {% endif %}
+        </div>
+    {% endif %}
 
 {% endblock %}

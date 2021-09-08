@@ -1,0 +1,41 @@
+- model: label.Label
+  pk: 1
+  fields:
+    name: Оборона
+    created_at: 2021-01-01
+
+- model: label.Label
+  pk: 2
+  fields:
+    name: Атака
+    created_at: 2021-01-01
+
+- model: label.Label
+  pk: 3
+  fields:
+    name: Отступление
+    created_at: 2021-01-01
+
+- model: label.Label
+  pk: 4
+  fields:
+    name: Диверсия
+    created_at: 2021-01-01
+
+- model: label.Label
+  pk: 5
+  fields:
+    name: Переговоры
+    created_at: 2021-01-01
+
+- model: label.Label
+  pk: 6
+  fields:
+    name: Внешнее
+    created_at: 2021-01-01
+
+- model: label.Label
+  pk: 7
+  fields:
+    name: Внутреннее
+    created_at: 2021-01-01

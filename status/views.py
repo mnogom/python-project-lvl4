@@ -1,7 +1,7 @@
 """Views."""
 
 from django.urls import reverse_lazy
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (ListView,
                                   CreateView,
                                   UpdateView,
@@ -29,7 +29,7 @@ class CreateStatusView(TMSuccessMessageMixin,
     form_class = StatusForm
     template_name = 'create_status.html'
     success_url = reverse_lazy('statuses')
-    success_message = gettext('Status was created')
+    success_message = _('Status was created')
 
 
 class UpdateStatusView(TMSuccessMessageMixin,
@@ -40,7 +40,7 @@ class UpdateStatusView(TMSuccessMessageMixin,
     form_class = StatusForm
     template_name = 'update_status.html'
     success_url = reverse_lazy('statuses')
-    success_message = gettext('Status was updated')
+    success_message = _('Status was updated')
 
 
 class DeleteStatusView(TMSuccessMessageMixin,
@@ -50,4 +50,4 @@ class DeleteStatusView(TMSuccessMessageMixin,
     model = Status
     template_name = 'delete_status.html'
     success_url = reverse_lazy('statuses')
-    success_message = gettext('Status was deleted')
+    success_message = _('Status was deleted')

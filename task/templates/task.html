@@ -19,7 +19,8 @@
     <div class="card shadow">
         <div class="card-header">
             {% translate 'Task' %} # {{ task.pk }}
-            <a class="btn btn-sm btn-outline-primary float-right mx-1" href="{% url 'update_task' task.pk%}">
+            <a href="#" onclick="history.go(-1);"><small>go back</small></a>
+            <a class="btn btn-sm btn-outline-primary float-right mx-1" href="{% url 'update_task' task.pk %}">
                 {% translate 'Update' %}
             </a>
             <a class="btn btn-sm btn-outline-danger float-right mx-1" href="{% url 'delete_task' task.pk %}">
@@ -38,6 +39,11 @@
             </p>
         </div>
         <ul class="list-group list-group-flush">
+            <li class="list-group-item">{% translate 'Labels' %}:
+                {% for cur_label in task.labels.all %}
+                    <span class="badge badge-primary">{{ cur_label }}</span>
+                {% endfor %}
+            </li>
             <li class="list-group-item">{% translate 'Executor' %}: <a href="{% url 'user' task.executor_id %}">{{ task.executor }}</a></li>
             <li class="list-group-item">{% translate 'Author' %}: <a href="{% url 'user' task.author_id %}">{{ task.author }}</a></li>
         </ul>

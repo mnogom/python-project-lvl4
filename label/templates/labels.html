@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{# load locale #}
+{% load i18n %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block title %}
+{% translate 'label' %}
+{% endblock %}
+
+{% block container %}
+
+    <div class="card shadow">
+        <div class="card-body">
+            <h3 class="card-title">
+                {% translate 'Label' %}
+                <a class="btn btn-sm btn-outline-primary float-right rounded-circle" href="{% url 'create_label' %}" style="width: 2rem; height: 2rem;">
+                    +
+                </a>
+            </h3>
+
+            <div class="table-responsive">
+                <table class="table text-center mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">{% translate 'ID' %}</th>
+                            <th scope="col">{% translate 'Name' %}</th>
+                            <th scope="col">{% translate 'Created at' %}</th>
+                            <th scope="col">{% translate 'Actions' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cur_label in object_list %}
+                            <tr title="{{ cur_label.description }}">
+                                <th scope="row" class="align-middle">{{ cur_label.pk }}</th>
+                                <td class="align-middle"><span class="badge badge-primary">{{ cur_label.name }}</span></td>
+                                <td class="align-middle">{{ cur_label.created_at|date:'d b Y' }}</td>
+                                <td class="border-bottom-0 py-1">
+                                    <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_label' cur_label.pk %}">
+                                        {% translate 'update' %}
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_label' cur_label.pk %}">
+                                        {% translate 'delete' %}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
