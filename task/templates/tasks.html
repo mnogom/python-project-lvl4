@@ -25,6 +25,13 @@
                 </a>
             </h3>
 
+            <form method="get">
+                <span>{{ filter.form }}</span>
+                <br>
+                <input type="submit" class="btn btn-sm btn-primary" value="{% translate 'Apply' %}"/>
+                <a href="{% url 'tasks' %}" class="btn btn-sm btn-outline-primary">{% translate 'Reset' %}</a>
+            </form>
+
             <div class="table-responsive">
                 <table class="table text-center mt-3">
                     <thead>
@@ -39,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for cur_task in object_list %}
+                        {% for cur_task in task_list %}
                             <tr>
                                 <th scope="row" class="align-middle">{{ cur_task.pk }}</th>
                                 <td class="align-middle">

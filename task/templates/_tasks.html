@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block container %}
+    <form method="get">
+        {{ filter.form.as_p }}
+        <input type="submit" />
+    </form>
+    <a href="{% url 'tasks' %}">reset</a>
+    {% for obj in object_list %}
+        {{ obj.name }} - {{ obj.created_at }}<br />
+    {% endfor %}
+{% endblock %}

@@ -2,7 +2,6 @@
 
 from django.urls import reverse_lazy
 from django.views.generic import (DetailView,
-                                  ListView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
@@ -12,15 +11,24 @@ from task_manager.mixins import (SuccessMessageMixin,
                                  RedirectOnProtectedMixin)
 from user.mixins import UserLoginRequiredMixin
 
+from django_filters.views import FilterView
+
 from .forms import TaskForm
 from .models import Task
 from .mixins import OnlyAuthorCanDeleteMixin
+from .filters import TaskFilter
 
 
 class ListTaskView(UserLoginRequiredMixin,
-                   ListView):
+                   FilterView):
+
     model = Task
+    filterset_class = TaskFilter
     template_name = 'tasks.html'
+
+    def as_p(self, *args, **kwargs):
+        print(1)
+        return super().as_p(*args, **kwargs)
 
 
 class CreateTaskView(SuccessMessageMixin,
