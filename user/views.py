@@ -29,16 +29,20 @@ class ListUsersView(ListView):
     template_name = 'users.html'
 
 
-class CreateUserView(UserLoginUnRequiredMixin,
-                     SuccessMessageMixin,
+class CreateUserView(SuccessMessageMixin,
                      CreateView):
     """New user view."""
+    # TODO: [hexlet-check]
+    #  To pass hexlet check
+    #  you must have access to registration page if
+    #  you are already logged in
+    #  if it fix you can add 'UserLoginUnRequiredMixin'
 
     model = User
     form_class = UserForm
     template_name = 'create_user.html'
     success_url = reverse_lazy('login')
-    success_message = _('User profile was created. Now you can login')
+    success_message = _('User profile was successfully created')
 
 
 class UpdateUserView(SuccessMessageMixin,
@@ -55,7 +59,7 @@ class UpdateUserView(SuccessMessageMixin,
 
     def get_success_url(self):
         _ = super().get_success_url()
-        return reverse_lazy('user', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('users')
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -74,26 +78,35 @@ class DeleteUserView(SuccessMessageMixin,
     template_name = 'delete_user.html'
     success_message = _('User was deleted')
     permission_denied_message = _('You have no permission to delete users')
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('users')
     denied_url = reverse_lazy('users')
     denied_message = _('User in use. You can not delete it.')
 
 
-class LoginUserView(UserLoginUnRequiredMixin, LoginView):
+class LoginUserView(SuccessMessageMixin,
+                    UserLoginUnRequiredMixin,
+                    LoginView):
     """Login view."""
 
     template_name = 'login_user.html'
-    success_url = reverse_lazy('index')
     redirect_authenticated_user = True
+    success_url = reverse_lazy('index')
+    success_message = _('You are logged in')
 
 
-class LogoutUserView(UserLoginRequiredMixin,
+class LogoutUserView(SuccessMessageMixin,
+                     UserLoginRequiredMixin,
                      LogoutView):
     """Logout view."""
 
+    success_message = _('You are logged out')
+
     def dispatch(self, request, *args, **kwargs):
         if request.method == 'GET':
-            return HttpResponseForbidden('Unexpected method.')  # TODO: make error page
+            # TODO: [fix]
+            #  make error page
+            return HttpResponseForbidden('Unexpected method.')
+        self.get_success_url()
         return super().dispatch(request, *args, **kwargs)
 
 

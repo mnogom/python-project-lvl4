@@ -28,8 +28,7 @@
                         <tr>
                             <th scope="col">{% translate 'ID' %}</th>
                             <th scope="col">{% translate 'Username' %}</th>
-                            <th scope="col">{% translate 'First name' %}</th>
-                            <th scope="col">{% translate 'Last name' %}</th>
+                            <th scope="col">{% translate 'Full name' %}</th>
                             <th scope="col">{% translate 'Email' %}</th>
                             <th scope="col">{% translate 'Registration date' %}</th>
                             <th scope="col">{% translate 'Actions' %}</th>
@@ -48,16 +47,15 @@
                                             {{ cur_user.username }}
                                         </a>
                                     </td>
-                                    <td class="align-middle">{{ cur_user.first_name }}</td>
-                                    <td class="align-middle">{{ cur_user.last_name }}</td>
+                                    <td class="align-middle">{{ cur_user }}</td>
                                     <td class="align-middle">{{ cur_user.email }}</td>
                                     <td class="align-middle">{{ cur_user.date_joined|date:'d b Y' }}</td>
                                     <td class="border-bottom-0 py-1">
                                         <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_user' cur_user.pk %}">
-                                            {% translate 'update' %}
+                                            {% translate 'Update' %}
                                         </a>
                                         <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_user' cur_user.pk %}">
-                                            {% translate 'delete' %}
+                                            {% translate 'Delete' %}
                                         </a>
                                     </td>
                                 </tr>

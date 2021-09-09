@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 16:10+0000\n"
+"POT-Creation-Date: 2021-09-09 16:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,9 +52,11 @@ msgstr "Вы действительно хотите удалить метку "
 msgid "After deletion, the label will not be subject to recovery."
 msgstr "После удаления метку будет невозможно восстановить."
 
-#: label/templates/delete_label.html:31 label/templates/update_label.html:27
-msgid "Delete"
-msgstr "Удалить"
+#: label/templates/delete_label.html:31
+#, fuzzy
+#| msgid "delete"
+msgid "Yes, delete"
+msgstr "Да, удалить"
 
 #: label/templates/delete_label.html:33
 msgid "Back"
@@ -67,6 +69,10 @@ msgstr "метка"
 #: label/templates/labels.html:22 label/templates/update_label.html:21
 msgid "Label"
 msgstr "Метка"
+
+#: label/templates/labels.html:24
+msgid "Create label"
+msgstr "Создать метку"
 
 #: label/templates/labels.html:32
 msgid "ID"
@@ -84,34 +90,33 @@ msgstr "Создано"
 msgid "Actions"
 msgstr "Действия"
 
-#: label/templates/labels.html:46
-msgid "update"
-msgstr "изменить"
+#: label/templates/labels.html:46 label/templates/update_label.html:26
+msgid "Update"
+msgstr "Изменить"
 
-#: label/templates/labels.html:49
-msgid "delete"
-msgstr "удалить"
+#: label/templates/labels.html:49 label/templates/update_label.html:27
+msgid "Delete"
+msgstr "Удалить"
 
 #: label/templates/update_label.html:14
 msgid "Edit label"
 msgstr "Изменить метку"
 
-#: label/templates/update_label.html:26
-msgid "Update"
-msgstr "Изменить"
-
 #: label/views.py:32
 msgid "Label was created"
-msgstr "Метка создана"
+msgstr "Метка успешно создана"
 
 #: label/views.py:42
 msgid "Label was updated"
-msgstr "Метка изменена"
+msgstr "Метка успешно изменена"
 
 #: label/views.py:52
 msgid "Label was deleted"
-msgstr "Метка удалена"
+msgstr "Метка успешно удалена"
 
 #: label/views.py:54
 msgid "Label in use. You can not delete it."
 msgstr "Метка используется. Вы не можете её удалить."
+
+#~ msgid "update"
+#~ msgstr "изменить"

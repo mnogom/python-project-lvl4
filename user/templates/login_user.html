@@ -24,7 +24,7 @@
             <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <input type="submit" class="btn btn-primary float-right mt-3">
+                <input type="submit" class="btn btn-primary float-right mt-3" value="{% translate 'Log in' %}">
             </form>
         </div>
     </div>

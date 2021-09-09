@@ -20,15 +20,15 @@
         <div class="card-body">
             <h3 class="card-title">
                 {% translate 'Tasks' %}
-                <a class="btn btn-sm btn-outline-primary float-right rounded-circle" href="{% url 'create_task' %}" style="width: 2rem; height: 2rem;">
-                    +
+                <a class="btn btn-sm btn-outline-primary float-right" href="{% url 'create_task' %}">
+                    {% translate 'Create task' %}
                 </a>
             </h3>
 
             <form method="get">
-                <span>{{ filter.form }}</span>
+                <div>{{ filter.form }}</div>
                 <br>
-                <input type="submit" class="btn btn-sm btn-primary" value="{% translate 'Apply' %}"/>
+                <input type="submit" class="btn btn-sm btn-primary" value="{% translate 'Show' %}"/>
                 <a href="{% url 'tasks' %}" class="btn btn-sm btn-outline-primary">{% translate 'Reset' %}</a>
             </form>
 
@@ -62,10 +62,10 @@
                                 <td class="align-middle">{{ cur_task.created_at|date:'d b Y' }}</td>
                                 <td class="border-bottom-0 py-1">
                                     <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_task' cur_task.pk %}">
-                                        {% translate 'update' %}
+                                        {% translate 'Update' %}
                                     </a>
                                     <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_task' cur_task.pk %}">
-                                        {% translate 'delete' %}
+                                        {% translate 'Delete' %}
                                     </a>
                                 </td>
                             </tr>

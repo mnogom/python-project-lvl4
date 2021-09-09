@@ -39,8 +39,7 @@ django-shell:
 	poetry run python manage.py shell
 
 start-locale:
-	poetry run python manage.py makemessages -l ru ; \
-	subl */locale/ru/LC_messages/django.po
+	poetry run python manage.py makemessages -l ru
 
 locale:
 	poetry run python manage.py compilemessages

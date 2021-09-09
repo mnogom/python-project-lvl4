@@ -33,60 +33,70 @@
                 </li>
 
                 {# USER APP #}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% translate 'Users' %}
+                <li class="nav-item">
+                    <a class="nav-item">
+                        <a class="nav-link" href="{% url 'users' %}">{% translate 'Users' %}</a>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="userNavbarDropdown">
-                        <a class="dropdown-item" href="{% url 'users' %}">{% translate 'Users list' %}</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'create_user' %}">{% translate 'Registration' %}</a>
-                        <a class="dropdown-item" href="{% url 'login' %}">{% translate 'Login' %}</a>
-                        {% if user.is_authenticated %}
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'user' user.pk %}">{% translate 'Profile' %}</a>
-                            <a class="dropdown-item" href="{% url 'update_user' user.pk %}">{% translate 'Update user' %}</a>
-                            <a class="dropdown-item" href="{% url 'delete_user' user.pk %}">{% translate 'Delete user' %}</a>
-                        {% endif %}
-                        <div class="dropdown-divider"></div>
-                        <form action="{% url 'logout' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" class="dropdown-item" value="{% translate 'Logout' %}"/>
-                        </form>
-                    </div>
+{#                    TODO: Here you can uncomment complex of fust access nav bar #}
+{#                    <a class="nav-link dropdown-toggle" href="#" id="userNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                        {% translate 'Users' %}#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu" aria-labelledby="userNavbarDropdown">#}
+{#                        <a class="dropdown-item" href="{% url 'users' %}">{% translate 'Users list' %}</a>#}
+{#                        <div class="dropdown-divider"></div>#}
+{#                        <a class="dropdown-item" href="{% url 'create_user' %}">{% translate 'Registration' %}</a>#}
+{#                        <a class="dropdown-item" href="{% url 'login' %}">{% translate 'Login' %}</a>#}
+{#                        {% if user.is_authenticated %}#}
+{#                            <div class="dropdown-divider"></div>#}
+{#                            <a class="dropdown-item" href="{% url 'user' user.pk %}">{% translate 'Profile' %}</a>#}
+{#                            <a class="dropdown-item" href="{% url 'update_user' user.pk %}">{% translate 'Update user' %}</a>#}
+{#                            <a class="dropdown-item" href="{% url 'delete_user' user.pk %}">{% translate 'Delete user' %}</a>#}
+{#                        {% endif %}#}
+{#                        <div class="dropdown-divider"></div>#}
+{#                        <form action="{% url 'logout' %}" method="POST">#}
+{#                            {% csrf_token %}#}
+{#                            <input type="submit" class="dropdown-item" value="{% translate 'Logout' %}"/>#}
+{#                        </form>#}
+{#                    </div>#}
                 </li>
 
                 {# STATUS APP #}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="statusNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% translate 'Statuses' %}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="statusNavbarDropdown">
-                        <a class="dropdown-item" href="{% url 'statuses' %}">{% translate 'Statuses' %}</a>
-                        <a class="dropdown-item" href="{% url 'create_status' %}">{% translate 'Create status' %}</a>
-                    </div>
+                    <a class="nav-link" href="{% url 'statuses' %}">{% translate 'Statuses' %}</a>
+{#                    TODO: Here you can uncomment to render complex access nav bar #}
+{#                    <a class="nav-link dropdown-toggle" href="#" id="statusNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                        {% translate 'Statuses' %}#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu" aria-labelledby="statusNavbarDropdown">#}
+{#                        <a class="dropdown-item" href="{% url 'statuses' %}">{% translate 'Statuses' %}</a>#}
+{#                        <a class="dropdown-item" href="{% url 'create_status' %}">{% translate 'Create status' %}</a>#}
+{#                    </div>#}
                 </li>
 
                 {# LABEL APP #}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="labelNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% translate 'Labels' %}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="labelNavbarDropdown">
-                        <a class="dropdown-item" href="{% url 'labels' %}">{% translate 'Labels' %}</a>
-                        <a class="dropdown-item" href="{% url 'create_label' %}">{% translate 'Create label' %}</a>
-                    </div>
+                    <a class="nav-link" href="{% url 'labels' %}">{% translate 'Labels' %}</a>
+{#                    TODO: Here you can uncomment to render complex access nav bar #}
+{#                    <a class="nav-link dropdown-toggle" href="#" id="labelNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                        {% translate 'Labels' %}#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu" aria-labelledby="labelNavbarDropdown">#}
+{#                        <a class="dropdown-item" href="{% url 'labels' %}">{% translate 'Labels' %}</a>#}
+{#                        <a class="dropdown-item" href="{% url 'create_label' %}">{% translate 'Create label' %}</a>#}
+{#                    </div>#}
                 </li>
 
                 {# TASK APP #}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="statusNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% translate 'Tasks' %}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="statusNavbarDropdown">
-                        <a class="dropdown-item" href="{% url 'tasks' %}">{% translate 'Tasks' %}</a>
-                        <a class="dropdown-item" href="{% url 'create_task' %}">{% translate 'Create task' %}</a>
-                    </div>
+                    <a class="nav-link" href="{% url 'tasks' %}">{% translate 'Tasks' %}</a>
+{#                    TODO: Here you can uncomment to render complex access nav bar #}
+{#                    <a class="nav-link dropdown-toggle" href="#" id="statusNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                        {% translate 'Tasks' %}#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu" aria-labelledby="statusNavbarDropdown">#}
+{#                        <a class="dropdown-item" href="{% url 'tasks' %}">{% translate 'Tasks' %}</a>#}
+{#                        <a class="dropdown-item" href="{% url 'create_task' %}">{% translate 'Create task' %}</a>#}
+{#                    </div>#}
                 </li>
 
             </ul>

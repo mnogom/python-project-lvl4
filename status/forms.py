@@ -7,6 +7,9 @@ from .models import Status
 
 class StatusForm(ModelForm):
     """Status form"""
+    # TODO: [fix]
+    #  Edit translation 'имя' to 'название'
+    #  in 'create_status' page.
 
     class Meta:
         """Meta class."""

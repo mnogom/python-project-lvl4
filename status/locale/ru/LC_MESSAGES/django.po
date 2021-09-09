@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 16:10+0000\n"
+"POT-Creation-Date: 2021-09-09 16:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "название"
 
 #: status/models.py:13
 msgid "description"
-msgstr "опиасние"
+msgstr "описание"
 
 #: status/models.py:16
 msgid "created_at"
@@ -51,12 +51,13 @@ msgstr "Вы действительно хотите удалить статус
 
 #: status/templates/delete_status.html:26
 msgid "After deletion, the status will not be subject to recovery."
-msgstr "После удадения статус будет невозможно восстановить"
+msgstr "После удаления статус будет невозможно восстановить"
 
 #: status/templates/delete_status.html:31
-#: status/templates/update_status.html:27
-msgid "Delete"
-msgstr "Удалить"
+#, fuzzy
+#| msgid "delete"
+msgid "Yes, delete"
+msgstr "Да, удалить"
 
 #: status/templates/delete_status.html:33
 msgid "Back"
@@ -69,6 +70,10 @@ msgstr "Статус"
 #: status/templates/statuses.html:22
 msgid "Statuses"
 msgstr "Статусы"
+
+#: status/templates/statuses.html:24
+msgid "Create status"
+msgstr "Создать статус"
 
 #: status/templates/statuses.html:32
 msgid "ID"
@@ -86,34 +91,33 @@ msgstr "Создано"
 msgid "Actions"
 msgstr "Действия"
 
-#: status/templates/statuses.html:46
-msgid "update"
-msgstr "изменить"
+#: status/templates/statuses.html:46 status/templates/update_status.html:26
+msgid "Update"
+msgstr "Изменить"
 
-#: status/templates/statuses.html:49
-msgid "delete"
-msgstr "удалить"
+#: status/templates/statuses.html:49 status/templates/update_status.html:27
+msgid "Delete"
+msgstr "Удалить"
 
 #: status/templates/update_status.html:14
 msgid "Edit status"
 msgstr "Изменить статус"
 
-#: status/templates/update_status.html:26
-msgid "Update"
-msgstr "Обновить"
-
 #: status/views.py:34
 msgid "Status was created"
-msgstr "Статус создан"
+msgstr "Статус успешно создан"
 
 #: status/views.py:45
 msgid "Status was updated"
-msgstr "Статус обновлён"
+msgstr "Статус успешно изменён"
 
 #: status/views.py:56
 msgid "Status was deleted."
-msgstr "Статус удалён"
+msgstr "Статус успешно удалён"
 
 #: status/views.py:58
 msgid "Status in use. You can not delete it."
 msgstr "Статус используется. Вы не можете её удалить."
+
+#~ msgid "update"
+#~ msgstr "изменить"

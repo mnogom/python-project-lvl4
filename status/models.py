@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Status(models.Model):  # TODO: rename name from 'имя' to 'название'
+class Status(models.Model):
     name = models.CharField(verbose_name=_('name'),
                             max_length=300,
                             unique=True,

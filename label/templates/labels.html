@@ -20,8 +20,8 @@
         <div class="card-body">
             <h3 class="card-title">
                 {% translate 'Label' %}
-                <a class="btn btn-sm btn-outline-primary float-right rounded-circle" href="{% url 'create_label' %}" style="width: 2rem; height: 2rem;">
-                    +
+                <a class="btn btn-sm btn-outline-primary float-right" href="{% url 'create_label' %}">
+                    {% translate 'Create label' %}
                 </a>
             </h3>
 
@@ -43,10 +43,10 @@
                                 <td class="align-middle">{{ cur_label.created_at|date:'d b Y' }}</td>
                                 <td class="border-bottom-0 py-1">
                                     <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_label' cur_label.pk %}">
-                                        {% translate 'update' %}
+                                        {% translate 'Update' %}
                                     </a>
                                     <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_label' cur_label.pk %}">
-                                        {% translate 'delete' %}
+                                        {% translate 'Delete' %}
                                     </a>
                                 </td>
                             </tr>

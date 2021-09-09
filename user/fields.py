@@ -12,7 +12,7 @@ password1_field = forms.CharField(
 )
 
 password2_field = forms.CharField(
-    label=_('Repeat password'),
+    label=_('Password confirmation'),
     widget=forms.PasswordInput(
         attrs={'placeholder': ''}
     )

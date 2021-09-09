@@ -28,7 +28,7 @@
         <div class="modal-footer bg-light">
             <form action="." method="post">
                 {% csrf_token %}
-                <input type="submit" class="btn btn-outline-danger" value="{% translate 'Delete' %}">
+                <input type="submit" class="btn btn-outline-danger" value="{% translate 'Yes, delete' %}">
             </form>
             <button class="btn btn-primary" onclick="history.go(-1);">{% translate 'Back' %}</button>
         </div>

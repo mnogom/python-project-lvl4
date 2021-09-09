@@ -8,6 +8,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
+    """User model."""
+    # TODO: [hexlet-check]
+    #  To pass hexlet check you need keep
+    #  email 'unique=False', 'blank=True', 'null=True'
+
     username_validator = UnicodeUsernameValidator()
     email_validator = EmailValidator()
 
@@ -21,7 +26,9 @@ class User(AbstractUser):
                                 }, )
     email = models.CharField(verbose_name=_('email'),
                              max_length=150,
-                             unique=True,
+                             blank=True,
+                             null=True,
+                             # unique=True,
                              help_text=_('Your email must exists and be unique.'),
                              validators=[email_validator],
                              error_messages={
