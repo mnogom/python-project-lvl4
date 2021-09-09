@@ -40,7 +40,7 @@ msgstr "Регистрация"
 #: task_manager/templates/base.html:44 task_manager/templates/base.html:109
 #: task_manager/templates/index.html:115
 msgid "Login"
-msgstr "Войти"
+msgstr "Вход"
 
 #: task_manager/templates/base.html:47 task_manager/templates/base.html:97
 msgid "Profile"
