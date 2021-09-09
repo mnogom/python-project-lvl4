@@ -187,8 +187,8 @@ python-versions = ">=3.5"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "3.8.12"
-content-hash = "94478319fa6b89204816246a4a0d987fef55fe1d09c2fe19c9e91f9ff98bc180"
+python-versions = "^3.8.12"
+content-hash = "d9745c46508e5c9cdc5cd6a2fb68b8bfe5730bdeb284fd6d7a8bf9bef24cafff"
 
 [metadata.files]
 asgiref = [
