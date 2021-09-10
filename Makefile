@@ -35,6 +35,10 @@ test-status:
 	poetry run python manage.py test status
 
 
+test-label:
+	poetry run python manage.py test label
+
+
 django-shell:
 	poetry run python manage.py shell
 

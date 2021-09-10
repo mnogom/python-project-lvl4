@@ -1,130 +1,188 @@
 """Tests."""
 
-import yaml
-
-from django.test import TestCase, tag
+from django.test import TestCase, Client
+from django.urls import reverse_lazy
 from django.forms.models import model_to_dict
 
-from .exceptions import StatusDoesNotExist
-from .selectors import (get_all_statuses,
-                        get_status_by_pk)
-from .services import (create_status,
-                       delete_status,
-                       update_status)
+from .views import ListStatusView
+from .models import Status
 
 
-class StatusSelectorsCase(TestCase):
+def _create_user_and_login(obj):
+    username = 'User'
+    email = 'user@example.com'
+    password = 'Password'
+    obj.client.post(
+        reverse_lazy('create_user'),
+        data={'username': username,
+              'email': email,
+              'password1': password,
+              'password2': password}
+    )
+    obj.client.post(
+        reverse_lazy('login'),
+        data={'username': username,
+              'password': password}
+    )
+
+
+class StatusAuthCase(TestCase):
     fixtures = ['status/fixtures/statuses.yaml', ]
 
     def setUp(self):
-        self.pk = 1
+        self.client = Client()
 
-        with open(self.fixtures[0], 'rb') as file:
-            self.expected_statuses = yaml.safe_load(file)
-        for status in self.expected_statuses:
-            if status['pk'] == self.pk:
-                self.expected_status = status['fields']
-                self.expected_status.pop('created_at')
-                break
+    def test_unauth_access(self):
+        response = self.client.get(reverse_lazy('statuses'))
+        self.assertGreater(response.status_code, 200)
 
-    @tag('solo-selector')
-    def test_solo_selector(self):
-        status = get_status_by_pk(self.pk)
-
-        # Check if data is similar after picking
-        self.assertEqual(model_to_dict(status, exclude=('id',)),
-                         self.expected_status)
-
-        # Check if raises error after picking wrong pk
-        with self.assertRaises(StatusDoesNotExist):
-            get_status_by_pk(-1)
-
-    @tag('query-selector')
-    def test_query_selector(self):
-        statuses = get_all_statuses()
-        self.assertEqual(len(statuses),
-                         len(self.expected_statuses))
+    def test_auth_access(self):
+        _create_user_and_login(self)
+        response = self.client.get(reverse_lazy('statuses'))
+        self.assertQuerysetEqual(
+            response.context['object_list'].order_by('pk'),
+            Status.objects.all().order_by('pk')
+        )
+        self.assertEqual(
+            response.resolver_match.func.__name__,
+            ListStatusView.as_view().__name__
+        )
 
 
-class StatusServicesCase(TestCase):
-    fixtures = ['status/fixtures/statuses.yaml', ]
-
+class StatusCreateCase(TestCase):
     def setUp(self):
-        self.overfull_data = {'name': 'test_name',
-                              'description': 'test_description',
-                              'junk_key': 'junk_value',
-                              'created_at': '1990-01-01'}
-        self.not_full_data = {'description': 'A'}
-        self.unique_data_1 = {'name': 'unique_name_1',
-                              'description': 'unique_description_1'}
-        self.unique_data_2 = {'name': 'unique_name_2',
-                              'description': 'unique_description_2'}
+        self.client = Client()
+        _create_user_and_login(self)
 
-    @tag('create-service')
-    def test_create(self):
-        """Check if service can create Status."""
+        status_name = 'status name'
+        status_description = 'status description'
 
-        form = create_status(self.overfull_data)
-        self.assertTrue(form.is_valid())
+        self.valid_full_data = {'name': status_name,
+                                'description': status_description}
+        self.valid_part_data = {'name': status_name}
+        self.not_valid_data = {'description': status_description}
+        self.success_message = 'Статус успешно создан'
 
-        # Check if all fields created right
-        new_status = form.instance
-        self.assertEqual(getattr(new_status, 'name'),
-                         self.overfull_data['name'])
-        self.assertEqual(getattr(new_status, 'description'),
-                         self.overfull_data['description'])
-        self.assertIsNone(getattr(new_status, 'junk_key', None))
-        self.assertNotEqual(getattr(new_status, 'created_at'),
-                            self.overfull_data['created_at'])
+    def test_create_full_data_status(self):
+        response = self.client.post(
+            reverse_lazy('create_status'),
+            follow=True,
+            data=self.valid_full_data
+        )
 
-    @tag('create-service-exception')
-    def test_create_exception_not_full_data(self):
-        """Check if skip required data."""
+        self.assertEqual(
+            response.context['messages']._loaded_data[-1].message,
+            self.success_message
+        )
+        self.assertDictEqual(model_to_dict(Status.objects.last(),
+                                           exclude='id'),
+                             self.valid_full_data)
 
-        form = create_status(self.not_full_data)
-        self.assertFalse(form.is_valid())
+    def test_create_part_data_status(self):
+        response = self.client.post(
+            reverse_lazy('create_status'),
+            follow=True,
+            data=self.valid_part_data
+        )
 
-    @tag('create-service-exception')
-    def test_create_exception_unique(self):
-        """Check if 'name' is not unique."""
+        self.assertEqual(
+            response.context['messages']._loaded_data[-1].message,
+            self.success_message
+        )
+        self.assertFalse(Status.objects.last().description)
+        self.assertDictEqual(model_to_dict(Status.objects.last(),
+                                           exclude=['id',
+                                                    'description']),
+                             self.valid_part_data)
 
-        form_1 = create_status(self.unique_data_1)
-        form_2 = create_status(self.unique_data_1)
-        self.assertTrue(form_1.is_valid())
-        self.assertFalse(form_2.is_valid())
+    def test_create_not_valid_status(self):
+        self.client.post(
+            reverse_lazy('create_status'),
+            follow=True,
+            data=self.not_valid_data
+        )
+        self.client.get(
+            reverse_lazy('statuses')
+        )
+        self.assertEqual(
+            len(Status.objects.all()),
+            0
+        )
 
-    @tag('edit-service')
-    def test_edit(self):
-        """Check if service can edit Status."""
+    def test_create_not_unique_status(self):
+        for _ in range(2):
+            self.client.post(
+                reverse_lazy('create_status'),
+                follow=True,
+                data=self.valid_full_data
+            )
+        response = self.client.get(reverse_lazy('statuses'))
+        self.assertEqual(
+            len(Status.objects.all()),
+            1
+        )
 
-        form_1 = create_status(self.unique_data_1)
-        form_2 = update_status(self.unique_data_2, pk=form_1.instance.pk)
-        self.assertTrue(form_1.is_valid())
-        self.assertTrue(form_2.is_valid())
-        self.assertNotEqual(model_to_dict(form_1.instance),
-                            model_to_dict(form_2.instance))
-        self.assertEqual(model_to_dict(form_2.instance,
-                                       fields=('name',
-                                               'description')),
-                         self.unique_data_2)
 
-    @tag('edit-service-exception')
-    def test_edit_exception_unique(self):
-        """Check editing Status has unique protect."""
+class StatusDeleteCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        _create_user_and_login(self)
+        self.client.post(
+            reverse_lazy('create_status'),
+            data={'name': 'status name',
+                  'description': 'status description'}
+        )
 
-        not_unique_data = self.unique_data_1
-        form = create_status(self.unique_data_1)
-        form_before_update = create_status(self.unique_data_2)
-        form_after_update = update_status(not_unique_data, pk=form_before_update.instance.pk)
-        self.assertTrue(form.is_valid())
-        self.assertTrue(form_before_update.is_valid())
-        self.assertFalse(form_after_update.is_valid())
+    def test_delete_status(self):
+        self.assertEqual(
+            len(Status.objects.all()),
+            1
+        )
+        self.client.post(
+            reverse_lazy('delete_status', kwargs={'pk': 1}),
+            follow=True
+        )
+        self.assertEqual(
+            len(Status.objects.all()),
+            0
+        )
 
-    @tag('delete-service')
-    def test_delete(self):
-        status_to_del = create_status(self.unique_data_1)
-        before_delete_len = len(get_all_statuses())
-        delete_status(status_to_del.instance.pk)
-        after_delete_len = len(get_all_statuses())
-        self.assertNotEqual(before_delete_len,
-                            after_delete_len)
+
+class StatusEditCase(TestCase):
+    def setUp(self):
+        self.name_1 = 'status name 1'
+        self.name_2 = 'status name 2'
+        self.updated_name = 'updated name'
+
+        self.client = Client()
+        _create_user_and_login(self)
+
+        for name in [self.name_1, self.name_2]:
+            self.client.post(
+                reverse_lazy('create_status'),
+                data={'name': name}
+            )
+
+    def test_valid_edit_status(self):
+        self.assertEqual(
+            len(Status.objects.all()),
+            2
+        )
+        self.client.post(
+            reverse_lazy('update_status', kwargs={'pk': 1}),
+            data={'name': self.updated_name}
+        )
+        self.assertEqual(Status.objects.get(pk=1).name,
+                         self.updated_name)
+
+    def test_not_valid_edit_status(self):
+        self.assertEqual(
+            len(Status.objects.all()),
+            2
+        )
+        self.client.post(
+            reverse_lazy('update_status', kwargs={'pk': 1}),
+            data={'name': self.name_2}
+        )
+        self.assertNotEqual(Status.objects.get(pk=1).name,
+                            self.name_2)
