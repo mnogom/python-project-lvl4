@@ -14,14 +14,16 @@ class TaskFilter(django_filters.FilterSet):
     self_tasks = django_filters.BooleanFilter(widget=forms.CheckboxInput,
                                               label=_('Only my tasks'),
                                               method='choose_user_as_author')
-    labels = django_filters.ModelChoiceFilter(queryset=Label.objects.all().order_by('pk'))
+    label = django_filters.ModelChoiceFilter(queryset=Label.objects.all().order_by('pk'),
+                                             label=_('Label'),
+                                             method='choose_label')
 
     class Meta:
         model = Task
         fields = (
             'author',
             'executor',
-            'labels',
+            'label',
             'status',
             'self_tasks',
         )
@@ -30,3 +32,7 @@ class TaskFilter(django_filters.FilterSet):
         if value:
             return queryset.filter(author_id=self.request.user.id)
         return queryset
+
+    def choose_label(self, queryset, name, value):
+        if value:
+            return queryset.filter(tasklabel__label_id=value)

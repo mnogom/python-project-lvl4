@@ -38,7 +38,10 @@
             </p>
 
             <div class="border-top pt-2"></div>
-            <h6>{% translate 'Created tasks' %}</h6>
+            <h6>
+                {% translate 'Created tasks' %}
+                <a href="{% url 'tasks' %}?author={{ user.id }}" class="badge badge-secondary ml-1">{{ user.author.count }}</a>
+            </h6>
                 <ul>
                     {% for task in user.author.all %}
                         <li class="">
@@ -48,7 +51,10 @@
                 </ul>
 
             <div class="border-top pt-2"></div>
-            <h6>{% translate 'Executed tasks' %}</h6>
+            <h6>
+                {% translate 'Executed tasks' %}
+                <a href="{% url 'tasks' %}?executor={{ user.id }}" class="badge badge-secondary ml-1">{{ user.executor.count }}</a>
+            </h6>
                 <ul>
                     {% for task in user.executor.all %}
                         <li>
