@@ -5,7 +5,7 @@
     first_name: Джон
     last_name: Сноу
     email: djon.snow@wall.com
-    password: pbkdf2_sha256$260000$pDPFnNTPdfQ5r2HtHwAlr0$WbeE1puOqV3pRxzon0gimgjIIsBj+ACoZAQhah89FiQ= # password is pk 1
+    password: pbkdf2_sha256$260000$pDPFnNTPdfQ5r2HtHwAlr0$WbeE1puOqV3pRxzon0gimgjIIsBj+ACoZAQhah89FiQ= # password is pk (1)
 
 - model: user.User
   pk: 2
@@ -14,7 +14,7 @@
     first_name: Тирион
     last_name: Ланнистер
     email: tirion.lannister@vesteross.it
-    password: pbkdf2_sha256$260000$xIHk1WiBeRoQL0fOhbezhT$jyn0+qm3IeMxn0se/RbM3Ictk+dNK+RgkZCxkmv1u7o= # password is pk 2
+    password: pbkdf2_sha256$260000$xIHk1WiBeRoQL0fOhbezhT$jyn0+qm3IeMxn0se/RbM3Ictk+dNK+RgkZCxkmv1u7o= # password is pk (2)
 
 - model: user.User
   pk: 3
@@ -23,7 +23,7 @@
     first_name: Рамси
     last_name: Болтон
     email: ramsi.bolton@gmail.com
-    password: pbkdf2_sha256$260000$fSjrEa20auY55hR1Fj13xi$XdNO1Lh+zkHr4BgXgsAqmrJe+90iJup6h1KRdIZO0Wo= # password is pk 3
+    password: pbkdf2_sha256$260000$fSjrEa20auY55hR1Fj13xi$XdNO1Lh+zkHr4BgXgsAqmrJe+90iJup6h1KRdIZO0Wo= # password is pk (3)
 
 - model: user.User
   pk: 4
@@ -32,16 +32,15 @@
     first_name: Арья
     last_name: Старк
     email: aria.stark@winterhold.io
-    password: pbkdf2_sha256$260000$ud77Nyn2rSLrnOBFiGam9y$XIRH25uDWMGOPNsyS1lkGh2IMp93Hjg+vBObpoBNluQ= # password is pk 4
+    password: pbkdf2_sha256$260000$ud77Nyn2rSLrnOBFiGam9y$XIRH25uDWMGOPNsyS1lkGh2IMp93Hjg+vBObpoBNluQ= # password is pk (4)
 
 - model: user.User
   pk: 5
   fields:
     username: Cheburaka
     first_name: Варис
-    last_name: /
     email: varis007@master.tv
-    password: pbkdf2_sha256$260000$kBnk72ntIfxLwUQN1kefLz$ayg4sOn69DGQgYRYi0cAHDFgVFBdlK4s3/gSkVdNFcg= # password is pk 5
+    password: pbkdf2_sha256$260000$kBnk72ntIfxLwUQN1kefLz$ayg4sOn69DGQgYRYi0cAHDFgVFBdlK4s3/gSkVdNFcg= # password is pk (5)
 
 - model: user.User
   pk: 6
@@ -50,7 +49,7 @@
     first_name: Серсея
     last_name: Ланистер
     email: serseya.lannister@vesteross.it
-    password: pbkdf2_sha256$260000$X9wjIAjOzJ7pmmmyTDpuPl$aj1fZMtEz9mg8fr6cxCbasVhgyS7/vWP1nUMHt++Gz4= # password is pk 6
+    password: pbkdf2_sha256$260000$X9wjIAjOzJ7pmmmyTDpuPl$aj1fZMtEz9mg8fr6cxCbasVhgyS7/vWP1nUMHt++Gz4= # password is pk (6)
 
 - model: user.User
   pk: 7
@@ -59,7 +58,7 @@
     first_name: Джейме
     last_name: Ланнистер
     email: djeime.lannister@vesteross.it
-    password: pbkdf2_sha256$260000$d3CEcMnAB5Gc1FrC0thW7w$kHsBrxbgvpqoyXMvAVvx1Mc8MSqu/z/waAMZwfCNC2g= # password is pk 7
+    password: pbkdf2_sha256$260000$d3CEcMnAB5Gc1FrC0thW7w$kHsBrxbgvpqoyXMvAVvx1Mc8MSqu/z/waAMZwfCNC2g= # password is pk (7)
 
 - model: user.User
   pk: 8
@@ -68,7 +67,7 @@
     first_name: Теон
     last_name: Грейджой
     email: teon.greyjoy@enjoy.com
-    password: pbkdf2_sha256$260000$m98MaDxr3TqYJb178apr6T$Nq3hFT6NgoSS1jwfCoJfFYygBabqOnjfUxKZSnbBXkU= # password is pk 8
+    password: pbkdf2_sha256$260000$m98MaDxr3TqYJb178apr6T$Nq3hFT6NgoSS1jwfCoJfFYygBabqOnjfUxKZSnbBXkU= # password is pk (8)
 
 - model: user.User
   pk: 9
@@ -77,7 +76,7 @@
     first_name: Кейтлин
     last_name: Старк
     email: keitlin.stark@winterhold.io
-    password: pbkdf2_sha256$260000$9Swa62YRDc1i03g2wutPUg$QLUz40dHDKWPUwmqROL9CKNAEWRSpWh1q5KLDnK9V3A= # password is pk 9
+    password: pbkdf2_sha256$260000$9Swa62YRDc1i03g2wutPUg$QLUz40dHDKWPUwmqROL9CKNAEWRSpWh1q5KLDnK9V3A= # password is pk (9)
 
 - model: user.User
   pk: 10
@@ -86,4 +85,11 @@
     first_name: Станис
     last_name: Баратеон
     email: stanis.barateon@barandco.ca
-    password: pbkdf2_sha256$260000$GoGvWxYza4xfo4dkne4Add$Wc8EKQi/Yox21AuY6G6+QvsLgG9vLECyJdUBKt7lYdg= # password is pk 10
+    password: pbkdf2_sha256$260000$GoGvWxYza4xfo4dkne4Add$Wc8EKQi/Yox21AuY6G6+QvsLgG9vLECyJdUBKt7lYdg= # password is pk (10)
+
+- model: user.User
+  pk: 11
+  fields:
+    username: mnogo_m
+    email: mnogo_m@email.com
+    password: pbkdf2_sha256$260000$Zo7t9a8MiEbEZdThbvYaF9$qtXOjTUgURHKaTq9+cBOE12xgZhhxaOoVqSUZFsUmsA= # password is pk (11)

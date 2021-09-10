@@ -19,7 +19,7 @@
     <div class="card shadow">
         <div class="card-header">
             {% translate 'Task' %} # {{ task.pk }}
-            <a href="#" onclick="history.go(-1);"><small>go back</small></a>
+            <a href="#" onclick="history.go(-1);"><small>{% translate 'Back' %}</small></a>
             <a class="btn btn-sm btn-outline-primary float-right mx-1" href="{% url 'update_task' task.pk %}">
                 {% translate 'Update' %}
             </a>
@@ -32,7 +32,10 @@
                 {{ task.name }}
             </h5>
             <h6 class="card-subtitle mb-2 text-muted">
-                {{ task.status }}
+                {% translate 'Status' %}:
+                <a class="badge badge-success" href="{% url 'tasks' %}?status={{ task.status_id }}">
+                    {{ task.status }}
+                </a>
             </h6>
             <p class="card-text">
                 {{ task.description }}

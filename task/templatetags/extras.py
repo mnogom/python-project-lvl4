@@ -2,6 +2,7 @@ from django import template
 from django.utils.safestring import mark_safe
 
 register = template.Library()
+
 TEMPLATE = """<span class="badge badge-Light">
     <label for="{input_id}">{label_name}</label>
     {input}

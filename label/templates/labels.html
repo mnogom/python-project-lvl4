@@ -43,7 +43,7 @@
                                     <a href="{% url 'tasks' %}?label={{ cur_label.pk }}" class="badge badge-primary">{{ cur_label.name }}</a>
                                 </td>
                                 <td class="align-middle">{{ cur_label.created_at|date:'d b Y' }}</td>
-                                <td class="border-bottom-0 py-1">
+                                <td class="border-bottom-0">
                                     <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_label' cur_label.pk %}">
                                         {% translate 'Update' %}
                                     </a>
