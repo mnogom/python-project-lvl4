@@ -22,7 +22,7 @@ msgstr ""
 
 #: task/filters.py:18
 msgid "Only my tasks"
-msgstr "Только мои задачи"
+msgstr "Только свои задачи"
 
 #: task/mixins.py:16
 msgid "Only author can delete task"

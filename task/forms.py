@@ -22,7 +22,6 @@ class TaskForm(ModelForm):
                   'executor',
                   'labels',)
 
-
     def set_author(self, author_pk):
         self.instance.author_id = author_pk
 
