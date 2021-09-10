@@ -26,7 +26,14 @@
             </h3>
 
             <form method="get">
-                <div>{{ filter.form }}</div>
+{#                <div>{{ filter.form.label }}</div>#}
+{#              TODO: [fix] look at labels. Something wrong. #}
+                {% for filter in filter.form %}
+                    <div>
+                        <label for="{{ filter.field.widget.attrs.id }}">{{ filter.label }}</label>
+                        {{ filter }}
+                    </div>
+                {% endfor %}
                 <br>
                 <input type="submit" class="btn btn-sm btn-primary" value="{% translate 'Show' %}"/>
                 <a href="{% url 'tasks' %}" class="btn btn-sm btn-outline-primary">{% translate 'Reset' %}</a>
