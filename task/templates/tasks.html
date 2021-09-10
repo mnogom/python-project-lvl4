@@ -26,17 +26,15 @@
             </h3>
 
             <form method="get">
-{#                <div>{{ filter.form.label }}</div>#}
-{#              TODO: [fix] look at labels. Something wrong. #}
-                {% for filter in filter.form %}
-                    <div>
-                        <label for="{{ filter.field.widget.attrs.id }}">{{ filter.label }}</label>
-                        {{ filter }}
-                    </div>
-                {% endfor %}
-                <br>
-                <input type="submit" class="btn btn-sm btn-primary" value="{% translate 'Show' %}"/>
-                <a href="{% url 'tasks' %}" class="btn btn-sm btn-outline-primary">{% translate 'Reset' %}</a>
+{#              TODO: [fixed?] look at labels. Something wrong. #}
+                {% load extras %}
+                <div>
+                    {% for filter in filter.form %}
+                        {{ filter|change_format }}
+                    {% endfor %}
+                </div>
+                <input type="submit" class="btn btn-sm btn-primary mt-2" value="{% translate 'Show' %}"/>
+                <a href="{% url 'tasks' %}" class="btn btn-sm btn-outline-primary mt-2">{% translate 'Reset' %}</a>
             </form>
 
             <div class="table-responsive">
