@@ -40,8 +40,8 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{% translate 'Labels' %}:
-                {% for cur_label in task.labels.all %}
-                    <span class="badge badge-primary">{{ cur_label }}</span>
+                {% for cur_label in task.labels.all %} {# TODO: [fix] make block for label #}
+                    <a href="{% url 'tasks' %}?label={{ cur_label.pk }}" class="badge badge-primary">{{ cur_label.name }}</a>
                 {% endfor %}
             </li>
             <li class="list-group-item">{% translate 'Executor' %}: <a href="{% url 'user' task.executor_id %}">{{ task.executor }}</a></li>
