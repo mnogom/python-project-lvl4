@@ -7,23 +7,7 @@ from django.forms.models import model_to_dict
 from .views import ListLabelView
 from .models import Label
 
-
-def _create_user_and_login(obj):
-    username = 'User'
-    email = 'user@example.com'
-    password = 'Password'
-    obj.client.post(
-        reverse_lazy('create_user'),
-        data={'username': username,
-              'email': email,
-              'password1': password,
-              'password2': password}
-    )
-    obj.client.post(
-        reverse_lazy('login'),
-        data={'username': username,
-              'password': password}
-    )
+from user.tests import create_user_and_login
 
 
 class LabelAuthCase(TestCase):
@@ -37,7 +21,7 @@ class LabelAuthCase(TestCase):
         self.assertGreater(response.status_code, 200)
 
     def test_auth_access(self):
-        _create_user_and_login(self)
+        create_user_and_login(self)
         response = self.client.get(reverse_lazy('labels'))
         self.assertQuerysetEqual(
             response.context['object_list'].order_by('pk'),
@@ -52,7 +36,7 @@ class LabelAuthCase(TestCase):
 class LabelCreateCase(TestCase):
     def setUp(self):
         self.client = Client()
-        _create_user_and_login(self)
+        create_user_and_login(self)
 
         self.valid_full_data = {'name': 'label name'}
         self.not_valid_data = {'name': ''}
@@ -72,15 +56,14 @@ class LabelCreateCase(TestCase):
         self.assertDictEqual(model_to_dict(Label.objects.last(),
                                            exclude='id'),
                              self.valid_full_data)
+        self.assertEqual(response.redirect_chain[-1][0],
+                         reverse_lazy('labels'))
 
     def test_create_not_valid_label(self):
         self.client.post(
             reverse_lazy('create_label'),
             follow=True,
             data=self.not_valid_data
-        )
-        self.client.get(
-            reverse_lazy('labels')
         )
         self.assertEqual(
             len(Label.objects.all()),
@@ -104,25 +87,30 @@ class LabelCreateCase(TestCase):
 class LabelDeleteCase(TestCase):
     def setUp(self):
         self.client = Client()
-        _create_user_and_login(self)
+        create_user_and_login(self)
         self.client.post(
             reverse_lazy('create_label'),
             data={'name': 'label name',
                   'description': 'label description'}
         )
+        self.success_message = 'Метка успешно удалена'
 
     def test_delete_label(self):
         self.assertEqual(
             len(Label.objects.all()),
             1
         )
-        self.client.post(
+        response = self.client.post(
             reverse_lazy('delete_label', kwargs={'pk': 1}),
             follow=True
         )
         self.assertEqual(
             len(Label.objects.all()),
             0
+        )
+        self.assertEqual(
+            response.context['messages']._loaded_data[-1].message,
+            self.success_message
         )
 
 
@@ -133,7 +121,7 @@ class LabelEditCase(TestCase):
         self.updated_name = 'updated name'
 
         self.client = Client()
-        _create_user_and_login(self)
+        create_user_and_login(self)
 
         for name in [self.name_1, self.name_2]:
             self.client.post(

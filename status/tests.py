@@ -7,23 +7,7 @@ from django.forms.models import model_to_dict
 from .views import ListStatusView
 from .models import Status
 
-
-def _create_user_and_login(obj):
-    username = 'User'
-    email = 'user@example.com'
-    password = 'Password'
-    obj.client.post(
-        reverse_lazy('create_user'),
-        data={'username': username,
-              'email': email,
-              'password1': password,
-              'password2': password}
-    )
-    obj.client.post(
-        reverse_lazy('login'),
-        data={'username': username,
-              'password': password}
-    )
+from user.tests import create_user_and_login
 
 
 class StatusAuthCase(TestCase):
@@ -37,7 +21,7 @@ class StatusAuthCase(TestCase):
         self.assertGreater(response.status_code, 200)
 
     def test_auth_access(self):
-        _create_user_and_login(self)
+        create_user_and_login(self)
         response = self.client.get(reverse_lazy('statuses'))
         self.assertQuerysetEqual(
             response.context['object_list'].order_by('pk'),
@@ -52,7 +36,7 @@ class StatusAuthCase(TestCase):
 class StatusCreateCase(TestCase):
     def setUp(self):
         self.client = Client()
-        _create_user_and_login(self)
+        create_user_and_login(self)
 
         status_name = 'status name'
         status_description = 'status description'
@@ -77,6 +61,8 @@ class StatusCreateCase(TestCase):
         self.assertDictEqual(model_to_dict(Status.objects.last(),
                                            exclude='id'),
                              self.valid_full_data)
+        self.assertEqual(response.redirect_chain[-1][0],
+                         reverse_lazy('statuses'))
 
     def test_create_part_data_status(self):
         response = self.client.post(
@@ -101,9 +87,6 @@ class StatusCreateCase(TestCase):
             follow=True,
             data=self.not_valid_data
         )
-        self.client.get(
-            reverse_lazy('statuses')
-        )
         self.assertEqual(
             len(Status.objects.all()),
             0
@@ -126,25 +109,30 @@ class StatusCreateCase(TestCase):
 class StatusDeleteCase(TestCase):
     def setUp(self):
         self.client = Client()
-        _create_user_and_login(self)
+        create_user_and_login(self)
         self.client.post(
             reverse_lazy('create_status'),
             data={'name': 'status name',
                   'description': 'status description'}
         )
+        self.success_message = 'Статус успешно удалён'
 
     def test_delete_status(self):
         self.assertEqual(
             len(Status.objects.all()),
             1
         )
-        self.client.post(
+        response = self.client.post(
             reverse_lazy('delete_status', kwargs={'pk': 1}),
             follow=True
         )
         self.assertEqual(
             len(Status.objects.all()),
             0
+        )
+        self.assertEqual(
+            response.context['messages']._loaded_data[-1].message,
+            self.success_message
         )
 
 
@@ -155,7 +143,7 @@ class StatusEditCase(TestCase):
         self.updated_name = 'updated name'
 
         self.client = Client()
-        _create_user_and_login(self)
+        create_user_and_login(self)
 
         for name in [self.name_1, self.name_2]:
             self.client.post(
