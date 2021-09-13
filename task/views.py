@@ -54,7 +54,8 @@ class UpdateTaskView(SuccessMessageMixin,
     success_url = reverse_lazy('tasks')
     success_message = _('Task was updated')
 
-    def form_valid(self, form):  # TODO: make way to add author easier
+    def form_valid(self, form):
+        # TODO: make way to add author easier
         form.set_author(self.request.user.pk)
         return super().form_valid(form)
 
