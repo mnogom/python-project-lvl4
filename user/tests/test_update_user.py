@@ -10,7 +10,7 @@ from task_manager.tests.utils import (create_user,
 from user.models import User
 
 
-class EditUser(TestCase):
+class UpdateUser(TestCase):
     def setUp(self):
         self.client = Client()
         self.users = [{'username': 'Ana',
@@ -39,7 +39,7 @@ class EditUser(TestCase):
             'password_doesnt_math': 'password2:Пароли не совпадают',
         }
 
-    def test_edit_user(self):
+    def test_update_user(self):
         response = self.client.post(reverse_lazy('update_user',
                                                  kwargs={'pk': 1}),
                                     data=self.updated_user,
@@ -63,7 +63,7 @@ class EditUser(TestCase):
             ]
         )
 
-    def test_edit_another_user(self):
+    def test_update_another_user(self):
         response = self.client.post(reverse_lazy('update_user',
                                                  kwargs={'pk': 2}),
                                     data=self.updated_user,
@@ -87,7 +87,7 @@ class EditUser(TestCase):
             ]
         )
 
-    def test_edit_user_to_not_unique(self):
+    def test_update_user_to_not_unique(self):
         updated_user = {'username': 'Pharah',
                         'password1': '123',
                         'password2': '123'}
@@ -113,7 +113,7 @@ class EditUser(TestCase):
             ]
         )
 
-    def test_edit_user_data_not_full_for_update(self):
+    def test_update_user_if_data_not_full(self):
         updated_user = {'password1': '123',
                         'password2': '123'}
         response = self.client.post(reverse_lazy('update_user',
@@ -146,7 +146,7 @@ class EditUser(TestCase):
             ]
         )
 
-    def test_if_passwords_doesnt_match(self):
+    def test_update_if_passwords_doesnt_match(self):
         updated_user = {'username': 'Zarya',
                         'password1': '123',
                         'password2': '321'}

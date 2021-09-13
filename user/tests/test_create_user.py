@@ -9,7 +9,7 @@ from task_manager.tests.utils import (create_user,
 from user.models import User
 
 
-class EditUser(TestCase):
+class CreateUser(TestCase):
     def setUp(self):
         self.client = Client()
 
@@ -50,6 +50,7 @@ class EditUser(TestCase):
                     created_user_from_db.last_name,
                     created_user_from_db.email,
                 ])
+            # Check if password is secure
             self.assertNotEqual(user['password'],
                                 created_user_from_db.password)
             self.assertEqual(get_last_message(response=response),
@@ -67,7 +68,7 @@ class EditUser(TestCase):
         self.assertIn(self.fields_errors['username_not_unique'],
                       get_form_errors(response))
 
-    def test_user_data_not_full_for_create(self):
+    def test_create_if_user_data_not_full(self):
         user = {'first_name': 'First',
                 'password': 'password'}
         response = create_user(client=self.client,
@@ -87,7 +88,7 @@ class EditUser(TestCase):
         self.assertIn(self.fields_errors['password1_required'],
                       get_form_errors(response))
 
-    def test_if_passwords_doesnt_match(self):
+    def test_create_if_passwords_doesnt_match(self):
         user = {'username': 'Username',
                 'password1': 'password1',
                 'password2': 'password2'}

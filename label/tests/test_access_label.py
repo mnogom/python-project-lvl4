@@ -32,13 +32,11 @@ class LabelAccessCase(TestCase):
         self.assertEqual(response.resolver_match.func.__name__,
                          LoginUserView.as_view().__name__)
 
-
     def test_login_access(self):
         login_user(client=self.client,
                    **self.user)
         response = self.client.get(reverse_lazy('labels'),
                                    follow=True)
-        self.assertIsNotNone(response.context.get('object_list', None))
         self.assertQuerysetEqual(response.context['object_list'].order_by('pk'),
                                  Label.objects.all().order_by('pk'))
 
