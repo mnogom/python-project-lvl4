@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-09 16:25+0000\n"
+"POT-Creation-Date: 2021-09-13 23:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,7 @@ msgstr "Вы действительно хотите удалить метку "
 
 #: label/templates/delete_label.html:26
 msgid "After deletion, the label will not be subject to recovery."
-msgstr "После удаления метку будет невозможно восстановить."
+msgstr "После удаления метки будет невозможно восстановить."
 
 #: label/templates/delete_label.html:31
 #, fuzzy
@@ -90,11 +90,11 @@ msgstr "Создано"
 msgid "Actions"
 msgstr "Действия"
 
-#: label/templates/labels.html:46 label/templates/update_label.html:26
+#: label/templates/labels.html:48 label/templates/update_label.html:26
 msgid "Update"
 msgstr "Изменить"
 
-#: label/templates/labels.html:49 label/templates/update_label.html:27
+#: label/templates/labels.html:51 label/templates/update_label.html:27
 msgid "Delete"
 msgstr "Удалить"
 

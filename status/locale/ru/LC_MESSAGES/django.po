@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-09 16:25+0000\n"
+"POT-Creation-Date: 2021-09-13 23:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,11 +91,11 @@ msgstr "Создано"
 msgid "Actions"
 msgstr "Действия"
 
-#: status/templates/statuses.html:46 status/templates/update_status.html:26
+#: status/templates/statuses.html:50 status/templates/update_status.html:26
 msgid "Update"
 msgstr "Изменить"
 
-#: status/templates/statuses.html:49 status/templates/update_status.html:27
+#: status/templates/statuses.html:53 status/templates/update_status.html:27
 msgid "Delete"
 msgstr "Удалить"
 
@@ -117,7 +117,7 @@ msgstr "Статус успешно удалён"
 
 #: status/views.py:58
 msgid "Status in use. You can not delete it."
-msgstr "Статус используется. Вы не можете её удалить."
+msgstr "Статус используется. Вы не можете его удалить."
 
 #~ msgid "update"
 #~ msgstr "изменить"

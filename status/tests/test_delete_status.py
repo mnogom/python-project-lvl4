@@ -50,7 +50,7 @@ class DeleteProtectedStatus(TestCase):
         self.status_pk = 1
         self.status = Status.objects.get(pk=self.status_pk)
         self.messages = {
-            'protected_element': 'Статус используется. Вы не можете её удалить.'
+            'protected_element': 'Статус используется. Вы не можете его удалить.'
         }
 
     def test_delete_protected_status(self):

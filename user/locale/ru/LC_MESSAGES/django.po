@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-09 16:25+0000\n"
+"POT-Creation-Date: 2021-09-13 23:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,15 +128,15 @@ msgstr "Удалить"
 msgid "User"
 msgstr "Пользователь"
 
-#: user/templates/user.html:41
+#: user/templates/user.html:42
 msgid "Created tasks"
 msgstr "Созданные задачи"
 
-#: user/templates/user.html:51
+#: user/templates/user.html:55
 msgid "Executed tasks"
 msgstr "Исполняемые задачи"
 
-#: user/templates/user.html:63
+#: user/templates/user.html:69
 msgid "Joined at"
 msgstr "Зарегистрировался"
 

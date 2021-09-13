@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-09 16:25+0000\n"
+"POT-Creation-Date: 2021-09-13 23:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,13 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: task/filters.py:18
+#: task/filters.py:14
 msgid "Only my tasks"
 msgstr "Только свои задачи"
+
+#: task/filters.py:18
+msgid "Label"
+msgstr "Метка"
 
 #: task/mixins.py:16
 msgid "Only author can delete task"
@@ -56,7 +60,7 @@ msgstr "статус"
 msgid "labels"
 msgstr "метки"
 
-#: task/models.py:36
+#: task/models.py:37
 msgid "created at"
 msgstr "создано"
 
@@ -86,7 +90,7 @@ msgstr "После удаления задачу будет невозможно
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
-#: task/templates/delete_task.html:33
+#: task/templates/delete_task.html:33 task/templates/task.html:22
 msgid "Back"
 msgstr "Назад"
 
@@ -95,29 +99,33 @@ msgstr "Назад"
 msgid "Task"
 msgstr "Задача"
 
-#: task/templates/task.html:24 task/templates/tasks.html:65
+#: task/templates/task.html:24 task/templates/tasks.html:72
 #: task/templates/update_task.html:26
 msgid "Update"
 msgstr "Изменить"
 
-#: task/templates/task.html:27 task/templates/tasks.html:68
+#: task/templates/task.html:27 task/templates/tasks.html:75
 #: task/templates/update_task.html:27
 msgid "Delete"
 msgstr "Удалить"
 
-#: task/templates/task.html:42
+#: task/templates/task.html:35 task/templates/tasks.html:48
+msgid "Status"
+msgstr "Статус"
+
+#: task/templates/task.html:45
 msgid "Labels"
 msgstr "Метки"
 
-#: task/templates/task.html:47 task/templates/tasks.html:42
+#: task/templates/task.html:50 task/templates/tasks.html:47
 msgid "Executor"
 msgstr "Исполнитель"
 
-#: task/templates/task.html:48 task/templates/tasks.html:41
+#: task/templates/task.html:51 task/templates/tasks.html:46
 msgid "Author"
 msgstr "Автор"
 
-#: task/templates/task.html:52 task/templates/tasks.html:44
+#: task/templates/task.html:55 task/templates/tasks.html:49
 msgid "Created at"
 msgstr "Создано"
 
@@ -129,27 +137,23 @@ msgstr "Задачи"
 msgid "Create task"
 msgstr "Создать задачу"
 
-#: task/templates/tasks.html:31
+#: task/templates/tasks.html:36
 msgid "Show"
 msgstr "Показать"
 
-#: task/templates/tasks.html:32
+#: task/templates/tasks.html:37
 msgid "Reset"
 msgstr "Сбросить"
 
-#: task/templates/tasks.html:39
+#: task/templates/tasks.html:44
 msgid "ID"
 msgstr "ID"
 
-#: task/templates/tasks.html:40
+#: task/templates/tasks.html:45
 msgid "Name"
 msgstr "Название"
 
-#: task/templates/tasks.html:43
-msgid "Status"
-msgstr "Статус"
-
-#: task/templates/tasks.html:45
+#: task/templates/tasks.html:50
 msgid "Actions"
 msgstr "Действия"
 
@@ -165,11 +169,11 @@ msgstr "Задача успешно создана"
 msgid "Task was updated"
 msgstr "Задача успешно изменена"
 
-#: task/views.py:71
+#: task/views.py:72
 msgid "Task was deleted"
 msgstr "Задача успешно удалена"
 
-#: task/views.py:73
+#: task/views.py:74
 msgid "Task in use. You can not delete it."
 msgstr "Задача используется. Вы не можете её удалить."
 
