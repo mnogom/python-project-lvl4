@@ -2,8 +2,5 @@
 
 
 class TaskAuthorIsMissing(Exception):
-    pass
-
-
-class TaskDoesNotExist(Exception):
+    """Author is missing."""
     pass

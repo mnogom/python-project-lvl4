@@ -1,7 +1,6 @@
 """Views."""
 
 from django.urls import reverse_lazy
-from django.http import HttpResponseForbidden
 from django.views.generic import (DetailView,
                                   ListView,
                                   CreateView,
@@ -54,14 +53,13 @@ class UpdateUserView(SuccessMessageMixin,
     model = User
     form_class = UserForm
     template_name = 'update_user.html'
+    success_url = reverse_lazy('users')
     success_message = _('User profile was updated')
     permission_denied_message = _('You have no permission to edit users')
 
-    def get_success_url(self):
-        _ = super().get_success_url()
-        return reverse_lazy('users')
-
     def post(self, request, *args, **kwargs):
+        """Auto log in on success updating user."""
+
         response = super().post(request, *args, **kwargs)
         login_user(request)
         return response
@@ -100,12 +98,14 @@ class LogoutUserView(SuccessMessageMixin,
     """Logout view."""
 
     success_message = _('You are logged out')
+    http_method_names = ['POST', ]
 
     def dispatch(self, request, *args, **kwargs):
+        """Dispatch method."""
+
         if request.method == 'GET':
-            # TODO: [fix]
-            #  make error page
-            return HttpResponseForbidden('Unexpected method.')
+            # TODO: [fix] make error page
+            return super().http_method_not_allowed(request, *args, **kwargs)
         self.get_success_url()
         return super().dispatch(request, *args, **kwargs)
 

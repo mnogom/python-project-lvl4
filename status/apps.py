@@ -1,3 +1,5 @@
+"""Status config."""
+
 from django.apps import AppConfig
 
 

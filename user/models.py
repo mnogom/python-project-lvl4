@@ -34,7 +34,11 @@ class User(AbstractUser):
                                  'unique': _('A user with that email already exists.'), })
 
     def __str__(self):
+        """representation method."""
+
         return self.get_full_name() or f'@{self.username}'
 
     class Meta(AbstractUser.Meta):
+        """Meta class."""
+
         swappable = 'AUTH_USER_MODEL'

@@ -17,7 +17,7 @@ from .models import Status
 
 
 class ListStatusView(UserLoginRequiredMixin, ListView):
-    """List of users view."""
+    """List of statuses view."""
 
     model = Status
     template_name = 'statuses.html'
@@ -26,6 +26,7 @@ class ListStatusView(UserLoginRequiredMixin, ListView):
 class CreateStatusView(SuccessMessageMixin,
                        UserLoginRequiredMixin,
                        CreateView):
+    """Create status view."""
 
     model = Status
     form_class = StatusForm
@@ -37,6 +38,7 @@ class CreateStatusView(SuccessMessageMixin,
 class UpdateStatusView(SuccessMessageMixin,
                        UserLoginRequiredMixin,
                        UpdateView):
+    """Update status view."""
 
     model = Status
     form_class = StatusForm
@@ -49,6 +51,7 @@ class DeleteStatusView(UserLoginRequiredMixin,
                        RedirectOnProtectedMixin,
                        SuccessMessageMixin,
                        DeleteView):
+    """Delete status view"""
 
     model = Status
     template_name = 'delete_status.html'

@@ -25,7 +25,10 @@ get_logger(settings.DEBUG)
 
 
 def _parse_frame(frame, _id):
-    """Parse main information from string."""
+    """Parse main information from string.
+    :param frame: frame
+    :param _id": request-response id
+    """
 
     trace_string = ''
 

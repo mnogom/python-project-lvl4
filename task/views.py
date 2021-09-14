@@ -15,50 +15,45 @@ from django_filters.views import FilterView
 
 from .forms import TaskForm
 from .models import Task
-from .mixins import OnlyAuthorCanEditTaskMixin
+from .mixins import (OnlyAuthorCanEditTaskMixin,
+                     ValidateTaskMixin)
 from .filters import TaskFilter
 
 
 class ListTaskView(UserLoginRequiredMixin,
                    FilterView):
+    """List tasks filter view."""
 
     model = Task
     filterset_class = TaskFilter
     template_name = 'tasks.html'
 
-    def as_p(self, *args, **kwargs):
-        print(1)
-        return super().as_p(*args, **kwargs)
-
 
 class CreateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
+                     ValidateTaskMixin,
                      CreateView):
+    """Create task view."""
+
     model = Task
     form_class = TaskForm
     template_name = 'create_task.html'
     success_url = reverse_lazy('tasks')
     success_message = _('Task was created')
 
-    def form_valid(self, form):
-        form.set_author(self.request.user.pk)
-        return super().form_valid(form)
-
 
 class UpdateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
                      OnlyAuthorCanEditTaskMixin,
+                     ValidateTaskMixin,
                      UpdateView):
+    """Update task view."""
+
     model = Task
     form_class = TaskForm
     template_name = 'update_task.html'
     success_url = reverse_lazy('tasks')
     success_message = _('Task was updated')
-
-    def form_valid(self, form):
-        # TODO: make way to add author easier
-        form.set_author(self.request.user.pk)
-        return super().form_valid(form)
 
 
 class DeleteTaskView(SuccessMessageMixin,
@@ -66,6 +61,7 @@ class DeleteTaskView(SuccessMessageMixin,
                      RedirectOnProtectedMixin,
                      OnlyAuthorCanEditTaskMixin,
                      DeleteView):
+    """Delete task view."""
 
     model = Task
     template_name = 'delete_task.html'
@@ -77,5 +73,7 @@ class DeleteTaskView(SuccessMessageMixin,
 
 class TaskView(UserLoginRequiredMixin,
                DetailView):
+    """Task view."""
+
     template_name = 'task.html'
     model = Task

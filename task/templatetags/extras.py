@@ -1,3 +1,5 @@
+"""Extras."""
+
 from django import template
 from django.utils.safestring import mark_safe
 
@@ -11,6 +13,8 @@ TEMPLATE = """<span class="badge badge-Light">
 
 @register.filter(name='change_label_format')
 def change_label_format(value):
+    """Update label format in template."""
+
     output = TEMPLATE.format(label_name=value.label,
                              input_id=str(value.form.auto_id % value.html_name),
                              input=value)

@@ -8,10 +8,14 @@ from django.http import HttpResponseRedirect
 
 
 class SuccessMessageMixin:
+    """Mixin to add success message to response."""
+
     success_url = None
     success_message = None
 
     def get_success_url(self):
+        """get success url method."""
+
         if self.success_message:
             messages.add_message(request=self.request,
                                  message=self.success_message,
@@ -20,10 +24,14 @@ class SuccessMessageMixin:
 
 
 class RedirectOnProtectedMixin:
+    """Mixin to redirect if object is protected."""
+
     denied_url = None
     denied_message = None
 
     def delete(self, request, *args, **kwargs):
+        """Delete method."""
+
         self.object = self.get_object()
         try:
             self.object.delete()
