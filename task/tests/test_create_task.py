@@ -36,6 +36,7 @@ class CreateTask(TestCase):
 
     def test_create_valid_task(self):
         task_full = {'name': 'Task #1',
+                     'description': 'Some description',
                      'executor': self.executor_pk,
                      'status': self.status_pk,
                      'labels': self.labels_pk}
@@ -54,6 +55,7 @@ class CreateTask(TestCase):
             self.assertEqual(
                 [
                     task.get('name', ''),
+                    task.get('description', ''),
                     task.get('status', ''),
                     self.author.pk,
                     task.get('executor', ''),
@@ -61,6 +63,7 @@ class CreateTask(TestCase):
                 ],
                 [
                     created_task_from_db.name,
+                    created_task_from_db.description,
                     created_task_from_db.status.pk,
                     created_task_from_db.author.pk,
                     created_task_from_db.executor.pk,
