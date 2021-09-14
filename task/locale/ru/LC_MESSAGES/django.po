@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-13 23:35+0000\n"
+"POT-Creation-Date: 2021-09-14 10:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,8 +29,8 @@ msgid "Label"
 msgstr "Метка"
 
 #: task/mixins.py:16
-msgid "Only author can delete task"
-msgstr "Только автор может удалить задачу"
+msgid "Only author can edit task"
+msgstr "Только автор может изменить задачу"
 
 #: task/models.py:10
 msgid "name"
@@ -165,15 +165,15 @@ msgstr "Изменить задачу"
 msgid "Task was created"
 msgstr "Задача успешно создана"
 
-#: task/views.py:55
+#: task/views.py:56
 msgid "Task was updated"
 msgstr "Задача успешно изменена"
 
-#: task/views.py:72
+#: task/views.py:73
 msgid "Task was deleted"
 msgstr "Задача успешно удалена"
 
-#: task/views.py:74
+#: task/views.py:75
 msgid "Task in use. You can not delete it."
 msgstr "Задача используется. Вы не можете её удалить."
 

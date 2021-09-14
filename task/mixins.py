@@ -13,6 +13,6 @@ class OnlyAuthorCanEditTaskMixin:
             return super().dispatch(request, *args, **kwargs)
 
         messages.add_message(request=request,
-                             message=_('Only author can delete task'),
+                             message=_('Only author can edit task'),
                              level=messages.ERROR)
         return redirect(reverse_lazy('tasks'))
