@@ -22,22 +22,20 @@ lint:
 test:
 	poetry run python manage.py test
 
-
 coverage:
 	poetry run coverage run --source='.' manage.py test
-
 
 test-user:
 	poetry run python manage.py test user
 
-
 test-status:
 	poetry run python manage.py test status
-
 
 test-label:
 	poetry run python manage.py test label
 
+test-task:
+	poetry run python manage.py test task
 
 django-shell:
 	poetry run python manage.py shell
