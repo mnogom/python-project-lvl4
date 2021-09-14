@@ -8,10 +8,8 @@ migrate:
 	poetry run python manage.py migrate
 
 req:
+	poetry lock ; \
 	poetry export -f requirements.txt --output requriments.txt
-
-load-demo-data:
-	poetry run python manage.py loaddata */fixtures/*.yaml
 
 run:
 	poetry run python manage.py runserver
@@ -20,10 +18,10 @@ lint:
 	poetry run flake8
 
 test:
-	poetry run python manage.py test
+	poetry run coverage run --source '.' manage.py test
 
 coverage:
-	poetry run coverage run --source='.' manage.py test
+	poetry run coverage xml
 
 test-user:
 	poetry run python manage.py test user

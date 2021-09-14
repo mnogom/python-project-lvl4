@@ -1,0 +1,38 @@
+name: python-ci
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Setup dependencies
+        run: |
+          pip3 install poetry
+          mv .env_example .env
+          make install
+
+      - name: Tests
+        run: make test
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.DJANGO_SECRET }}
+
+      - name: Lint
+        run: make lint
+
+      - name: Upload coverage to Codecov
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make coverage
