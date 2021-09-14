@@ -1,4 +1,5 @@
-"""Tests."""
+"""Tests access statuses."""
+
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -12,9 +13,13 @@ from task_manager.tests.utils import (create_user,
 
 
 class StatusAccessCase(TestCase):
+    """Status access case."""
+
     fixtures = ['status/fixtures/statuses.yaml', ]
 
-    def setUp(self):
+    def setUp(self) -> None:
+        """Set up method"""
+
         self.user = {'username': 'User',
                      'password': 'Password'}
         self.client = Client()
@@ -24,7 +29,9 @@ class StatusAccessCase(TestCase):
             'login_required': 'Вам необходимо войти для этого действия'
         }
 
-    def test_not_login_access(self):
+    def test_not_login_access(self) -> None:
+        """Test access without user login."""
+
         response = self.client.get(reverse_lazy('statuses'),
                                    follow=True)
         self.assertEqual(get_last_message(response),
@@ -32,7 +39,9 @@ class StatusAccessCase(TestCase):
         self.assertEqual(response.resolver_match.func.__name__,
                          LoginUserView.as_view().__name__)
 
-    def test_login_access(self):
+    def test_login_access(self) -> None:
+        """Test access with user login."""
+
         login_user(client=self.client,
                    **self.user)
         response = self.client.get(reverse_lazy('statuses'),

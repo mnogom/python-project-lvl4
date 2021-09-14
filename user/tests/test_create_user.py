@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests create user."""
 
 from django.test import TestCase, Client
 
@@ -10,9 +10,12 @@ from user.models import User
 
 
 class CreateUser(TestCase):
-    def setUp(self):
-        self.client = Client()
+    """User create case."""
 
+    def setUp(self) -> None:
+        """Set up method."""
+
+        self.client = Client()
         self.messages = {
             'success': 'Пользователь успешно зарегистрирован',
         }
@@ -23,7 +26,9 @@ class CreateUser(TestCase):
             'password_doesnt_math': 'password2:Пароли не совпадают',
         }
 
-    def test_create_valid_user(self):
+    def test_create_valid_user(self) -> None:
+        """Test create user with valid fields."""
+
         user_full = {'username': 'Username-1',
                      'first_name': 'First-1',
                      'last_name': 'Last-1',
@@ -50,6 +55,7 @@ class CreateUser(TestCase):
                     created_user_from_db.last_name,
                     created_user_from_db.email,
                 ])
+
             # Check if password is secure
             self.assertNotEqual(user['password'],
                                 created_user_from_db.password)
@@ -57,7 +63,9 @@ class CreateUser(TestCase):
                              self.messages['success'])
         self.assertEqual(User.objects.count(), 2)
 
-    def test_create_not_unique_user(self):
+    def test_create_not_unique_user(self) -> None:
+        """Test create user with not unique fields."""
+
         user = {'username': 'Username',
                 'password': 'Password'}
         for _ in range(2):
@@ -68,7 +76,9 @@ class CreateUser(TestCase):
         self.assertIn(self.fields_errors['username_not_unique'],
                       get_form_errors(response))
 
-    def test_create_if_user_data_not_full(self):
+    def test_create_if_user_data_not_full(self) -> None:
+        """Test create user without required fields."""
+
         user = {'first_name': 'First',
                 'password': 'password'}
         response = create_user(client=self.client,
@@ -88,7 +98,9 @@ class CreateUser(TestCase):
         self.assertIn(self.fields_errors['password1_required'],
                       get_form_errors(response))
 
-    def test_create_if_passwords_doesnt_match(self):
+    def test_create_if_passwords_doesnt_match(self) -> None:
+        """Test create user if passwords doesn't match."""
+
         user = {'username': 'Username',
                 'password1': 'password1',
                 'password2': 'password2'}

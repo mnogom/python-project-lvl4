@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests delete task."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -13,12 +13,16 @@ from user.models import User
 
 
 class DeleteTask(TestCase):
+    """Task delete case."""
+
     fixtures = ['user/fixtures/users.yaml',
                 'status/fixtures/statuses.yaml',
                 'label/fixtures/labels.yaml',
                 'task/fixtures/two_tasks.yaml']
 
-    def setUp(self):
+    def setUp(self) -> None:
+        """Set up method"""
+
         self.client = Client()
         author = User.objects.get(pk=1)
         self.client.force_login(author)
@@ -31,7 +35,9 @@ class DeleteTask(TestCase):
             'access_denied': 'Только автор может изменить задачу',
         }
 
-    def test_delete_task(self):
+    def test_delete_task(self) -> None:
+        """Test delete task."""
+
         obj_counts_before = {'labels': Label.objects.count(),
                              'statuses': Status.objects.count(),
                              'users': User.objects.count()}
@@ -48,7 +54,9 @@ class DeleteTask(TestCase):
         self.assertEqual(obj_counts_before,
                          obj_counts_after)
 
-    def test_delete_task_of_another_user(self):
+    def test_delete_task_of_another_user(self) -> None:
+        """Test delete task where user not author."""
+
         response = self.client.post(reverse_lazy('delete_task',
                                                  kwargs={'pk': self.another_author_task.pk}),
                                     follow=True)

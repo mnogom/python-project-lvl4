@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests update task."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -11,7 +11,11 @@ from user.models import User
 
 
 class UpdateUser(TestCase):
-    def setUp(self):
+    """Update user case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         self.users = [{'username': 'Ana',
                        'password': 'PasswordForAna'},
@@ -39,7 +43,9 @@ class UpdateUser(TestCase):
             'password_doesnt_math': 'password2:Пароли не совпадают',
         }
 
-    def test_update_user(self):
+    def test_update_user(self) -> None:
+        """Test update user."""
+
         response = self.client.post(reverse_lazy('update_user',
                                                  kwargs={'pk': 1}),
                                     data=self.updated_user,
@@ -63,7 +69,9 @@ class UpdateUser(TestCase):
             ]
         )
 
-    def test_update_another_user(self):
+    def test_update_another_user(self) -> None:
+        """Test update another user."""
+
         response = self.client.post(reverse_lazy('update_user',
                                                  kwargs={'pk': 2}),
                                     data=self.updated_user,
@@ -87,7 +95,9 @@ class UpdateUser(TestCase):
             ]
         )
 
-    def test_update_user_to_not_unique(self):
+    def test_update_user_to_not_unique(self) -> None:
+        """Test update user with not unique fields."""
+
         updated_user = {'username': 'Pharah',
                         'password1': '123',
                         'password2': '123'}
@@ -113,7 +123,9 @@ class UpdateUser(TestCase):
             ]
         )
 
-    def test_update_user_if_data_not_full(self):
+    def test_update_user_if_data_not_full(self) -> None:
+        """Test update user without required fields."""
+
         updated_user = {'password1': '123',
                         'password2': '123'}
         response = self.client.post(reverse_lazy('update_user',
@@ -146,7 +158,9 @@ class UpdateUser(TestCase):
             ]
         )
 
-    def test_update_if_passwords_doesnt_match(self):
+    def test_update_if_passwords_doesnt_match(self) -> None:
+        """Test update user if passwords doesn't match."""
+
         updated_user = {'username': 'Zarya',
                         'password1': '123',
                         'password2': '321'}

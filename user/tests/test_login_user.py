@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests login user."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -10,7 +10,11 @@ from task_manager.tests.utils import (create_user,
 
 
 class LoginUser(TestCase):
-    def setUp(self):
+    """Login user case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         self.user = {'username': 'username',
                      'password': 'Password'}
@@ -25,7 +29,9 @@ class LoginUser(TestCase):
                             'быть чувствительны к регистру.',
         }
 
-    def test_valid_login(self):
+    def test_valid_login(self) -> None:
+        """Test login with valid information."""
+
         create_user(self.client,
                     user=self.user,
                     follow=False)
@@ -36,7 +42,9 @@ class LoginUser(TestCase):
         self.assertEqual(self.messages['success_login'],
                          get_last_message(response))
 
-    def test_invalid_login(self):
+    def test_invalid_login(self) -> None:
+        """Test login with not valid information."""
+
         response = login_user(self.client,
                               **self.user,
                               follow=True)
@@ -44,7 +52,9 @@ class LoginUser(TestCase):
         self.assertIn(self.fields_errors['invalid_data'],
                       get_form_errors(response))
 
-    def test_logout(self):
+    def test_logout(self) -> None:
+        """Test logout."""
+
         create_user(self.client,
                     user=self.user,
                     follow=False)

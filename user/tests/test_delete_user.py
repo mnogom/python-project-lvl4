@@ -1,4 +1,4 @@
-"""Tests."""
+"""User delete task."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -10,7 +10,11 @@ from user.models import User
 
 
 class DeleteUser(TestCase):
-    def setUp(self):
+    """User delete case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         user = {'username': 'User',
                 'password': 'qwerty'}
@@ -25,7 +29,9 @@ class DeleteUser(TestCase):
             'access_denied': 'У Вас нет прав удалять пользователей'
         }
 
-    def test_delete_user(self):
+    def test_delete_user(self) -> None:
+        """Test delete user."""
+
         response = self.client.post(reverse_lazy('delete_user',
                                                  kwargs={'pk': 1}),
                                     follow=True)
@@ -33,7 +39,9 @@ class DeleteUser(TestCase):
                          self.messages['success'])
         self.assertEqual(User.objects.count(), 0)
 
-    def test_delete_another_user(self):
+    def test_delete_another_user(self) -> None:
+        """Test delete another user."""
+
         user_2 = {'username': 'User_2',
                   'password': 'asdfgh'}
         create_user(client=self.client,
@@ -48,12 +56,16 @@ class DeleteUser(TestCase):
 
 
 class DeleteProtectedUser(TestCase):
+    """Delete protected user case."""
+
     fixtures = ['user/fixtures/users.yaml',
                 'status/fixtures/statuses.yaml',
                 'label/fixtures/labels.yaml',
                 'task/fixtures/tasks.yaml']
 
-    def setUp(self):
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         self.user_pk = 1
         self.user = User.objects.get(pk=self.user_pk)
@@ -62,7 +74,9 @@ class DeleteProtectedUser(TestCase):
             'protected_element': 'Пользователь используется. Вы не можете его удалить.'
         }
 
-    def test_delete_protected_user(self):
+    def test_delete_protected_user(self) -> None:
+        """Test delete protected user."""
+
         if self.user.author.count() == 0 and self.user.executor.count() == 0:
             raise IndexError(f'User with pk {self.user_pk} has not protection. '
                              f'Switch to pk to another.')

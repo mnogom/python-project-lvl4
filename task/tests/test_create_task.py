@@ -1,4 +1,5 @@
-"""Tests."""
+"""Tests create task."""
+
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -11,11 +12,15 @@ from user.models import User
 
 
 class CreateTask(TestCase):
+    """"""
+
     fixtures = ['user/fixtures/users.yaml',
                 'status/fixtures/statuses.yaml',
                 'label/fixtures/labels.yaml']
 
-    def setUp(self):
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.author = User.objects.get(pk=1)
         self.executor_pk = 2
         self.status_pk = 3
@@ -34,7 +39,9 @@ class CreateTask(TestCase):
             'status_required': 'status:Обязательное поле.',
         }
 
-    def test_create_valid_task(self):
+    def test_create_valid_task(self) -> None:
+        """Test create task with valid fields."""
+
         task_full = {'name': 'Task #1',
                      'description': 'Some description',
                      'executor': self.executor_pk,
@@ -74,7 +81,9 @@ class CreateTask(TestCase):
             )
         self.assertEqual(Task.objects.count(), 2)
 
-    def test_create_not_unique_task(self):
+    def test_create_not_unique_task(self) -> None:
+        """Test create task with not unique fields."""
+
         task = {'name': 'Task #2',
                 'executor': self.executor_pk,
                 'status': self.status_pk}
@@ -86,7 +95,9 @@ class CreateTask(TestCase):
         self.assertIn(self.fields_errors['name_not_unique'],
                       get_form_errors(response))
 
-    def test_create_if_task_data_not_full(self):
+    def test_create_if_task_data_not_full(self) -> None:
+        """Test create task without required fields."""
+
         task_without_name = {'executor': self.executor_pk,
                              'status': self.status_pk}
         response = self.client.post(reverse_lazy('create_task'),

@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests update task."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -11,12 +11,16 @@ from task.models import Task
 
 
 class UpdateTask(TestCase):
+    """Update task case."""
+
     fixtures = ['user/fixtures/users.yaml',
                 'status/fixtures/statuses.yaml',
                 'label/fixtures/labels.yaml',
                 'task/fixtures/two_tasks.yaml']
 
-    def setUp(self):
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         self.author = User.objects.get(pk=1)
         self.client.force_login(self.author)
@@ -41,7 +45,9 @@ class UpdateTask(TestCase):
             'executor_required': 'executor:Обязательное поле.',
         }
 
-    def test_update_task(self):
+    def test_update_task(self) -> None:
+        """Test update task."""
+
         response = self.client.post(reverse_lazy('update_task',
                                                  kwargs={'pk': self.task_to_update.pk}),
                                     data=self.updated_task,
@@ -63,7 +69,9 @@ class UpdateTask(TestCase):
              list(
                  self.task_to_update.labels.values_list('pk', flat=True))])
 
-    def test_update_task_of_another_user(self):
+    def test_update_task_of_another_user(self) -> None:
+        """Test update task where user not author."""
+
         response = self.client.post(reverse_lazy('update_task',
                                                  kwargs={'pk': self.task_with_another_author.pk}),
                                     data=self.updated_task,
@@ -71,7 +79,9 @@ class UpdateTask(TestCase):
         self.assertIn(self.fields_errors['editor_not_author'],
                       get_last_message(response))
 
-    def test_update_task_if_not_unique(self):
+    def test_update_task_if_not_unique(self) -> None:
+        """Test update task with not unique fields."""
+
         response = self.client.post(reverse_lazy('update_task',
                                                  kwargs={'pk': self.task_to_update.pk}),
                                     data=self.exists_task,
@@ -79,7 +89,9 @@ class UpdateTask(TestCase):
         self.assertIn(self.fields_errors['task_name_not_unique'],
                       get_form_errors(response))
 
-    def test_update_if_task_not_full(self):
+    def test_update_if_task_not_full(self) -> None:
+        """Test update task without required fields."""
+
         updated_task = self.updated_task.copy()
         updated_task.pop('executor')
         response = self.client.post(reverse_lazy('update_task',

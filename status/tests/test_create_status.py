@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests create status."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -12,7 +12,11 @@ from status.models import Status
 
 
 class CreateStatus(TestCase):
-    def setUp(self):
+    """Status create case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         user = {'username': 'User',
                 'password': 'Pass'}
@@ -31,7 +35,9 @@ class CreateStatus(TestCase):
             'name_not_unique': 'name:Status с таким Имя уже существует.',
         }
 
-    def test_create_valid_status(self):
+    def test_create_valid_status(self) -> None:
+        """Test create label with valid fields."""
+
         status = {'name': 'status name'}
         response = self.client.post(reverse_lazy('create_status'),
                                     data=status,
@@ -43,7 +49,9 @@ class CreateStatus(TestCase):
         self.assertEqual(get_last_message(response),
                          self.messages['success'])
 
-    def test_create_not_unique_status(self):
+    def test_create_not_unique_status(self) -> None:
+        """Test create status with not unique fields."""
+
         status = {'name': 'Status name'}
         for _ in range(2):
             response = self.client.post(reverse_lazy('create_status'),
@@ -53,7 +61,9 @@ class CreateStatus(TestCase):
         self.assertIn(self.fields_errors['name_not_unique'],
                       get_form_errors(response))
 
-    def test_create_status_if_data_not_full(self):
+    def test_create_status_if_data_not_full(self) -> None:
+        """Test create status without required fields."""
+
         status = {'name': ''}
         response = self.client.post(reverse_lazy('create_status'),
                                     data=status,

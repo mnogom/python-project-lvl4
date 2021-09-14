@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests update status."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -12,7 +12,11 @@ from status.models import Status
 
 
 class UpdateStatus(TestCase):
-    def setUp(self):
+    """Update status case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         user = {'username': 'User',
                 'password': 'Pass'}
@@ -39,7 +43,9 @@ class UpdateStatus(TestCase):
             'name_not_unique': 'name:Status с таким Имя уже существует.',
         }
 
-    def test_update_status(self):
+    def test_update_status(self) -> None:
+        """Test update status."""
+
         response = self.client.post(reverse_lazy('update_status',
                                                  kwargs={'pk': 1}),
                                     data=self.updated_status,
@@ -49,7 +55,9 @@ class UpdateStatus(TestCase):
         self.assertEqual(Status.objects.get(pk=1).name,
                          self.updated_status.get('name', None))
 
-    def test_update_status_to_not_unique(self):
+    def test_update_status_to_not_unique(self) -> None:
+        """Test update status with not unique fields."""
+
         response = self.client.post(reverse_lazy('update_status',
                                                  kwargs={'pk': 1}),
                                     data=self.status[1],
@@ -59,7 +67,9 @@ class UpdateStatus(TestCase):
         self.assertEqual(Status.objects.get(pk=1).name,
                          self.status[0].get('name', None))
 
-    def test_update_status_if_data_not_full(self):
+    def test_update_status_if_data_not_full(self) -> None:
+        """Test update status without required fields."""
+
         response = self.client.post(reverse_lazy('update_status',
                                                  kwargs={'pk': 1}),
                                     follow=True)

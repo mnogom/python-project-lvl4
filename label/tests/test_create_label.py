@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests create label."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -12,7 +12,11 @@ from label.models import Label
 
 
 class CreateLabel(TestCase):
-    def setUp(self):
+    """Label create case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         user = {'username': 'User',
                 'password': 'Pass'}
@@ -31,7 +35,9 @@ class CreateLabel(TestCase):
             'name_not_unique': 'name:Label с таким Имя уже существует.',
         }
 
-    def test_create_valid_label(self):
+    def test_create_valid_label(self) -> None:
+        """Test create label with valid fields."""
+
         label = {'name': 'label name'}
         response = self.client.post(reverse_lazy('create_label'),
                                     data=label,
@@ -43,7 +49,9 @@ class CreateLabel(TestCase):
         self.assertEqual(get_last_message(response),
                          self.messages['success'])
 
-    def test_create_not_unique_label(self):
+    def test_create_not_unique_label(self) -> None:
+        """Test create label with not unique fields."""
+
         label = {'name': 'Label name'}
         for _ in range(2):
             response = self.client.post(reverse_lazy('create_label'),
@@ -53,7 +61,9 @@ class CreateLabel(TestCase):
         self.assertIn(self.fields_errors['name_not_unique'],
                       get_form_errors(response))
 
-    def test_create_label_if_data_not_full(self):
+    def test_create_label_if_data_not_full(self) -> None:
+        """Test create label without required fields."""
+
         label = {'name': ''}
         response = self.client.post(reverse_lazy('create_label'),
                                     data=label,

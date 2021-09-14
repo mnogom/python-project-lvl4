@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests delete label."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -12,7 +12,11 @@ from user.models import User
 
 
 class DeleteLabel(TestCase):
-    def setUp(self):
+    """Label delete case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         user = {'username': 'User',
                 'password': 'qwerty'}
         create_user(client=self.client,
@@ -27,7 +31,9 @@ class DeleteLabel(TestCase):
         self.client.post(reverse_lazy('create_label'),
                          data={'name': 'Name'})
 
-    def test_delete_label(self):
+    def test_delete_label(self) -> None:
+        """Test delete label."""
+
         response = self.client.post(reverse_lazy('delete_label',
                                                  kwargs={'pk': 1}),
                                     follow=True)
@@ -37,12 +43,16 @@ class DeleteLabel(TestCase):
 
 
 class DeleteProtectedLabel(TestCase):
+    """Delete protected label case."""
+
     fixtures = ['user/fixtures/users.yaml',
                 'status/fixtures/statuses.yaml',
                 'label/fixtures/labels.yaml',
                 'task/fixtures/tasks.yaml']
 
-    def setUp(self):
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         self.user = User.objects.get(pk=1)
         self.client.force_login(self.user)
@@ -52,7 +62,9 @@ class DeleteProtectedLabel(TestCase):
             'protected_element': 'Метка используется. Вы не можете её удалить.'
         }
 
-    def test_delete_protected_label(self):
+    def test_delete_protected_label(self) -> None:
+        """Test delete protected label."""
+
         if self.label.task_set.count() == 0:
             raise IndexError(f'Label with pk {self.label_pk} has not protection. '
                              f'Switch to pk to another.')

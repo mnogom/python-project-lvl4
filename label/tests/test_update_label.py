@@ -1,4 +1,4 @@
-"""Tests."""
+"""Tests update label."""
 
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
@@ -12,7 +12,11 @@ from label.models import Label
 
 
 class UpdateLabel(TestCase):
-    def setUp(self):
+    """Update label case."""
+
+    def setUp(self) -> None:
+        """Set up method."""
+
         self.client = Client()
         user = {'username': 'User',
                 'password': 'Pass'}
@@ -39,7 +43,9 @@ class UpdateLabel(TestCase):
             'name_not_unique': 'name:Label с таким Имя уже существует.',
         }
 
-    def test_update_label(self):
+    def test_update_label(self) -> None:
+        """Test update label."""
+
         response = self.client.post(reverse_lazy('update_label',
                                                  kwargs={'pk': 1}),
                                     data=self.updated_label,
@@ -49,7 +55,9 @@ class UpdateLabel(TestCase):
         self.assertEqual(Label.objects.get(pk=1).name,
                          self.updated_label.get('name', None))
 
-    def test_update_label_to_not_unique(self):
+    def test_update_label_to_not_unique(self) -> None:
+        """Test update label with not unique fields."""
+
         response = self.client.post(reverse_lazy('update_label',
                                                  kwargs={'pk': 1}),
                                     data=self.labels[1],
@@ -59,7 +67,9 @@ class UpdateLabel(TestCase):
         self.assertEqual(Label.objects.get(pk=1).name,
                          self.labels[0].get('name', None))
 
-    def test_update_label_if_data_not_full(self):
+    def test_update_label_if_data_not_full(self) -> None:
+        """Test update label without required fields."""
+
         response = self.client.post(reverse_lazy('update_label',
                                                  kwargs={'pk': 1}),
                                     follow=True)
