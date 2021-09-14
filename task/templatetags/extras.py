@@ -9,8 +9,8 @@ TEMPLATE = """<span class="badge badge-Light">
 </span>"""
 
 
-@register.filter(name='change_format')
-def print_all(value):
+@register.filter(name='change_label_format')
+def change_label_format(value):
     output = TEMPLATE.format(label_name=value.label,
                              input_id=str(value.form.auto_id % value.html_name),
                              input=value)

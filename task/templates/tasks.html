@@ -30,7 +30,7 @@
                 {% load extras %}
                 <div>
                     {% for filter in filter.form %}
-                        {{ filter|change_format }}
+                        {{ filter|change_label_format }}
                     {% endfor %}
                 </div>
                 <input type="submit" class="btn btn-sm btn-primary mt-2" value="{% translate 'Show' %}"/>
