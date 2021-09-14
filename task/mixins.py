@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
 
-class OnlyAuthorCanDeleteMixin:
+class OnlyAuthorCanEditTaskMixin:
     def dispatch(self, request, *args, **kwargs):
         task = self.get_object()
         if task.author_id == int(self.request.user.pk):

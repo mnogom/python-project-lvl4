@@ -15,7 +15,7 @@ from django_filters.views import FilterView
 
 from .forms import TaskForm
 from .models import Task
-from .mixins import OnlyAuthorCanDeleteMixin
+from .mixins import OnlyAuthorCanEditTaskMixin
 from .filters import TaskFilter
 
 
@@ -47,6 +47,7 @@ class CreateTaskView(SuccessMessageMixin,
 
 class UpdateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
+                     OnlyAuthorCanEditTaskMixin,
                      UpdateView):
     model = Task
     form_class = TaskForm
@@ -63,7 +64,7 @@ class UpdateTaskView(SuccessMessageMixin,
 class DeleteTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
                      RedirectOnProtectedMixin,
-                     OnlyAuthorCanDeleteMixin,
+                     OnlyAuthorCanEditTaskMixin,
                      DeleteView):
 
     model = Task
