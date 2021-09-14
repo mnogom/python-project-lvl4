@@ -8,11 +8,10 @@ from user.models import User
 
 
 def get_filter_url(**kwargs) -> str:
-    """"""
-
     """Get filter url for 'tasks'.
+
     :param kwargs: key, value pair
-    :return: relative url with query params 
+    :return: relative url with query params
     """
 
     base_url = reverse_lazy('tasks')
