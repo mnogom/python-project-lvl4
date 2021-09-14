@@ -48,7 +48,9 @@ def _parse_frame(frame, _id):
                     for param in settings.REQUEST_PARAMS_TO_LOG:
                         trace_string += '\n' + SUB_STRING_TEMP.format(indent=' ' * 22,
                                                                       name=param,
-                                                                      value=getattr(value, param, None))
+                                                                      value=getattr(value,
+                                                                                    param,
+                                                                                    None))
                 else:
                     trace_string += '\n' + SUB_STRING_TEMP.format(indent=' ' * 18,
                                                                   name=key,
@@ -78,54 +80,3 @@ def trace_middleware(get_response):
         response['rr_id'] = rr_id
         return response
     return middleware
-
-
-
-
-# Георгий Рымаренко, [12 авг. 2021 г., 18:56:22]:
-# class RequestIdMiddleware(MiddlewareMixin):
-#     def process_request(self, request):
-#         request_id = request.headers.get('x-request-id', str(uuid.uuid4()))
-#         set_request_id(request_id)
-
-#     def process_response(self, request, response):
-#         del_request_id()
-#         return response
-
-# def set_request_id(request_id: Optional[str] = None):
-#     if not request_id:
-#         request_id = str(uuid.uuid4())
-#     setattr(_thread_locals, 'request_id', request_id) <--------- CHECK IT OUT
-
-
-# def del_request_id():
-#     setattr(_thread_locals, 'request_id', None)
-
-
-# def get_request_id():
-#     return getattr(_thread_locals, 'request_id', None)
-
-# import threading
-
-# _thread_locals = threading.local()
-
-# class CustomFormatter(logging.Formatter):
-#     def format(self, record: LogRecord) -> str:
-#         extra = {'user': get_current_user(), 'request_id': get_request_id()}
-#         for k, v in extra.items():
-#             setattr(record, k, v)
-#         return super().format(record)
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format': '%(asctime)s - [%(levelname)s] -  %(name)s - (%(filename)s).%(funcName)s:%(lineno)d - %(message)s'
-#         },
-#         'custom': {
-#             'format': '[{asctime}][{levelname}][{name}.{funcName}({filename}:{lineno})][{request_id}][{user}] - {message}',
-#             'class': 'common.logging.CustomFormatter',
-#             'style': '{',
-#         },
-#     },

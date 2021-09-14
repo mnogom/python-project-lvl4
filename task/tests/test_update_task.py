@@ -49,25 +49,19 @@ class UpdateTask(TestCase):
         self.assertEqual(get_last_message(response),
                          self.messages['success'])
         self.assertNotEqual(
-                [
-                    self.updated_task.get('name', ''),
-                    self.updated_task.get('description', ''),
-                    self.updated_task.get('status', ''),
-                    self.author.pk,
-                    self.updated_task.get('executor', ''),
-                    self.updated_task.get('labels', [])
-                ],
-                [
-                    self.task_to_update.name,
-                    self.task_to_update.description,
-                    self.task_to_update.status.pk,
-                    self.task_to_update.author.pk,
-                    self.task_to_update.executor.pk,
-                    list(
-                        self.task_to_update.labels.values_list('pk', flat=True)
-                    )
-                ]
-            )
+            [self.updated_task.get('name', ''),
+             self.updated_task.get('description', ''),
+             self.updated_task.get('status', ''),
+             self.author.pk,
+             self.updated_task.get('executor', ''),
+             self.updated_task.get('labels', [])],
+            [self.task_to_update.name,
+             self.task_to_update.description,
+             self.task_to_update.status.pk,
+             self.task_to_update.author.pk,
+             self.task_to_update.executor.pk,
+             list(
+                 self.task_to_update.labels.values_list('pk', flat=True))])
 
     def test_update_task_of_another_user(self):
         response = self.client.post(reverse_lazy('update_task',

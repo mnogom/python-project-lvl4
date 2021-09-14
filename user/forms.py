@@ -2,17 +2,22 @@
 
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
+from django import forms
 
 from .models import User
-from .fields import (password1_field,
-                     password2_field)
 
 
 class UserForm(ModelForm):
     """Create user form."""
 
-    password1 = password1_field
-    password2 = password2_field
+    password1 = forms.CharField(
+        label=_('Password'),
+        widget=forms.PasswordInput(
+            attrs={'placeholder': ''}))
+    password2 = forms.CharField(
+        label=_('Password confirmation'),
+        widget=forms.PasswordInput(
+            attrs={'placeholder': ''}))
 
     class Meta:
         """Meta class."""

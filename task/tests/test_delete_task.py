@@ -39,15 +39,14 @@ class DeleteTask(TestCase):
                                                  kwargs={'pk': self.author_task.pk}),
                                     follow=True)
         obj_counts_after = {'labels': Label.objects.count(),
-                             'statuses': Status.objects.count(),
-                             'users': User.objects.count()}
+                            'statuses': Status.objects.count(),
+                            'users': User.objects.count()}
 
         self.assertEqual(get_last_message(response),
                          self.messages['success'])
         self.assertEqual(Task.objects.count(), 1)
         self.assertEqual(obj_counts_before,
                          obj_counts_after)
-
 
     def test_delete_task_of_another_user(self):
         response = self.client.post(reverse_lazy('delete_task',

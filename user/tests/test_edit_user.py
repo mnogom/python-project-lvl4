@@ -9,6 +9,7 @@ from task_manager.tests.utils import (create_user,
                                       get_last_message)
 from user.models import User
 
+
 class EditUser(TestCase):
     def setUp(self):
         self.client = Client()
@@ -86,8 +87,8 @@ class EditUser(TestCase):
 
     def test_edit_user_to_not_unique(self):
         updated_user = {'username': 'Pharah',
-                       'password1': '123',
-                       'password2': '123'}
+                        'password1': '123',
+                        'password2': '123'}
         response = self.client.post(reverse_lazy('update_user',
                                                  kwargs={'pk': 1}),
                                     data=updated_user)
@@ -111,7 +112,7 @@ class EditUser(TestCase):
 
     def test_edit_user_data_not_full_for_update(self):
         updated_user = {'password1': '123',
-                       'password2': '123'}
+                        'password2': '123'}
         response = self.client.post(reverse_lazy('update_user',
                                                  kwargs={'pk': 1}),
                                     data=updated_user)
@@ -119,7 +120,7 @@ class EditUser(TestCase):
                       get_form_errors(response))
 
         updated_user = {'username': 'Zarya',
-                       'password2': '123'}
+                        'password2': '123'}
         response = self.client.post(reverse_lazy('update_user',
                                                  kwargs={'pk': 1}),
                                     data=updated_user)

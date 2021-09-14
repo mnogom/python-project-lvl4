@@ -13,8 +13,7 @@ class Task(models.Model):
                             null=False,
                             unique=True,
                             error_messages={
-                                'unique': _('A task with that name already exists')
-                            })
+                                'unique': _('A task with that name already exists')})
     description = models.TextField(verbose_name=_('description'),
                                    blank=True,
                                    null=False)

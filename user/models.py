@@ -22,8 +22,7 @@ class User(AbstractUser):
                                 help_text=_('Your username must be unique'),
                                 validators=[username_validator],
                                 error_messages={
-                                    'unique': _('A user with that username already exists.'),
-                                })
+                                    'unique': _('A user with that username already exists.'), })
     email = models.CharField(verbose_name=_('email'),
                              max_length=150,
                              blank=True,
@@ -32,8 +31,7 @@ class User(AbstractUser):
                              help_text=_('Your email must exists and be unique.'),
                              validators=[email_validator],
                              error_messages={
-                                 'unique': _('A user with that email already exists.'),
-                             })
+                                 'unique': _('A user with that email already exists.'), })
 
     def __str__(self):
         return self.get_full_name() or f'@{self.username}'
