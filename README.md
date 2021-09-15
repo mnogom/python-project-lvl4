@@ -14,3 +14,9 @@
 * SECRET_KEY: some-secret-key
 
 попробовать поставить в .env
+
+```sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
