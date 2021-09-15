@@ -15,6 +15,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 from django.urls import reverse_lazy
+import rollbar
 
 # Load .env
 load_dotenv()
@@ -30,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('ENV', 'Production') == 'Development'
+DEBUG = os.getenv('ENV', 'production') == 'development'
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
     # 'task_manager.middleware.trace_middleware.trace_middleware',
 ]
 
@@ -171,3 +173,13 @@ REQUEST_PARAMS_TO_LOG = [
     'data',
     'GET',
 ]
+
+# Rollbar settings
+# https://app.rollbar.com/onboarding/install/django-default
+
+ROLLBAR = {
+    'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN', ''),
+    'environment': os.getenv('ENV', 'production'),
+    'root': BASE_DIR,
+}
+rollbar.init(**ROLLBAR)
