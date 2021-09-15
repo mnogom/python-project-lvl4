@@ -187,8 +187,8 @@ python-versions = ">=3.5"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "3.9.7" # for hexlet-test add '^' to version for heroku - remove it
-content-hash = "0f1fe79d9564de2aee627f95ac3f771e5e5f27ba5fec90b9ca7a4e695c900982"
+python-versions = "3.9"
+content-hash = "20ed73a58fa2d1454c0bd3c64b55f5124d6db5b36d88f4a94ccbc411b5c1b5fb"
 
 [metadata.files]
 asgiref = [
