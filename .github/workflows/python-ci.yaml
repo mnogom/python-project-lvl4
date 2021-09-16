@@ -22,10 +22,13 @@ jobs:
           mv .env_example .env
           make install
 
+      - name: Check migrations
+        run: make check-migrations
+
       - name: Tests
         run: make test
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.DJANGO_SECRET }}
+          SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
 
       - name: Lint
         run: make lint

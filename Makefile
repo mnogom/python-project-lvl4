@@ -7,6 +7,9 @@ migrations:
 migrate:
 	poetry run python manage.py migrate
 
+check-migrations:
+	poetry run python manage.py migrate --fake
+
 req:
 	poetry lock ; \
 	poetry export -f requirements.txt --output requriments.txt
@@ -22,18 +25,6 @@ test:
 
 coverage:
 	poetry run coverage xml
-
-test-user:
-	poetry run python manage.py test user
-
-test-status:
-	poetry run python manage.py test status
-
-test-label:
-	poetry run python manage.py test label
-
-test-task:
-	poetry run python manage.py test task
 
 django-shell:
 	poetry run python manage.py shell
