@@ -1,5 +1,6 @@
 # Task Manager
 Create user, add statuses and labels. Be ready to create tasks
+> Demo: https://hidden-bayou-30395.herokuapp.com/
 
 ---
 ### Hexlet tests and linter status:
@@ -11,37 +12,24 @@ Create user, add statuses and labels. Be ready to create tasks
 ### Installation
 ```commandline
 % git clone https://github.com/mnogom/python-project-lvl4.git
-% virtualenv .venv
-% poetry install
-% mv .env_example .env # or create it by your self
-```
-
-#### ENV Setup
-* file `/.env`
-```commandline
-# Development settings
-SECRET_KEY='some-strong-secret-key'
-ENV='development'
-DATABASE_URL='postgres://...'
-ROLLBAR_ACCESS_TOKEN = 'rollbar-api-token'
-```
-* to deploying to heroku (with [heroku cli](https://devcenter.heroku.com/articles/heroku-cli))
-```commandline
-% heroku config:set DATABASE_URL=postgres://...
-% heroku config:set DISABLE_COLLECTSTATIC=0
-% heroku config:set DISABLE_POETRY_CREATE_RUNTIME_FILE=1
-% heroku config:set ENV=production
-% heroku config:set ROLLBAR_ACCESS_TOKEN=rollbar-api-token
-% heroku config:set SECRET_KEY=some-strong-secret-key
-```
-
-#### Migrate
-```commandline
+% cd python-project-lvl4
+% make install
 % make migrate
 ```
 
+[comment]: <> (* to deploying to heroku &#40;with [heroku cli]&#40;https://devcenter.heroku.com/articles/heroku-cli&#41;&#41;)
+[comment]: <> (```commandline)
+[comment]: <> (% heroku config:set DATABASE_URL=postgres://...)
+[comment]: <> (% heroku config:set DISABLE_COLLECTSTATIC=0)
+[comment]: <> (% heroku config:set DISABLE_POETRY_CREATE_RUNTIME_FILE=1)
+[comment]: <> (% heroku config:set ENV=production)
+[comment]: <> (% heroku config:set ROLLBAR_ACCESS_TOKEN=rollbar-api-token)
+[comment]: <> (% heroku config:set SECRET_KEY=some-strong-secret-key)
+[comment]: <> (% heroku config:set ALLOWED_HOSTS=hidden-bayou-30395.herokuapp.com)
+[comment]: <> (```)
+
 #### Tests
-To check if everythink ok:
+To check if everything ok:
 ```commandline
 % make test
 ```

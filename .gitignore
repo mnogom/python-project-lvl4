@@ -12,3 +12,4 @@ coverage.xml
 *.pyc
 db.sqlite3
 *.icloud
+static/

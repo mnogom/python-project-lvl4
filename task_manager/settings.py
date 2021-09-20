@@ -33,11 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('ENV', 'production') == 'development'
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.herokuapp.com'
-]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
 
 # Application definition
@@ -67,8 +63,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-    # 'task_manager.middleware.trace_middleware.trace_middleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE.append('task_manager.middleware.trace_middleware.trace_middleware')
 
 ROOT_URLCONF = 'task_manager.urls'
 
@@ -142,7 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'task_manager/static/'
+STATIC_ROOT = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -170,7 +168,7 @@ REQUEST_PARAMS_TO_LOG = [
     'path',
     'headers',
     'COOKIES',
-    'data',
+    'POST',
     'GET',
 ]
 

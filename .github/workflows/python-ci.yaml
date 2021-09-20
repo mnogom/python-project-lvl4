@@ -19,7 +19,6 @@ jobs:
       - name: Setup dependencies
         run: |
           pip3 install poetry
-          mv .env_example .env
           make install
 
       - name: Check migrations
