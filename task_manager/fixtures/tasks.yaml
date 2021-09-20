@@ -1,0 +1,241 @@
+- model: task.Task
+  pk: 1
+  fields:
+    name: Проверить создание задач
+    description: Создай, измени, удали... ну ты понял
+    status_id: 4
+    author_id: 6
+    executor_id: 8
+    labels: [6, 4, 7]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 2
+  fields:
+    name: Выдать ноутбук
+    status_id: 3
+    author_id: 3
+    executor_id: 5
+    labels: [7, 5, 6]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 3
+  fields:
+    name: Отдать машину
+    status_id: 3
+    author_id: 8
+    executor_id: 1
+    labels: [1, 2]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 4
+  fields:
+    name: Нарисовать камин
+    status_id: 2
+    author_id: 1
+    executor_id: 2
+    labels: [2, 5]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 5
+  fields:
+    name: Перепрыгнуть через голову
+    status_id: 4
+    author_id: 7
+    executor_id: 9
+    labels: [3, 3]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 6
+  fields:
+    name: Отомстить птицам
+    status_id: 3
+    author_id: 3
+    executor_id: 2
+    labels: [5, 3]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 7
+  fields:
+    name: Передать намериния
+    status_id: 2
+    author_id: 6
+    executor_id: 8
+    labels: [2]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 8
+  fields:
+    name: Переместить себя
+    status_id: 1
+    author_id: 9
+    executor_id: 9
+    labels: [6, 1, 7]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 9
+  fields:
+    name: Написать (ударение на 'A')
+    status_id: 5
+    author_id: 2
+    executor_id: 7
+    labels: [5, 5, 6]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 10
+  fields:
+    name: Перекрасить настрой
+    status_id: 6
+    author_id: 3
+    executor_id: 1
+    labels: [7, 5]
+    created_at: 2020-02-01
+
+- model: task.Task
+  pk: 11
+  fields:
+    name: Налить сок
+    status_id: 4
+    author_id: 9
+    executor_id: 5
+    labels: [7]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 12
+  fields:
+    name: Напечатать договог
+    status_id: 5
+    author_id: 4
+    executor_id: 9
+    labels: [6, 2, 3, 5]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 13
+  fields:
+    name: Выйти из автобуса
+    status_id: 1
+    author_id: 9
+    executor_id: 2
+    labels: [6, 2, 4, 1, 5]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 14
+  fields:
+    name: Пересечь пересечённую местность
+    status_id: 4
+    author_id: 7
+    executor_id: 7
+    labels: [6, 5, 7]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 15
+  fields:
+    name: Выявить предателя
+    status_id: 3
+    author_id: 1
+    executor_id: 5
+    labels: [3, 7]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 16
+  fields:
+    name: Настроить окружение
+    status_id: 6
+    author_id: 8
+    executor_id: 10
+    labels: [6, 2, 7, 3, 5]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 17
+  fields:
+    name: Посчитать но не рассчитывать
+    status_id: 6
+    author_id: 4
+    executor_id: 7
+    labels: [1, 7]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 18
+  fields:
+    name: Проанализировать ориентиры
+    status_id: 4
+    author_id: 5
+    executor_id: 4
+    labels: [2, 1, 5, 4]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 19
+  fields:
+    name: Построить группу
+    status_id: 4
+    author_id: 11
+    executor_id: 3
+    labels: [2, 5]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 20
+  fields:
+    name: Покрутить шар
+    status_id: 6
+    author_id: 8
+    executor_id: 9
+    labels: [6]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 21
+  fields:
+    name: Купить башню
+    status_id: 5
+    author_id: 8
+    executor_id: 6
+    labels: [2, 7]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 22
+  fields:
+    name: Отойти от дел
+    status_id: 1
+    author_id: 11
+    executor_id: 3
+    labels: [2, 4, 5]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 23
+  fields:
+    name: Собрать полынь
+    status_id: 4
+    author_id: 3
+    executor_id: 6
+    labels: [4, 7]
+    created_at: 2020-02-02
+
+- model: task.Task
+  pk: 24
+  fields:
+    name: Включить выключатель
+    status_id: 6
+    author_id: 1
+    executor_id: 11
+    labels: [3, 5, 7]
+    created_at: 2020-02-02
+

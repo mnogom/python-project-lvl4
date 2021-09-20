@@ -24,8 +24,8 @@ from .views import HomeView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='index'),
-    path('', include('user.urls')),
-    path('statuses/', include('status.urls')),
-    path('tasks/', include('task.urls')),
-    path('labels/', include('label.urls'))
+    path('', include('task_manager.apps.user.urls')),
+    path('statuses/', include('task_manager.apps.status.urls')),
+    path('tasks/', include('task_manager.apps.task.urls')),
+    path('labels/', include('task_manager.apps.label.urls'))
 ]
