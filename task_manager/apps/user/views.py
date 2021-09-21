@@ -85,7 +85,11 @@ class DeleteUserView(SuccessMessageMixin,
 class LoginUserView(SuccessMessageMixin,
                     UserLoginUnRequiredMixin,
                     LoginView):
-    """Login view."""
+    """Login view.
+
+    TODO: don't show 'applied status' at fields in form
+      when user input is not valid to login
+    """
 
     template_name = 'user/login_user.html'
     redirect_authenticated_user = True
