@@ -12,7 +12,7 @@
     <div class="card shadow">
         <div class="card-header">
             {% translate 'Task' %} # {{ task.pk }}
-            <a href="#" onclick="history.go(-1);"><small>{% translate 'Back' %}</small></a>
+            <button class="btn btn-sm btn-link p-0" onclick="history.go(-1);"><small>{% translate 'Back' %}</small></button>
             <a class="btn btn-sm btn-outline-primary float-right mx-1" href="{% url 'update_task' task.pk %}">
                 {% translate 'Update' %}
             </a>
