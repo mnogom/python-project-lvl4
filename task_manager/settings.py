@@ -142,10 +142,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # Login redirect
 # https://docs.djangoproject.com/en/3.2/topics/auth/default/
@@ -153,24 +155,18 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
+
 # Custom user
+
 AUTH_USER_MODEL = 'user.User'
 
 
 # TraceMiddleware setup
+
 APPS_TO_TRACE = [
     'task_manager',
-    'user',
 ]
 
-REQUEST_PARAMS_TO_LOG = [
-    'method',
-    'path',
-    'headers',
-    'COOKIES',
-    'POST',
-    'GET',
-]
 
 # Rollbar settings
 # https://app.rollbar.com/onboarding/install/django-default

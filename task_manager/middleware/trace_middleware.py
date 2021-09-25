@@ -9,18 +9,6 @@ from django.conf import settings
 
 from .logger import get_logger
 
-
-STRING_TEMP = ('\n'
-               '  ──> rr_id: {rr_id}\n'
-               '  ─────> frame {frame}\n'
-               '  ─────> from {back}\n'
-               '  ─────> call {call}\n'
-               '          └─> function: {function}\n'
-               '              └─> code line: {line}\n'
-               '              └─> stack size: {stack_size}\n'
-               '              └─> f_locals: ')
-
-SUB_STRING_TEMP = '{indent}└─> {name}: {value}'
 get_logger(settings.DEBUG)
 
 
@@ -31,41 +19,26 @@ def _parse_frame(frame, _id):
     """
 
     trace_string = ''
-
     filename = frame.f_code.co_filename
     if any(filename.find(app) != -1 for app in settings.APPS_TO_TRACE):
-        trace_string = STRING_TEMP.format(rr_id=_id,
-                                          frame=frame,
-                                          back=frame.f_back.f_code.co_filename,
-                                          call=frame.f_code.co_filename,
-                                          function=frame.f_code.co_name,
-                                          line=frame.f_lineno,
-                                          stack_size=frame.f_code.co_stacksize)
-
-        for key, value in frame.f_locals.items():
-            if not key.startswith('__') and key != 'self':
-                if isinstance(value, (WSGIRequest, )) and settings.REQUEST_PARAMS_TO_LOG:
-                    trace_string += '\n' + SUB_STRING_TEMP.format(indent=' ' * 18,
-                                                                  name=key,
-                                                                  value='')
-                    for param in settings.REQUEST_PARAMS_TO_LOG:
-                        trace_string += '\n' + SUB_STRING_TEMP.format(indent=' ' * 22,
-                                                                      name=param,
-                                                                      value=getattr(value,
-                                                                                    param,
-                                                                                    None))
-                else:
-                    trace_string += '\n' + SUB_STRING_TEMP.format(indent=' ' * 18,
-                                                                  name=key,
-                                                                  value=value)
-    return trace_string
+        print(frame.f_back.f_code.co_filename)
+        trace_string += f'\n -> rr_id: {_id}'
+        trace_string += f'\n -> filename: {frame.f_code.co_filename}'
+        trace_string += f'\n -> locals: {frame.f_locals}'
+        for name, obj in frame.f_locals.items():
+            if isinstance(obj, WSGIRequest):
+                if obj.GET:
+                    trace_string += f'\n --> GET: {obj.GET}'
+                if obj.POST:
+                    trace_string += f'\n --> POST: {obj.POST}'
+        trace_string += f'\n {"-" * 50}'
+        return trace_string
 
 
 def trace_middleware(get_response):
     """Trace middleware function."""
 
     def middleware(request):
-        logging.info('-' * 150)
         """Middleware inner function."""
 
         # Generate request-response id

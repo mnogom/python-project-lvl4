@@ -29,6 +29,9 @@ def get_logger(debug_mode: bool):
                                   "%(funcName)s"
                                   "(%(lineno)d) - %(message)s")
     handler.setFormatter(formatter)
+
+    if root.hasHandlers():
+        root.handlers.clear()
     root.addHandler(handler)
 
     return root
