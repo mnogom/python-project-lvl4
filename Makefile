@@ -13,7 +13,7 @@ check-migrations:
 
 req:
 	poetry lock ; \
-	poetry export -f requirements.txt --output requriments.txt
+	poetry export -f requirements.txt --output requirements.txt
 
 run:
 	poetry run python manage.py runserver
