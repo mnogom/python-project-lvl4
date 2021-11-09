@@ -26,7 +26,7 @@ class ListUsersView(ListView):
 
     model = User
     ordering = 'pk'
-    template_name = 'user/users.html'
+    template_name = 'user/list.html'
 
 
 class CreateUserView(SuccessMessageMixin,
@@ -40,7 +40,7 @@ class CreateUserView(SuccessMessageMixin,
 
     model = User
     form_class = UserForm
-    template_name = 'user/create_user.html'
+    template_name = 'user/create.html'
     success_url = reverse_lazy('login')
     success_message = _('User profile was successfully created')
 
@@ -53,7 +53,7 @@ class UpdateUserView(SuccessMessageMixin,
 
     model = User
     form_class = UserForm
-    template_name = 'user/update_user.html'
+    template_name = 'user/update.html'
     success_url = reverse_lazy('users')
     success_message = _('User profile was updated')
     permission_denied_message = _('You have no permission to edit users')
@@ -74,7 +74,7 @@ class DeleteUserView(SuccessMessageMixin,
     """Delete user view."""
 
     model = User
-    template_name = 'user/delete_user.html'
+    template_name = 'user/delete.html'
     success_message = _('User was deleted')
     permission_denied_message = _('You have no permission to delete users')
     success_url = reverse_lazy('users')
@@ -91,7 +91,7 @@ class LoginUserView(SuccessMessageMixin,
       when user input is not valid to login
     """
 
-    template_name = 'user/login_user.html'
+    template_name = 'user/login.html'
     redirect_authenticated_user = True
     success_url = reverse_lazy('index')
     success_message = _('You are logged in')
@@ -118,5 +118,5 @@ class LogoutUserView(SuccessMessageMixin,
 class UserView(UserLoginRequiredMixin, DetailView):
     """User view."""
 
-    template_name = 'user/user.html'
+    template_name = 'user/sample.html'
     model = User

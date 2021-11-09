@@ -21,7 +21,7 @@ class ListLabelView(UserLoginRequiredMixin,
 
     model = Label
     ordering = 'pk'
-    template_name = 'label/labels.html'
+    template_name = 'label/list.html'
 
 
 class CreateLabelView(SuccessMessageMixin,
@@ -31,7 +31,7 @@ class CreateLabelView(SuccessMessageMixin,
 
     model = Label
     form_class = LabelForm
-    template_name = 'label/create_label.html'
+    template_name = 'label/create.html'
     success_url = reverse_lazy('labels')
     success_message = _('Label was created')
 
@@ -43,7 +43,7 @@ class UpdateLabelView(SuccessMessageMixin,
 
     model = Label
     form_class = LabelForm
-    template_name = 'label/update_label.html'
+    template_name = 'label/update.html'
     success_url = reverse_lazy('labels')
     success_message = _('Label was updated')
 
@@ -55,7 +55,7 @@ class DeleteLabelView(SuccessMessageMixin,
     """Delete label view."""
 
     model = Label
-    template_name = 'label/delete_label.html'
+    template_name = 'label/delete.html'
     success_url = reverse_lazy('labels')
     success_message = _('Label was deleted')
     denied_url = reverse_lazy('labels')

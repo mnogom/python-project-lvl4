@@ -21,7 +21,7 @@ class ListStatusView(UserLoginRequiredMixin, ListView):
 
     model = Status
     ordering = 'pk'
-    template_name = 'status/statuses.html'
+    template_name = 'status/list.html'
 
 
 class CreateStatusView(SuccessMessageMixin,
@@ -31,7 +31,7 @@ class CreateStatusView(SuccessMessageMixin,
 
     model = Status
     form_class = StatusForm
-    template_name = 'status/create_status.html'
+    template_name = 'status/create.html'
     success_url = reverse_lazy('statuses')
     success_message = _('Status was created')
 
@@ -43,7 +43,7 @@ class UpdateStatusView(SuccessMessageMixin,
 
     model = Status
     form_class = StatusForm
-    template_name = 'status/update_status.html'
+    template_name = 'status/update.html'
     success_url = reverse_lazy('statuses')
     success_message = _('Status was updated')
 
@@ -55,7 +55,7 @@ class DeleteStatusView(UserLoginRequiredMixin,
     """Delete status view"""
 
     model = Status
-    template_name = 'status/delete_status.html'
+    template_name = 'status/delete.html'
     success_url = reverse_lazy('statuses')
     success_message = _('Status was deleted.')
     denied_url = reverse_lazy('statuses')

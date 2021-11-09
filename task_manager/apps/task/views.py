@@ -27,7 +27,7 @@ class ListTaskView(UserLoginRequiredMixin,
     model = Task
     ordering = 'pk'
     filterset_class = TaskFilter
-    template_name = 'task/tasks.html'
+    template_name = 'task/list.html'
 
 
 class CreateTaskView(SuccessMessageMixin,
@@ -38,7 +38,7 @@ class CreateTaskView(SuccessMessageMixin,
 
     model = Task
     form_class = TaskForm
-    template_name = 'task/create_task.html'
+    template_name = 'task/create.html'
     success_url = reverse_lazy('tasks')
     success_message = _('Task was created')
 
@@ -52,7 +52,7 @@ class UpdateTaskView(SuccessMessageMixin,
 
     model = Task
     form_class = TaskForm
-    template_name = 'task/update_task.html'
+    template_name = 'task/update.html'
     success_url = reverse_lazy('tasks')
     success_message = _('Task was updated')
 
@@ -65,7 +65,7 @@ class DeleteTaskView(SuccessMessageMixin,
     """Delete task view."""
 
     model = Task
-    template_name = 'task/delete_task.html'
+    template_name = 'task/delete.html'
     success_url = reverse_lazy('tasks')
     success_message = _('Task was deleted')
     denied_url = reverse_lazy('tasks')
@@ -76,5 +76,5 @@ class TaskView(UserLoginRequiredMixin,
                DetailView):
     """Task view."""
 
-    template_name = 'task/task.html'
+    template_name = 'task/sample.html'
     model = Task
