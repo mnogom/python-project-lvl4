@@ -46,7 +46,7 @@ class UpdateUser(TestCase):
     def test_update_user(self) -> None:
         """Test update user."""
 
-        response = self.client.post(reverse_lazy('update_user',
+        response = self.client.post(reverse_lazy('user:update',
                                                  kwargs={'pk': 1}),
                                     data=self.updated_user,
                                     follow=True)
@@ -72,7 +72,7 @@ class UpdateUser(TestCase):
     def test_update_another_user(self) -> None:
         """Test update another user."""
 
-        response = self.client.post(reverse_lazy('update_user',
+        response = self.client.post(reverse_lazy('user:update',
                                                  kwargs={'pk': 2}),
                                     data=self.updated_user,
                                     follow=True)
@@ -101,7 +101,7 @@ class UpdateUser(TestCase):
         updated_user = {'username': 'Pharah',
                         'password1': '123',
                         'password2': '123'}
-        response = self.client.post(reverse_lazy('update_user',
+        response = self.client.post(reverse_lazy('user:update',
                                                  kwargs={'pk': 1}),
                                     data=updated_user)
         self.assertIn(self.fields_errors['username_not_unique'],
@@ -128,7 +128,7 @@ class UpdateUser(TestCase):
 
         updated_user = {'password1': '123',
                         'password2': '123'}
-        response = self.client.post(reverse_lazy('update_user',
+        response = self.client.post(reverse_lazy('user:update',
                                                  kwargs={'pk': 1}),
                                     data=updated_user)
         self.assertIn(self.fields_errors['username_required'],
@@ -136,7 +136,7 @@ class UpdateUser(TestCase):
 
         updated_user = {'username': 'Zarya',
                         'password2': '123'}
-        response = self.client.post(reverse_lazy('update_user',
+        response = self.client.post(reverse_lazy('user:update',
                                                  kwargs={'pk': 1}),
                                     data=updated_user)
         self.assertIn(self.fields_errors['password1_required'],
@@ -164,7 +164,7 @@ class UpdateUser(TestCase):
         updated_user = {'username': 'Zarya',
                         'password1': '123',
                         'password2': '321'}
-        response = self.client.post(reverse_lazy('update_user',
+        response = self.client.post(reverse_lazy('user:update',
                                                  kwargs={'pk': 1}),
                                     data=updated_user)
         self.assertIn(self.fields_errors['password_doesnt_math'],

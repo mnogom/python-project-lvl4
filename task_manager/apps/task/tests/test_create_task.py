@@ -52,7 +52,7 @@ class CreateTask(TestCase):
                      'status': self.status_pk}
 
         for task in [task_full, task_part]:
-            response = self.client.post(reverse_lazy('create_task'),
+            response = self.client.post(reverse_lazy('task:create'),
                                         data=task,
                                         follow=True)
             self.assertEqual(get_last_message(response),
@@ -88,7 +88,7 @@ class CreateTask(TestCase):
                 'executor': self.executor_pk,
                 'status': self.status_pk}
         for _ in range(2):
-            response = self.client.post(reverse_lazy('create_task'),
+            response = self.client.post(reverse_lazy('task:create'),
                                         data=task,
                                         follow=True)
         self.assertEqual(Task.objects.count(), 1)
@@ -100,7 +100,7 @@ class CreateTask(TestCase):
 
         task_without_name = {'executor': self.executor_pk,
                              'status': self.status_pk}
-        response = self.client.post(reverse_lazy('create_task'),
+        response = self.client.post(reverse_lazy('task:create'),
                                     data=task_without_name,
                                     follow=True)
         self.assertEqual(Task.objects.count(), 0)
@@ -109,7 +109,7 @@ class CreateTask(TestCase):
 
         task_without_executor = {'name': 'Task #2',
                                  'status': self.status_pk}
-        response = self.client.post(reverse_lazy('create_task'),
+        response = self.client.post(reverse_lazy('task:create'),
                                     data=task_without_executor,
                                     follow=True)
         self.assertEqual(Task.objects.count(), 0)
@@ -118,7 +118,7 @@ class CreateTask(TestCase):
 
         task_without_status = {'name': 'Task #3',
                                'executor': self.executor_pk}
-        response = self.client.post(reverse_lazy('create_task'),
+        response = self.client.post(reverse_lazy('task:create'),
                                     data=task_without_status,
                                     follow=True)
         self.assertEqual(Task.objects.count(), 0)

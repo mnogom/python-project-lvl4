@@ -9,7 +9,7 @@ class LabelForm(ModelForm):
     """Label form.
 
     TODO: Edit translation 'имя' to 'название'
-      in 'create_label' page.
+      in 'label:create' page.
     """
 
     class Meta:

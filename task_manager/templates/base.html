@@ -35,23 +35,23 @@
                 {# USER APP #}
                 <li class="nav-item">
                     <a class="nav-item">
-                        <a class="nav-link" href="{% url 'users' %}">{% translate 'Users' %}</a>
+                        <a class="nav-link" href="{% url 'user:list' %}">{% translate 'Users' %}</a>
                     </a>
                 </li>
 
                 {# STATUS APP #}
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="{% url 'statuses' %}">{% translate 'Statuses' %}</a>
+                    <a class="nav-link" href="{% url 'status:list' %}">{% translate 'Statuses' %}</a>
                 </li>
 
                 {# LABEL APP #}
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="{% url 'labels' %}">{% translate 'Labels' %}</a>
+                    <a class="nav-link" href="{% url 'label:list' %}">{% translate 'Labels' %}</a>
                 </li>
 
                 {# TASK APP #}
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="{% url 'tasks' %}">{% translate 'Tasks' %}</a>
+                    <a class="nav-link" href="{% url 'task:list' %}">{% translate 'Tasks' %}</a>
                 </li>
 
             </ul>
@@ -59,7 +59,7 @@
             {# AUTH SHORTCATS #}
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'user' user.pk %}">{% translate 'Profile' %}</a>
+                    <a class="nav-link" href="{% url 'user:sample' user.pk %}">{% translate 'Profile' %}</a>
                     <div class="nav-item">
                         <form action="{% url 'logout' %}" method="POST">
                             {% csrf_token %}
@@ -68,7 +68,7 @@
                     </div>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_user' %}">{% translate 'Registration' %}</a>
+                        <a class="nav-link" href="{% url 'user:create' %}">{% translate 'Registration' %}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">{% translate 'Login' %}</a>

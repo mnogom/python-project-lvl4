@@ -17,7 +17,7 @@
             <h3 class="card-title">
                 {% translate 'New task' %}
             </h3>
-            <form action="{% url 'create_task' %}" method="post">
+            <form action="{% url 'task:create' %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <input type="submit" class="btn btn-primary float-right mt-3" value="{% translate 'Create' %}">

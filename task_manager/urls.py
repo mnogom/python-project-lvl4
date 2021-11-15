@@ -19,13 +19,16 @@ from django.contrib import admin
 from django.urls import path, include
 
 from .views import HomeView
+from .apps.user.views import LoginUserView, LogoutUserView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='index'),
-    path('', include('task_manager.apps.user.urls')),
+    path('users/', include('task_manager.apps.user.urls')),
     path('statuses/', include('task_manager.apps.status.urls')),
     path('tasks/', include('task_manager.apps.task.urls')),
-    path('labels/', include('task_manager.apps.label.urls'))
+    path('labels/', include('task_manager.apps.label.urls')),
+    path('login/', LoginUserView.as_view(), name='login'),
+    path('logout/', LogoutUserView.as_view(), name='logout'),
 ]

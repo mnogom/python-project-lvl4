@@ -48,7 +48,7 @@ class UpdateTask(TestCase):
     def test_update_task(self) -> None:
         """Test update task."""
 
-        response = self.client.post(reverse_lazy('update_task',
+        response = self.client.post(reverse_lazy('task:update',
                                                  kwargs={'pk': self.task_to_update.pk}),
                                     data=self.updated_task,
                                     follow=True)
@@ -72,7 +72,7 @@ class UpdateTask(TestCase):
     def test_update_task_of_another_user(self) -> None:
         """Test update task where user not author."""
 
-        response = self.client.post(reverse_lazy('update_task',
+        response = self.client.post(reverse_lazy('task:update',
                                                  kwargs={'pk': self.task_with_another_author.pk}),
                                     data=self.updated_task,
                                     follow=True)
@@ -82,7 +82,7 @@ class UpdateTask(TestCase):
     def test_update_task_if_not_unique(self) -> None:
         """Test update task with not unique fields."""
 
-        response = self.client.post(reverse_lazy('update_task',
+        response = self.client.post(reverse_lazy('task:update',
                                                  kwargs={'pk': self.task_to_update.pk}),
                                     data=self.exists_task,
                                     follow=True)
@@ -94,7 +94,7 @@ class UpdateTask(TestCase):
 
         updated_task = self.updated_task.copy()
         updated_task.pop('executor')
-        response = self.client.post(reverse_lazy('update_task',
+        response = self.client.post(reverse_lazy('task:update',
                                                  kwargs={'pk': self.task_to_update.pk}),
                                     data=updated_task,
                                     follow=True)

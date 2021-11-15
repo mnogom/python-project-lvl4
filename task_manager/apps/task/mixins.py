@@ -19,7 +19,7 @@ class OnlyAuthorCanEditTaskMixin:
         messages.add_message(request=request,
                              message=_('Only author can edit task'),
                              level=messages.ERROR)
-        return redirect(reverse_lazy('tasks'))
+        return redirect(reverse_lazy('task:list'))
 
 
 class ValidateTaskMixin:

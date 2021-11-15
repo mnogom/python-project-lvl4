@@ -10,7 +10,7 @@ class TaskForm(ModelForm):
     """Model form.
 
     TODO: [fix] Edit translation 'имя' to 'название'
-     in 'create_task' page.
+     in 'task:create' page.
     """
 
     class Meta:

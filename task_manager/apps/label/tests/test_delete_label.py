@@ -28,13 +28,13 @@ class DeleteLabel(TestCase):
         self.messages = {
             'success': 'Метка успешно удалена',
         }
-        self.client.post(reverse_lazy('create_label'),
+        self.client.post(reverse_lazy('label:create'),
                          data={'name': 'Name'})
 
     def test_delete_label(self) -> None:
         """Test delete label."""
 
-        response = self.client.post(reverse_lazy('delete_label',
+        response = self.client.post(reverse_lazy('label:delete',
                                                  kwargs={'pk': 1}),
                                     follow=True)
         self.assertEqual(get_last_message(response),
@@ -68,7 +68,7 @@ class DeleteProtectedLabel(TestCase):
         if self.label.task_set.count() == 0:
             raise IndexError(f'Label with pk {self.label_pk} has not protection. '
                              f'Switch to pk to another.')
-        response = self.client.post(reverse_lazy('delete_label',
+        response = self.client.post(reverse_lazy('label:delete',
                                                  kwargs={'pk': self.label_pk}),
                                     follow=True)
         self.assertEqual(get_last_message(response),

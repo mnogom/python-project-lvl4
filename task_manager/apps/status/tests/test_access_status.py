@@ -32,7 +32,7 @@ class StatusAccessCase(TestCase):
     def test_not_login_access(self) -> None:
         """Test access without user login."""
 
-        response = self.client.get(reverse_lazy('statuses'),
+        response = self.client.get(reverse_lazy('status:list'),
                                    follow=True)
         self.assertEqual(get_last_message(response),
                          self.messages['login_required'])
@@ -44,7 +44,7 @@ class StatusAccessCase(TestCase):
 
         login_user(client=self.client,
                    **self.user)
-        response = self.client.get(reverse_lazy('statuses'),
+        response = self.client.get(reverse_lazy('status:list'),
                                    follow=True)
         self.assertQuerysetEqual(response.context['object_list'].order_by('pk'),
                                  Status.objects.all().order_by('pk'))

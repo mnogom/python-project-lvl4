@@ -14,7 +14,7 @@ def get_filter_url(**kwargs) -> str:
     :return: relative url with query params
     """
 
-    base_url = reverse_lazy('tasks')
+    base_url = reverse_lazy('task:list')
     filter_query = '&'.join(f'{key}={value}' for key, value in kwargs.items())
     return f'{base_url}?{filter_query}'
 

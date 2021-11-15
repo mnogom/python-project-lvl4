@@ -13,7 +13,7 @@
         <div class="card-body">
             <h3 class="card-title">
                 {% translate 'Tasks' %}
-                <a class="btn btn-sm btn-outline-primary float-right" href="{% url 'create_task' %}">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{% url 'task:create' %}">
                     {% translate 'Create task' %}
                 </a>
             </h3>
@@ -27,7 +27,7 @@
                     {% endfor %}
                 </div>
                 <input type="submit" class="btn btn-sm btn-primary mt-2" value="{% translate 'Show' %}"/>
-                <a href="{% url 'tasks' %}" class="btn btn-sm btn-outline-primary mt-2">{% translate 'Reset' %}</a>
+                <a href="{% url 'task:list' %}" class="btn btn-sm btn-outline-primary mt-2">{% translate 'Reset' %}</a>
             </form>
 
             <div class="table-responsive">
@@ -48,23 +48,23 @@
                             <tr>
                                 <th scope="row" class="align-middle">{{ cur_task.pk }}</th>
                                 <td class="align-middle">
-                                    <a class="text-primary" href="{% url 'task' cur_task.pk %}">{{ cur_task.name }}</a>
+                                    <a class="text-primary" href="{% url 'task:sample' cur_task.pk %}">{{ cur_task.name }}</a>
                                 </td>
                                 <td class="align-middle">
-                                    <a class="text-secondary"href="{% url 'user' cur_task.author_id %}">{{ cur_task.author }}</a>
+                                    <a class="text-secondary"href="{% url 'user:sample' cur_task.author_id %}">{{ cur_task.author }}</a>
                                 </td>
                                 <td class="align-middle">
-                                    <a class="text-secondary"href="{% url 'user' cur_task.executor_id %}">{{ cur_task.executor }}</a>
+                                    <a class="text-secondary"href="{% url 'user:sample' cur_task.executor_id %}">{{ cur_task.executor }}</a>
                                 </td>
                                 <td class="align-middle">
                                     <span class="badge badge-success">{{ cur_task.status }}</span>
                                 </td>
                                 <td class="align-middle">{{ cur_task.created_at|date:'d b Y' }}</td>
                                 <td class="align-middle">
-                                    <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_task' cur_task.pk %}">
+                                    <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'task:update' cur_task.pk %}">
                                         {% translate 'Update' %}
                                     </a>
-                                    <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_task' cur_task.pk %}">
+                                    <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'task:delete' cur_task.pk %}">
                                         {% translate 'Delete' %}
                                     </a>
                                 </td>

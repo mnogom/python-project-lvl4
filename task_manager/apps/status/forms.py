@@ -9,7 +9,7 @@ class StatusForm(ModelForm):
     """Status form.
 
     TODO: Edit translation 'имя' to 'название'
-      in 'create_status' page.
+      in 'status:create' page.
     """
 
     class Meta:

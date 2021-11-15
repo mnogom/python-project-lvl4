@@ -6,9 +6,9 @@ from django.views.generic import (ListView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
+# from django.contrib.messages.views import SuccessMessageMixin
 
-from task_manager.mixins import (SuccessMessageMixin,
-                                 RedirectOnProtectedMixin)
+from task_manager.mixins import RedirectOnProtectedMixin, SuccessMessageMixin
 from task_manager.apps.user.mixins import UserLoginRequiredMixin
 
 from .forms import LabelForm
@@ -32,7 +32,7 @@ class CreateLabelView(SuccessMessageMixin,
     model = Label
     form_class = LabelForm
     template_name = 'label/create.html'
-    success_url = reverse_lazy('labels')
+    success_url = reverse_lazy('label:list')
     success_message = _('Label was created')
 
 
@@ -44,7 +44,7 @@ class UpdateLabelView(SuccessMessageMixin,
     model = Label
     form_class = LabelForm
     template_name = 'label/update.html'
-    success_url = reverse_lazy('labels')
+    success_url = reverse_lazy('label:list')
     success_message = _('Label was updated')
 
 
@@ -56,7 +56,7 @@ class DeleteLabelView(SuccessMessageMixin,
 
     model = Label
     template_name = 'label/delete.html'
-    success_url = reverse_lazy('labels')
+    success_url = reverse_lazy('label:list')
     success_message = _('Label was deleted')
-    denied_url = reverse_lazy('labels')
+    denied_url = reverse_lazy('label:list')
     denied_message = _('Label in use. You can not delete it.')

@@ -31,7 +31,7 @@ class UpdateStatus(TestCase):
                        {'name': 'Name #2'}, ]
         self.updated_status = {'name': 'New name (#3)'}
         for status in self.status:
-            self.client.post(reverse_lazy('create_status'),
+            self.client.post(reverse_lazy('status:create'),
                              data=status,
                              follow=False)
 
@@ -46,7 +46,7 @@ class UpdateStatus(TestCase):
     def test_update_status(self) -> None:
         """Test update status."""
 
-        response = self.client.post(reverse_lazy('update_status',
+        response = self.client.post(reverse_lazy('status:update',
                                                  kwargs={'pk': 1}),
                                     data=self.updated_status,
                                     follow=True)
@@ -58,7 +58,7 @@ class UpdateStatus(TestCase):
     def test_update_status_to_not_unique(self) -> None:
         """Test update status with not unique fields."""
 
-        response = self.client.post(reverse_lazy('update_status',
+        response = self.client.post(reverse_lazy('status:update',
                                                  kwargs={'pk': 1}),
                                     data=self.status[1],
                                     follow=True)
@@ -70,7 +70,7 @@ class UpdateStatus(TestCase):
     def test_update_status_if_data_not_full(self) -> None:
         """Test update status without required fields."""
 
-        response = self.client.post(reverse_lazy('update_status',
+        response = self.client.post(reverse_lazy('status:update',
                                                  kwargs={'pk': 1}),
                                     follow=True)
         self.assertIn(self.fields_errors['name_required'],

@@ -39,7 +39,7 @@ class CreateLabel(TestCase):
         """Test create label with valid fields."""
 
         label = {'name': 'label name'}
-        response = self.client.post(reverse_lazy('create_label'),
+        response = self.client.post(reverse_lazy('label:create'),
                                     data=label,
                                     follow=True)
         created_label_from_db = Label.objects.last()
@@ -54,7 +54,7 @@ class CreateLabel(TestCase):
 
         label = {'name': 'Label name'}
         for _ in range(2):
-            response = self.client.post(reverse_lazy('create_label'),
+            response = self.client.post(reverse_lazy('label:create'),
                                         data=label,
                                         follow=True)
         self.assertEqual(Label.objects.count(), 1)
@@ -65,7 +65,7 @@ class CreateLabel(TestCase):
         """Test create label without required fields."""
 
         label = {'name': ''}
-        response = self.client.post(reverse_lazy('create_label'),
+        response = self.client.post(reverse_lazy('label:create'),
                                     data=label,
                                     follow=True)
         self.assertEqual(Label.objects.count(), 0)

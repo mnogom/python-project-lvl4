@@ -54,7 +54,7 @@ class UpdateUserView(SuccessMessageMixin,
     model = User
     form_class = UserForm
     template_name = 'user/update.html'
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('user:list')
     success_message = _('User profile was updated')
     permission_denied_message = _('You have no permission to edit users')
 
@@ -77,8 +77,8 @@ class DeleteUserView(SuccessMessageMixin,
     template_name = 'user/delete.html'
     success_message = _('User was deleted')
     permission_denied_message = _('You have no permission to delete users')
-    success_url = reverse_lazy('users')
-    denied_url = reverse_lazy('users')
+    success_url = reverse_lazy('user:list')
+    denied_url = reverse_lazy('user:list')
     denied_message = _('User in use. You can not delete it.')
 
 

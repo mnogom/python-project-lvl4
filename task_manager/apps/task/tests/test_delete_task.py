@@ -41,7 +41,7 @@ class DeleteTask(TestCase):
         obj_counts_before = {'labels': Label.objects.count(),
                              'statuses': Status.objects.count(),
                              'users': User.objects.count()}
-        response = self.client.post(reverse_lazy('delete_task',
+        response = self.client.post(reverse_lazy('task:delete',
                                                  kwargs={'pk': self.author_task.pk}),
                                     follow=True)
         obj_counts_after = {'labels': Label.objects.count(),
@@ -57,7 +57,7 @@ class DeleteTask(TestCase):
     def test_delete_task_of_another_user(self) -> None:
         """Test delete task where user not author."""
 
-        response = self.client.post(reverse_lazy('delete_task',
+        response = self.client.post(reverse_lazy('task:delete',
                                                  kwargs={'pk': self.another_author_task.pk}),
                                     follow=True)
         self.assertEqual(get_last_message(response),

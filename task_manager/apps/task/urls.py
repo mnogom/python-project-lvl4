@@ -9,10 +9,11 @@ from .views import (ListTaskView,
                     TaskView)
 
 
+app_name = 'task'
 urlpatterns = [
-    path('', ListTaskView.as_view(), name='tasks'),
-    path('create/', CreateTaskView.as_view(), name='create_task'),
-    path('<int:pk>/update/', UpdateTaskView.as_view(), name='update_task'),
-    path('<int:pk>/delete/', DeleteTaskView.as_view(), name='delete_task'),
-    path('<int:pk>/', TaskView.as_view(), name='task')
+    path('', ListTaskView.as_view(), name='list'),
+    path('create/', CreateTaskView.as_view(), name='create'),
+    path('<int:pk>/update/', UpdateTaskView.as_view(), name='update'),
+    path('<int:pk>/delete/', DeleteTaskView.as_view(), name='delete'),
+    path('<int:pk>/', TaskView.as_view(), name='sample')
 ]

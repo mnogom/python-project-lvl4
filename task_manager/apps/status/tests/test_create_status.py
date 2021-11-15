@@ -39,7 +39,7 @@ class CreateStatus(TestCase):
         """Test create label with valid fields."""
 
         status = {'name': 'status name'}
-        response = self.client.post(reverse_lazy('create_status'),
+        response = self.client.post(reverse_lazy('status:create'),
                                     data=status,
                                     follow=True)
         created_status_from_db = Status.objects.last()
@@ -54,7 +54,7 @@ class CreateStatus(TestCase):
 
         status = {'name': 'Status name'}
         for _ in range(2):
-            response = self.client.post(reverse_lazy('create_status'),
+            response = self.client.post(reverse_lazy('status:create'),
                                         data=status,
                                         follow=True)
         self.assertEqual(Status.objects.count(), 1)
@@ -65,7 +65,7 @@ class CreateStatus(TestCase):
         """Test create status without required fields."""
 
         status = {'name': ''}
-        response = self.client.post(reverse_lazy('create_status'),
+        response = self.client.post(reverse_lazy('status:create'),
                                     data=status,
                                     follow=True)
         self.assertEqual(Status.objects.count(), 0)

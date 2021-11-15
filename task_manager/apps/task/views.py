@@ -6,9 +6,9 @@ from django.views.generic import (DetailView,
                                   UpdateView,
                                   DeleteView)
 from django.utils.translation import gettext_lazy as _
+# from django.contrib.messages.views import SuccessMessageMixin
 
-from task_manager.mixins import (SuccessMessageMixin,
-                                 RedirectOnProtectedMixin)
+from task_manager.mixins import RedirectOnProtectedMixin, SuccessMessageMixin
 from task_manager.apps.user.mixins import UserLoginRequiredMixin
 
 from django_filters.views import FilterView
@@ -39,7 +39,7 @@ class CreateTaskView(SuccessMessageMixin,
     model = Task
     form_class = TaskForm
     template_name = 'task/create.html'
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('task:list')
     success_message = _('Task was created')
 
 
@@ -53,7 +53,7 @@ class UpdateTaskView(SuccessMessageMixin,
     model = Task
     form_class = TaskForm
     template_name = 'task/update.html'
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('task:list')
     success_message = _('Task was updated')
 
 
@@ -66,9 +66,9 @@ class DeleteTaskView(SuccessMessageMixin,
 
     model = Task
     template_name = 'task/delete.html'
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('task:list')
     success_message = _('Task was deleted')
-    denied_url = reverse_lazy('tasks')
+    denied_url = reverse_lazy('task:list')
     denied_message = _('Task in use. You can not delete it.')
 
 

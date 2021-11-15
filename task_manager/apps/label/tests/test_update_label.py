@@ -31,7 +31,7 @@ class UpdateLabel(TestCase):
                        {'name': 'Name #2'}, ]
         self.updated_label = {'name': 'New name (#3)'}
         for label in self.labels:
-            self.client.post(reverse_lazy('create_label'),
+            self.client.post(reverse_lazy('label:create'),
                              data=label,
                              follow=False)
 
@@ -46,7 +46,7 @@ class UpdateLabel(TestCase):
     def test_update_label(self) -> None:
         """Test update label."""
 
-        response = self.client.post(reverse_lazy('update_label',
+        response = self.client.post(reverse_lazy('label:update',
                                                  kwargs={'pk': 1}),
                                     data=self.updated_label,
                                     follow=True)
@@ -58,7 +58,7 @@ class UpdateLabel(TestCase):
     def test_update_label_to_not_unique(self) -> None:
         """Test update label with not unique fields."""
 
-        response = self.client.post(reverse_lazy('update_label',
+        response = self.client.post(reverse_lazy('label:update',
                                                  kwargs={'pk': 1}),
                                     data=self.labels[1],
                                     follow=True)
@@ -70,7 +70,7 @@ class UpdateLabel(TestCase):
     def test_update_label_if_data_not_full(self) -> None:
         """Test update label without required fields."""
 
-        response = self.client.post(reverse_lazy('update_label',
+        response = self.client.post(reverse_lazy('label:update',
                                                  kwargs={'pk': 1}),
                                     follow=True)
         self.assertIn(self.fields_errors['name_required'],

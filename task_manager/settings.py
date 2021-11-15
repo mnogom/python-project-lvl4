@@ -63,10 +63,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    # 'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',  # TODO: Uncomment
 ]
-if DEBUG:
-    MIDDLEWARE.append('task_manager.middleware.trace_middleware.trace_middleware')
+# if DEBUG:  # TODO: Remove this middleware
+#     MIDDLEWARE.append('task_manager.middleware.trace_middleware.trace_middleware')
 
 ROOT_URLCONF = 'task_manager.urls'
 

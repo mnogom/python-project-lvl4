@@ -16,11 +16,11 @@
             <h3 class="card-title">
                 {% translate 'Profile' %}
             </h3>
-            <form action="{% url 'update_user' user.pk %}" method="post">
+            <form action="{% url 'user:update' user.pk %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <input type="submit" class="btn btn-primary float-right mt-3 mx-1" value="{% translate 'Update' %}">
-                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'delete_user' user.pk %}">{% translate 'Delete' %}</a>
+                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'user:delete' user.pk %}">{% translate 'Delete' %}</a>
             </form>
         </div>
     </div>

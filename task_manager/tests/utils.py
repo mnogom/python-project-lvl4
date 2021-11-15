@@ -40,7 +40,7 @@ def create_user(client, user=None, follow=False):
                 'email': 'username@email.com',
                 'password': 'password'}
     return client.post(
-        reverse_lazy('create_user'),
+        reverse_lazy('user:create'),
         data=_post_from_user(user),
         follow=follow
     )

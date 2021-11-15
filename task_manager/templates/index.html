@@ -14,12 +14,12 @@ Task Manager
         <hr class="my-4">
         <h3 class="font-weight-light">{% translate 'You can start from here:' %}</h3>
         {% if user.is_authenticated %}
-            <a class="btn btn-primary btn-lg" href="{% url 'tasks' %}">{% translate 'Task list' %}</a>
-            <a class="btn btn-outline-primary btn-lg" href="{% url 'labels' %}">{% translate 'Label list' %}</a>
-            <a class="btn btn-outline-primary btn-lg" href="{% url 'statuses' %}">{% translate 'Status list' %}</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'task:list' %}">{% translate 'Task list' %}</a>
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'label:list' %}">{% translate 'Label list' %}</a>
+            <a class="btn btn-outline-primary btn-lg" href="{% url 'status:list' %}">{% translate 'Status list' %}</a>
         {% else %}
             <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">{% translate 'Login' %}</a>
-            <a class="btn btn-primary btn-lg" href="{% url 'create_user' %}" role="button">{% translate 'Registration' %}</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'user:create' %}" role="button">{% translate 'Registration' %}</a>
         {% endif %}
     </div>
 
@@ -32,8 +32,8 @@ Task Manager
                         {% translate 'Tasks' %}
                     </h3>
                     <div class="btn-group-vertical" role="group">
-                        <a class="btn btn-secondary" href="{% url 'tasks' %}">tasks</a>
-                        <a class="btn btn-secondary" href="{% url 'create_task' %}">create task</a>
+                        <a class="btn btn-secondary" href="{% url 'task:list' %}">tasks</a>
+                        <a class="btn btn-secondary" href="{% url 'task:create' %}">create task</a>
                     </div>
                 </div>
                 <div class="card-footer text-muted">
@@ -62,13 +62,13 @@ Task Manager
                         {% translate 'Users' %}
                     </h3>
                     <div class="btn-group-vertical" role="group">
-                        <a class="btn btn-secondary" href="{% url 'users' %}">users</a>
+                        <a class="btn btn-secondary" href="{% url 'user:list' %}">users</a>
                         <a class="btn btn-secondary" href="{% url 'login' %}">login</a>
-                        <a class="btn btn-secondary" href="{% url 'create_user' %}">create user</a>
+                        <a class="btn btn-secondary" href="{% url 'user:create' %}">create user</a>
                         {% if user.is_authenticated %}
-                            <a class="btn btn-success" href="{% url 'user' user.pk %}">profile</a>
-                            <a class="btn btn-success" href="{% url 'update_user' user.pk %}">update user</a>
-                            <a class="btn btn-success" href="{% url 'delete_user' user.pk %}">delete user</a>
+                            <a class="btn btn-success" href="{% url 'user:sample' user.pk %}">profile</a>
+                            <a class="btn btn-success" href="{% url 'user:update' user.pk %}">update user</a>
+                            <a class="btn btn-success" href="{% url 'user:delete' user.pk %}">delete user</a>
                         {%  endif %}
                     </div>
                     <form class="mt-1" action="{% url 'logout' %}" method="POST">
@@ -89,8 +89,8 @@ Task Manager
                         {% translate 'Statuses' %}
                     </h3>
                     <div class="btn-group-vertical" role="group">
-                        <a class="btn btn-secondary" href="{% url 'statuses' %}">statuses</a>
-                        <a class="btn btn-secondary" href="{% url 'create_status' %}">create status</a>
+                        <a class="btn btn-secondary" href="{% url 'status:list' %}">statuses</a>
+                        <a class="btn btn-secondary" href="{% url 'status:create' %}">create status</a>
                     </div>
                 </div>
                 <div class="card-footer text-muted">
@@ -104,8 +104,8 @@ Task Manager
                         {% translate 'Labels' %}
                     </h3>
                     <div class="btn-group-vertical" role="group">
-                        <a class="btn btn-secondary" href="{% url 'labels' %}">labels</a>
-                        <a class="btn btn-secondary" href="{% url 'create_label' %}">create label</a>
+                        <a class="btn btn-secondary" href="{% url 'label:list' %}">labels</a>
+                        <a class="btn btn-secondary" href="{% url 'label:create' %}">create label</a>
                     </div>
                 </div>
                 <div class="card-footer text-muted">

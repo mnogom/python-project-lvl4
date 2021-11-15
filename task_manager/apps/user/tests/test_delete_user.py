@@ -32,7 +32,7 @@ class DeleteUser(TestCase):
     def test_delete_user(self) -> None:
         """Test delete user."""
 
-        response = self.client.post(reverse_lazy('delete_user',
+        response = self.client.post(reverse_lazy('user:delete',
                                                  kwargs={'pk': 1}),
                                     follow=True)
         self.assertEqual(get_last_message(response),
@@ -47,7 +47,7 @@ class DeleteUser(TestCase):
         create_user(client=self.client,
                     user=user_2,
                     follow=False)
-        response = self.client.post(reverse_lazy('delete_user',
+        response = self.client.post(reverse_lazy('user:delete',
                                                  kwargs={'pk': 2}),
                                     follow=True)
         self.assertEqual(get_last_message(response),
@@ -80,7 +80,7 @@ class DeleteProtectedUser(TestCase):
         if self.user.author.count() == 0 and self.user.executor.count() == 0:
             raise IndexError(f'User with pk {self.user_pk} has not protection. '
                              f'Switch to pk to another.')
-        response = self.client.post(reverse_lazy('delete_user',
+        response = self.client.post(reverse_lazy('user:delete',
                                                  kwargs={'pk': self.user_pk}),
                                     follow=True)
         self.assertEqual(get_last_message(response),

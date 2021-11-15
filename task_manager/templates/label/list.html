@@ -13,7 +13,7 @@
         <div class="card-body">
             <h3 class="card-title">
                 {% translate 'Label' %}
-                <a class="btn btn-sm btn-outline-primary float-right" href="{% url 'create_label' %}">
+                <a class="btn btn-sm btn-outline-primary float-right" href="{% url 'label:create' %}">
                     {% translate 'Create label' %}
                 </a>
             </h3>
@@ -33,14 +33,14 @@
                             <tr title="{{ cur_label.description }}">
                                 <th scope="row" class="align-middle">{{ cur_label.pk }}</th>
                                 <td class="align-middle"> {# TODO: [fix] make block for label #}
-                                    <a href="{% url 'tasks' %}?label={{ cur_label.pk }}" class="badge badge-primary">{{ cur_label.name }}</a>
+                                    <a href="{% url 'task:list' %}?label={{ cur_label.pk }}" class="badge badge-primary">{{ cur_label.name }}</a>
                                 </td>
                                 <td class="align-middle">{{ cur_label.created_at|date:'d b Y' }}</td>
                                 <td class="border-bottom-0">
-                                    <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'update_label' cur_label.pk %}">
+                                    <a class="btn btn-sm btn-outline-primary py-0 w-100 border-0" href="{% url 'label:update' cur_label.pk %}">
                                         {% translate 'Update' %}
                                     </a>
-                                    <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'delete_label' cur_label.pk %}">
+                                    <a class="btn btn-sm btn-outline-danger py-0 w-100 border-0" href="{% url 'label:delete' cur_label.pk %}">
                                         {% translate 'Delete' %}
                                     </a>
                                 </td>

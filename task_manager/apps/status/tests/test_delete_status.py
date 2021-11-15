@@ -29,13 +29,13 @@ class DeleteStatus(TestCase):
         self.messages = {
             'success': 'Статус успешно удалён',
         }
-        self.client.post(reverse_lazy('create_status'),
+        self.client.post(reverse_lazy('status:create'),
                          data={'name': 'Name'})
 
     def test_delete_status(self) -> None:
         """Test delete status."""
 
-        response = self.client.post(reverse_lazy('delete_status',
+        response = self.client.post(reverse_lazy('status:delete',
                                                  kwargs={'pk': 1}),
                                     follow=True)
         self.assertEqual(get_last_message(response),
@@ -69,7 +69,7 @@ class DeleteProtectedStatus(TestCase):
         if Task.objects.filter(status_id=self.status_pk).count() == 0:
             raise IndexError(f'Status with pk {self.status_pk} has not protection. '
                              f'Switch to pk to another.')
-        response = self.client.post(reverse_lazy('delete_status',
+        response = self.client.post(reverse_lazy('status:delete',
                                                  kwargs={'pk': self.status_pk}),
                                     follow=True)
         self.assertEqual(get_last_message(response),
