@@ -63,10 +63,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    # 'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',  # TODO: Uncomment
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
-# if DEBUG:  # TODO: Remove this middleware
-#     MIDDLEWARE.append('task_manager.middleware.trace_middleware.trace_middleware')
+if not DEBUG:  # TODO: Remove this middleware
+    MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
 
 ROOT_URLCONF = 'task_manager.urls'
 
@@ -141,6 +141,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Default primary key field type
