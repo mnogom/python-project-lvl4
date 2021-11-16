@@ -20,6 +20,11 @@ class Status(models.Model):
                                   editable=False)
 
     def __str__(self):
-        """representation method."""
+        """Representation method."""
 
         return self.name
+
+    class Meta:
+        """Meta class."""
+
+        verbose_name_plural = 'Statuses'
