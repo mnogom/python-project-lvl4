@@ -37,6 +37,11 @@ class Task(models.Model):
                                   auto_now_add=True,
                                   editable=False)
 
+    def __str__(self):
+        """representation method."""
+
+        return self.name
+
 
 class TaskLabel(models.Model):
     """Task <-> Label model."""

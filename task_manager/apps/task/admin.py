@@ -1,5 +1,12 @@
-"""Admin."""
+"""Admin panel."""
 
-# from django.contrib import admin
+from django.contrib import admin
+from .models import Task
 
-# Register your models here.
+
+class TaskAdmin(admin.ModelAdmin):
+    """Admin panel for label."""
+    pass
+
+
+admin.site.register(Task, TaskAdmin)
