@@ -37,4 +37,4 @@ locale:
 	poetry run python manage.py compilemessages
 
 heroku-shell:
-	heroku run bash
+	heroku run bash -a hidden-bayou-30395
