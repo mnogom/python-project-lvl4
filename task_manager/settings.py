@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv('DEBUG', 0))
+DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
-if not DEBUG:  # TODO: Remove this middleware
+if not DEBUG:
     MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -152,6 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login redirect
 # https://docs.djangoproject.com/en/3.2/topics/auth/default/
+
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
@@ -160,13 +161,6 @@ LOGOUT_REDIRECT_URL = reverse_lazy('index')
 # Custom user
 
 AUTH_USER_MODEL = 'user.User'
-
-
-# TraceMiddleware setup
-
-APPS_TO_TRACE = [
-    'task_manager',
-]
 
 
 # Rollbar settings
