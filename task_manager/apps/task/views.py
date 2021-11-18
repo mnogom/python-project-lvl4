@@ -15,8 +15,7 @@ from django_filters.views import FilterView
 
 from .forms import TaskForm
 from .models import Task
-from .mixins import (OnlyAuthorCanEditTaskMixin,
-                     ValidateTaskMixin)
+from .mixins import OnlyAuthorCanEditTaskMixin
 from .filters import TaskFilter
 
 
@@ -32,7 +31,6 @@ class ListTaskView(UserLoginRequiredMixin,
 
 class CreateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
-                     ValidateTaskMixin,
                      CreateView):
     """Create task view."""
 
@@ -42,11 +40,14 @@ class CreateTaskView(SuccessMessageMixin,
     success_url = reverse_lazy('task:list')
     success_message = _('Task was created')
 
+    def form_valid(self, form):
+        form.set_author(self.request.user.pk)
+        return super().form_valid(form)
+
 
 class UpdateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
-                     OnlyAuthorCanEditTaskMixin, # TODO: Remove it
-                     ValidateTaskMixin,
+                     OnlyAuthorCanEditTaskMixin,  # TODO: Remove it
                      UpdateView):
     """Update task view."""
 
@@ -55,6 +56,10 @@ class UpdateTaskView(SuccessMessageMixin,
     template_name = 'task/update.html'
     success_url = reverse_lazy('task:list')
     success_message = _('Task was updated')
+
+    def form_valid(self, form):
+        # form.set_author(self.request.user.pk)
+        return super().form_valid(form)
 
 
 class DeleteTaskView(SuccessMessageMixin,

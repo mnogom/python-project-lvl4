@@ -48,8 +48,8 @@ class RedirectOnProtectedMixin:
 
 
 # TODO: keep it
-class ExceptionMixin(AccessMixin):
-    def get_permission_denied_message(self):
-        pass
-    def handle_no_permission(self):
-        pass
+# class ExceptionMixin(AccessMixin):
+#     def get_permission_denied_message(self):
+#         pass
+#     def handle_no_permission(self):
+#         pass

@@ -23,15 +23,3 @@ class OnlyAuthorCanEditTaskMixin:
                              message=_('Only author can edit task'),
                              level=messages.ERROR)
         return redirect(reverse_lazy('task:list'))
-
-
-class ValidateTaskMixin:  # TODO: move to FORM or VIEW.
-    """Mixin to validate task."""
-
-    def form_valid(self, form):
-        """Validate form method.
-        TODO: make way to add author easier
-        """
-
-        form.set_author(self.request.user.pk)
-        return super().form_valid(form)
