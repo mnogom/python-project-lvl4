@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (AccessMixin,
                                         LoginRequiredMixin)
 
+from django.contrib.auth.mixins import UserPassesTestMixin
+
 
 class UserLoginRequiredMixin(LoginRequiredMixin):
     """User login required mixin."""

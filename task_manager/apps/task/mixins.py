@@ -7,7 +7,10 @@ from django.utils.translation import gettext_lazy as _
 
 
 class OnlyAuthorCanEditTaskMixin:
-    """Mixin to give permission to author edit only his tasks."""
+    """Mixin to give permission to author edit only his tasks.
+
+    TODO: make from user pass tests.
+    """
 
     def dispatch(self, request, *args, **kwargs):
         """Dispatch method."""
@@ -22,7 +25,7 @@ class OnlyAuthorCanEditTaskMixin:
         return redirect(reverse_lazy('task:list'))
 
 
-class ValidateTaskMixin:
+class ValidateTaskMixin:  # TODO: move to FORM or VIEW.
     """Mixin to validate task."""
 
     def form_valid(self, form):

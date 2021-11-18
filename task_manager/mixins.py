@@ -33,14 +33,23 @@ class RedirectOnProtectedMixin:
         """Delete method."""
 
         self.object = self.get_object()
+        # TODO: Research: https://github.com/jazzband/django-silk -- calculate SQL speed
         try:
             self.object.delete()
         except ProtectedError:
             if self.denied_message:
-                messages.set_level(request, messages.ERROR)
+                messages.set_level(request, messages.ERROR)  # TODO: messages.error
                 messages.add_message(request=request,
                                      message=self.denied_message,
                                      level=messages.ERROR)
             return redirect(self.denied_url or reverse_lazy('index'))
         success_url = self.get_success_url()
         return HttpResponseRedirect(success_url)
+
+
+# TODO: keep it
+class ExceptionMixin(AccessMixin):
+    def get_permission_denied_message(self):
+        pass
+    def handle_no_permission(self):
+        pass

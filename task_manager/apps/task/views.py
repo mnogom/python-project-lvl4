@@ -45,7 +45,7 @@ class CreateTaskView(SuccessMessageMixin,
 
 class UpdateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
-                     OnlyAuthorCanEditTaskMixin,
+                     OnlyAuthorCanEditTaskMixin, # TODO: Remove it
                      ValidateTaskMixin,
                      UpdateView):
     """Update task view."""
