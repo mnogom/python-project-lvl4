@@ -3,7 +3,6 @@
 from django.forms import ModelForm
 
 from .models import Task
-from .exceptions import TaskAuthorIsMissing
 
 
 class TaskForm(ModelForm):
