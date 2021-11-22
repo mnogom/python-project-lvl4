@@ -15,7 +15,7 @@ from task_manager.mixins import (SuccessMessageMixin,
                                  RedirectOnProtectedMixin)
 
 from .models import User
-from .forms import UserForm
+from .forms import UserCreateForm
 from .services import login_user
 from .mixins import (UserLoginRequiredMixin,
                      UserLoginUnRequiredMixin,
@@ -40,7 +40,7 @@ class CreateUserView(SuccessMessageMixin,
     #  if it fix you can add 'UserLoginUnRequiredMixin'
 
     model = User
-    form_class = UserForm
+    form_class = UserCreateForm
     template_name = 'user/create.html'
     success_url = reverse_lazy('login')
     success_message = _('User profile was successfully created')
@@ -54,7 +54,7 @@ class UpdateUserView(SuccessMessageMixin,
     """Edit user view."""
 
     model = User
-    form_class = UserForm
+    form_class = UserCreateForm
     template_name = 'user/update.html'
     success_url = reverse_lazy('user:list')
     success_message = _('User profile was updated')
