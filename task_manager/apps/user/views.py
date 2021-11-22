@@ -11,6 +11,7 @@ from django.contrib.auth.views import (LoginView,
                                        LogoutView)
 
 from task_manager.mixins import (SuccessMessageMixin,
+                                 ErrorHandlerMixin,
                                  RedirectOnProtectedMixin)
 
 from .models import User
@@ -46,8 +47,9 @@ class CreateUserView(SuccessMessageMixin,
 
 
 class UpdateUserView(SuccessMessageMixin,
-                     UserLoginRequiredMixin,
+                     ErrorHandlerMixin,
                      UserPermissionEditSelfMixin,
+                     UserLoginRequiredMixin,
                      UpdateView):
     """Edit user view."""
 
@@ -56,7 +58,6 @@ class UpdateUserView(SuccessMessageMixin,
     template_name = 'user/update.html'
     success_url = reverse_lazy('user:list')
     success_message = _('User profile was updated')
-    permission_denied_message = _('You have no permission to edit users')
 
     def post(self, request, *args, **kwargs):
         """Auto log in on success updating user."""

@@ -14,13 +14,23 @@ class SuccessMessageMixin:
     success_message = None
 
     def get_success_url(self):
-        """get success url method."""
+        """Get success url method."""
 
         if self.success_message:
             messages.add_message(request=self.request,
                                  message=self.success_message,
                                  level=messages.SUCCESS)
         return self.success_url
+
+
+class ErrorHandlerMixin:
+    def handle_no_permission(self):
+        if self.permission_denied_message:
+            messages.add_message(request=self.request,
+                                 message=self.permission_denied_message,
+                                 level=messages.ERROR)
+            return HttpResponseRedirect(self.permission_denied_redirect_url)
+        return super().handle_no_permission()
 
 
 class RedirectOnProtectedMixin:
