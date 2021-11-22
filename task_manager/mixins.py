@@ -2,9 +2,21 @@
 
 from django.contrib import messages
 from django.db.models.deletion import ProtectedError
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.utils.translation import gettext_lazy as _
+
+
+MESSAGES_ON_PROTECT_DELETE = {
+    'User': _('User in use. You can not delete it.'),
+    'Label': _('Label in use. You can not delete it.'),
+    'Status': _('Status in use. You can not delete it.'),
+}
+REDIRECT_ON_PROTECT_DELETE = {
+    'User': reverse_lazy('user:list'),
+    'Label': reverse_lazy('label:list'),
+    'Status': reverse_lazy('status:list'),
+}
 
 
 class SuccessMessageMixin:
@@ -30,14 +42,12 @@ class ErrorHandlerMixin:
                                  message=self.permission_denied_message,
                                  level=messages.ERROR)
             return HttpResponseRedirect(self.permission_denied_redirect_url)
-        return super().handle_no_permission()
 
 
 class RedirectOnProtectedMixin:
     """Mixin to redirect if object is protected."""
 
     denied_url = None
-    denied_message = None
 
     def delete(self, request, *args, **kwargs):
         """Delete method."""
@@ -47,19 +57,13 @@ class RedirectOnProtectedMixin:
         try:
             self.object.delete()
         except ProtectedError:
-            if self.denied_message:
-                messages.set_level(request, messages.ERROR)  # TODO: messages.error
-                messages.add_message(request=request,
-                                     message=self.denied_message,
-                                     level=messages.ERROR)
-            return redirect(self.denied_url or reverse_lazy('index'))
+
+            self.permission_denied_message = MESSAGES_ON_PROTECT_DELETE.get(
+                self.model.__name__,
+                '')
+            self.permission_denied_redirect_url = REDIRECT_ON_PROTECT_DELETE.get(
+                self.model.__name__,
+                reverse_lazy('index'))
+            return super().handle_no_permission()
         success_url = self.get_success_url()
         return HttpResponseRedirect(success_url)
-
-
-# TODO: keep it
-# class ExceptionMixin(AccessMixin):
-#     def get_permission_denied_message(self):
-#         pass
-#     def handle_no_permission(self):
-#         pass

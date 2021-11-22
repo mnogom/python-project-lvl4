@@ -68,19 +68,17 @@ class UpdateUserView(SuccessMessageMixin,
 
 
 class DeleteUserView(SuccessMessageMixin,
-                     UserLoginRequiredMixin,
-                     UserPermissionEditSelfMixin,
                      RedirectOnProtectedMixin,
+                     ErrorHandlerMixin,
+                     UserPermissionEditSelfMixin,
+                     UserLoginRequiredMixin,
                      DeleteView):
     """Delete user view."""
 
     model = User
     template_name = 'user/delete.html'
     success_message = _('User was deleted')
-    permission_denied_message = _('You have no permission to delete users')
     success_url = reverse_lazy('user:list')
-    denied_url = reverse_lazy('user:list')
-    denied_message = _('User in use. You can not delete it.')
 
 
 class LoginUserView(SuccessMessageMixin,

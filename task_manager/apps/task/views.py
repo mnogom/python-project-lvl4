@@ -6,9 +6,9 @@ from django.views.generic import (DetailView,
                                   UpdateView,
                                   DeleteView)
 from django.utils.translation import gettext_lazy as _
-# from django.contrib.messages.views import SuccessMessageMixin
 
-from task_manager.mixins import RedirectOnProtectedMixin, SuccessMessageMixin
+from task_manager.mixins import (RedirectOnProtectedMixin,
+                                 SuccessMessageMixin)
 from task_manager.apps.user.mixins import (UserLoginRequiredMixin,
                                            UserIsAuthorMixin)
 

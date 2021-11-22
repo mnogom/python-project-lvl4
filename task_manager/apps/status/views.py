@@ -6,9 +6,10 @@ from django.views.generic import (ListView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
-# from django.contrib.messages.views import SuccessMessageMixin
 
-from task_manager.mixins import RedirectOnProtectedMixin, SuccessMessageMixin
+from task_manager.mixins import (RedirectOnProtectedMixin,
+                                 SuccessMessageMixin,
+                                 ErrorHandlerMixin)
 from task_manager.apps.user.mixins import UserLoginRequiredMixin
 
 from .forms import StatusForm
@@ -36,6 +37,7 @@ class CreateStatusView(SuccessMessageMixin,
 
 
 class UpdateStatusView(SuccessMessageMixin,
+                       ErrorHandlerMixin,
                        UserLoginRequiredMixin,
                        UpdateView):
     """Update status view."""
@@ -47,9 +49,10 @@ class UpdateStatusView(SuccessMessageMixin,
     success_message = _('Status was updated')
 
 
-class DeleteStatusView(UserLoginRequiredMixin,
+class DeleteStatusView(SuccessMessageMixin,
                        RedirectOnProtectedMixin,
-                       SuccessMessageMixin,
+                       ErrorHandlerMixin,
+                       UserLoginRequiredMixin,
                        DeleteView):
     """Delete status view"""
 
@@ -57,5 +60,3 @@ class DeleteStatusView(UserLoginRequiredMixin,
     template_name = 'status/delete.html'
     success_url = reverse_lazy('status:list')
     success_message = _('Status was deleted.')
-    denied_url = reverse_lazy('status:list')
-    denied_message = _('Status in use. You can not delete it.')
