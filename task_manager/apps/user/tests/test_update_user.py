@@ -40,7 +40,7 @@ class UpdateUser(TestCase):
             'username_not_unique': 'username:Пользователь с таким именем уже существует.',
             'username_required': 'username:Обязательное поле.',
             'password1_required': 'password1:Обязательное поле.',
-            'password_doesnt_math': 'password2:Пароли не совпадают',
+            'password_doesnt_math': 'password2:Введенные пароли не совпадают.',
         }
 
     def test_update_user(self) -> None:
