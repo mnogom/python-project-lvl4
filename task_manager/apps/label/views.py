@@ -16,7 +16,8 @@ from .forms import LabelForm
 from .models import Label
 
 
-class ListLabelView(UserLoginRequiredMixin,
+class ListLabelView(ErrorHandlerMixin,
+                    UserLoginRequiredMixin,
                     ListView):
     """List label view."""
 
@@ -26,6 +27,7 @@ class ListLabelView(UserLoginRequiredMixin,
 
 
 class CreateLabelView(SuccessMessageMixin,
+                      ErrorHandlerMixin,
                       UserLoginRequiredMixin,
                       CreateView):
     """Create label view."""

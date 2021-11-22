@@ -97,6 +97,7 @@ class LoginUserView(SuccessMessageMixin,
 
 
 class LogoutUserView(SuccessMessageMixin,
+                     ErrorHandlerMixin,
                      UserLoginRequiredMixin,
                      LogoutView):
     """Logout view."""
@@ -114,7 +115,9 @@ class LogoutUserView(SuccessMessageMixin,
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserView(UserLoginRequiredMixin, DetailView):
+class UserView(ErrorHandlerMixin,
+               UserLoginRequiredMixin,
+               DetailView):
     """User view."""
 
     template_name = 'user/sample.html'

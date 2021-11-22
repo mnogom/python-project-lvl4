@@ -16,7 +16,9 @@ from .forms import StatusForm
 from .models import Status
 
 
-class ListStatusView(UserLoginRequiredMixin, ListView):
+class ListStatusView(ErrorHandlerMixin,
+                     UserLoginRequiredMixin,
+                     ListView):
     """List of statuses view."""
 
     model = Status
@@ -25,6 +27,7 @@ class ListStatusView(UserLoginRequiredMixin, ListView):
 
 
 class CreateStatusView(SuccessMessageMixin,
+                       ErrorHandlerMixin,
                        UserLoginRequiredMixin,
                        CreateView):
     """Create status view."""

@@ -8,6 +8,7 @@ from django.views.generic import (DetailView,
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.mixins import (RedirectOnProtectedMixin,
+                                 ErrorHandlerMixin,
                                  SuccessMessageMixin)
 from task_manager.apps.user.mixins import (UserLoginRequiredMixin,
                                            UserIsAuthorMixin)
@@ -19,7 +20,8 @@ from .models import Task
 from .filters import TaskFilter
 
 
-class ListTaskView(UserLoginRequiredMixin,
+class ListTaskView(ErrorHandlerMixin,
+                   UserLoginRequiredMixin,
                    FilterView):
     """List tasks filter view."""
 
@@ -30,6 +32,7 @@ class ListTaskView(UserLoginRequiredMixin,
 
 
 class CreateTaskView(SuccessMessageMixin,
+                     ErrorHandlerMixin,
                      UserLoginRequiredMixin,
                      CreateView):
     """Create task view."""
@@ -46,6 +49,7 @@ class CreateTaskView(SuccessMessageMixin,
 
 
 class UpdateTaskView(SuccessMessageMixin,
+                     ErrorHandlerMixin,
                      UserLoginRequiredMixin,
                      UserIsAuthorMixin,  # TODO: Remove it
                      UpdateView):
@@ -63,6 +67,7 @@ class UpdateTaskView(SuccessMessageMixin,
 
 
 class DeleteTaskView(SuccessMessageMixin,
+                     ErrorHandlerMixin,
                      UserLoginRequiredMixin,
                      RedirectOnProtectedMixin,
                      UserIsAuthorMixin,
@@ -77,7 +82,8 @@ class DeleteTaskView(SuccessMessageMixin,
     denied_message = _('Task in use. You can not delete it.')
 
 
-class TaskView(UserLoginRequiredMixin,
+class TaskView(ErrorHandlerMixin,
+               UserLoginRequiredMixin,
                DetailView):
     """Task view."""
 
