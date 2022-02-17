@@ -1,6 +1,5 @@
 install:
-	poetry install ; \
-	cp .env_example .env
+	poetry install
 
 migrations:
 	poetry run python manage.py makemigrations
@@ -16,7 +15,7 @@ req:
 	poetry export -f requirements.txt --output requirements.txt
 
 run:
-	poetry run python manage.py runserver
+	poetry run python manage.py runserver 0.0.0.0:8000
 
 lint:
 	poetry run flake8
