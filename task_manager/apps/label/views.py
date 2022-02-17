@@ -8,7 +8,7 @@ from django.views.generic import (ListView,
                                   DeleteView)
 
 from task_manager.mixins import (RedirectOnProtectedMixin,
-                                 ErrorHandlerMixin,
+                                 PermissionDeniedMixin,
                                  SuccessMessageMixin)
 from task_manager.apps.user.mixins import UserLoginRequiredMixin
 
@@ -16,7 +16,7 @@ from .forms import LabelForm
 from .models import Label
 
 
-class ListLabelView(ErrorHandlerMixin,
+class ListLabelView(PermissionDeniedMixin,
                     UserLoginRequiredMixin,
                     ListView):
     """List label view."""
@@ -27,7 +27,7 @@ class ListLabelView(ErrorHandlerMixin,
 
 
 class CreateLabelView(SuccessMessageMixin,
-                      ErrorHandlerMixin,
+                      PermissionDeniedMixin,
                       UserLoginRequiredMixin,
                       CreateView):
     """Create label view."""
@@ -40,7 +40,7 @@ class CreateLabelView(SuccessMessageMixin,
 
 
 class UpdateLabelView(SuccessMessageMixin,
-                      ErrorHandlerMixin,
+                      PermissionDeniedMixin,
                       UserLoginRequiredMixin,
                       UpdateView):
     """Update label view."""
@@ -54,7 +54,7 @@ class UpdateLabelView(SuccessMessageMixin,
 
 class DeleteLabelView(SuccessMessageMixin,
                       RedirectOnProtectedMixin,
-                      ErrorHandlerMixin,
+                      PermissionDeniedMixin,
                       UserLoginRequiredMixin,
                       DeleteView):
     """Delete label view."""

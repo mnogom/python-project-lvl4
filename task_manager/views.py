@@ -13,7 +13,7 @@ class HomeView(View):
     """Home (index) view."""
 
     def get(self, request, *args, **kwargs):
-        """Method GET."""
+        """Method GET to check if rollbar is available."""
 
         if request.GET.get('rollbar-test'):
             rollbar.report_message(message=f'This is test from '

@@ -11,7 +11,7 @@ from django.contrib.auth.views import (LoginView,
                                        LogoutView)
 
 from task_manager.mixins import (SuccessMessageMixin,
-                                 ErrorHandlerMixin,
+                                 PermissionDeniedMixin,
                                  RedirectOnProtectedMixin)
 
 from .models import User
@@ -47,7 +47,7 @@ class CreateUserView(SuccessMessageMixin,
 
 
 class UpdateUserView(SuccessMessageMixin,
-                     ErrorHandlerMixin,
+                     PermissionDeniedMixin,
                      UserPermissionEditSelfMixin,
                      UserLoginRequiredMixin,
                      UpdateView):
@@ -69,7 +69,7 @@ class UpdateUserView(SuccessMessageMixin,
 
 class DeleteUserView(SuccessMessageMixin,
                      RedirectOnProtectedMixin,
-                     ErrorHandlerMixin,
+                     PermissionDeniedMixin,
                      UserPermissionEditSelfMixin,
                      UserLoginRequiredMixin,
                      DeleteView):
@@ -97,7 +97,7 @@ class LoginUserView(SuccessMessageMixin,
 
 
 class LogoutUserView(SuccessMessageMixin,
-                     ErrorHandlerMixin,
+                     PermissionDeniedMixin,
                      UserLoginRequiredMixin,
                      LogoutView):
     """Logout view."""
@@ -115,7 +115,7 @@ class LogoutUserView(SuccessMessageMixin,
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserView(ErrorHandlerMixin,
+class UserView(PermissionDeniedMixin,
                UserLoginRequiredMixin,
                DetailView):
     """User view."""

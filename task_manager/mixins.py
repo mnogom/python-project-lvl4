@@ -5,6 +5,7 @@ from django.db.models.deletion import ProtectedError
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
+from django.shortcuts import redirect
 
 MESSAGES_ON_PROTECT_DELETE = {
     'User': _('User in use. You can not delete it.'),
@@ -33,12 +34,12 @@ class SuccessMessageMixin:
         return self.success_url
 
 
-class ErrorHandlerMixin:
+class PermissionDeniedMixin:
     def handle_no_permission(self):
         if self.permission_denied_message:
             messages.error(request=self.request,
                            message=self.permission_denied_message)
-            return HttpResponseRedirect(self.permission_denied_redirect_url)
+            return redirect(self.permission_denied_redirect_url)
 
 
 class RedirectOnProtectedMixin:

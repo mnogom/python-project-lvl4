@@ -9,14 +9,14 @@ from django.views.generic import (ListView,
 
 from task_manager.mixins import (RedirectOnProtectedMixin,
                                  SuccessMessageMixin,
-                                 ErrorHandlerMixin)
+                                 PermissionDeniedMixin)
 from task_manager.apps.user.mixins import UserLoginRequiredMixin
 
 from .forms import StatusForm
 from .models import Status
 
 
-class ListStatusView(ErrorHandlerMixin,
+class ListStatusView(PermissionDeniedMixin,
                      UserLoginRequiredMixin,
                      ListView):
     """List of statuses view."""
@@ -27,7 +27,7 @@ class ListStatusView(ErrorHandlerMixin,
 
 
 class CreateStatusView(SuccessMessageMixin,
-                       ErrorHandlerMixin,
+                       PermissionDeniedMixin,
                        UserLoginRequiredMixin,
                        CreateView):
     """Create status view."""
@@ -40,7 +40,7 @@ class CreateStatusView(SuccessMessageMixin,
 
 
 class UpdateStatusView(SuccessMessageMixin,
-                       ErrorHandlerMixin,
+                       PermissionDeniedMixin,
                        UserLoginRequiredMixin,
                        UpdateView):
     """Update status view."""
@@ -54,7 +54,7 @@ class UpdateStatusView(SuccessMessageMixin,
 
 class DeleteStatusView(SuccessMessageMixin,
                        RedirectOnProtectedMixin,
-                       ErrorHandlerMixin,
+                       PermissionDeniedMixin,
                        UserLoginRequiredMixin,
                        DeleteView):
     """Delete status view"""
