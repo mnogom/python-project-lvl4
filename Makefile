@@ -1,6 +1,5 @@
 install:
-	poetry install ; \
-	cp .env_example .env
+	poetry install
 
 migrations:
 	poetry run python manage.py makemigrations

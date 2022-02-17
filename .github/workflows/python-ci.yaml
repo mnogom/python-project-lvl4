@@ -20,6 +20,7 @@ jobs:
         run: |
           pip3 install poetry
           make install
+          cp .env_example .env
 
       - name: Check migrations
         run: make check-migrations
