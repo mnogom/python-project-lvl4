@@ -50,9 +50,8 @@ class UserLoginUnRequiredMixin(AccessMixin):
 
         if request.user.is_authenticated:
             if self.already_login_message:
-                messages.add_message(request=request,
-                                     message=self.already_login_message,
-                                     level=messages.WARNING)
+                messages.warning(request=request,
+                                 message=self.already_login_message)
             return redirect(request.META.get('HTTP_REFERER',
                                              reverse_lazy('index')))
         return super().dispatch(request, *args, **kwargs)
@@ -71,7 +70,6 @@ class UserIsAuthorMixin:
         if task.author_id == int(self.request.user.pk):
             return super().dispatch(request, *args, **kwargs)
 
-        messages.add_message(request=request,
-                             message=_('Only author can edit task'),
-                             level=messages.ERROR)
+        messages.warning(request=request,
+                         message=_('Only author can edit task'))
         return redirect(reverse_lazy('task:list'))
