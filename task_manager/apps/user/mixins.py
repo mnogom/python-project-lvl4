@@ -25,15 +25,14 @@ class UserPermissionEditSelfMixin(UserPassesTestMixin):
     raise_exception = False
 
     def test_func(self):
-        if self.request.user.pk:
-            if self.request.user.pk != self.kwargs.get('pk'):
-                self.permission_denied_redirect_url = reverse_lazy('user:list')
+        if self.request.user.pk != self.kwargs.get('pk'):
+            self.permission_denied_redirect_url = reverse_lazy('user:list')
 
-                if self.__class__.__name__.lower().startswith('update'):
-                    self.permission_denied_message = _('You have no permission to edit users')
-                elif self.__class__.__name__.lower().startswith('delete'):
-                    self.permission_denied_message = _('You have no permission to delete users')
-                return False
+            if self.__class__.__name__.lower().startswith('update'):
+                self.permission_denied_message = _('You have no permission to edit users')
+            elif self.__class__.__name__.lower().startswith('delete'):
+                self.permission_denied_message = _('You have no permission to delete users')
+            return False
         return True
 
 
