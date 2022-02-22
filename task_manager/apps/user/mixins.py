@@ -4,8 +4,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.mixins import (AccessMixin,
-                                        LoginRequiredMixin,
+from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         UserPassesTestMixin)
 
 
@@ -38,23 +37,6 @@ class UserPermissionEditSelfMixin(UserPassesTestMixin):
                     self.permission_denied_message = _('You have no permission to delete users')
                 return False
         return True
-
-
-class UserLoginUnRequiredMixin(AccessMixin):
-    """User login required mixin."""
-
-    already_login_message = _('You are already logged in')
-
-    def dispatch(self, request, *args, **kwargs):
-        """Dispatch method."""
-
-        if request.user.is_authenticated:
-            if self.already_login_message:
-                messages.warning(request=request,
-                                 message=self.already_login_message)
-            return redirect(request.META.get('HTTP_REFERER',
-                                             reverse_lazy('index')))
-        return super().dispatch(request, *args, **kwargs)
 
 
 class UserIsAuthorMixin:

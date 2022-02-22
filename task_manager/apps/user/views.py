@@ -18,7 +18,6 @@ from .models import User
 from .forms import UserCreateForm
 from .services import login_user
 from .mixins import (UserLoginRequiredMixin,
-                     UserLoginUnRequiredMixin,
                      UserPermissionEditSelfMixin)
 
 
@@ -82,7 +81,6 @@ class DeleteUserView(SuccessMessageMixin,
 
 
 class LoginUserView(SuccessMessageMixin,
-                    UserLoginUnRequiredMixin,
                     LoginView):
     """Login view.
 
