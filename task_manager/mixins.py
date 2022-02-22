@@ -39,7 +39,7 @@ class PermissionDeniedMixin:
         if self.permission_denied_message:
             messages.error(request=self.request,
                            message=self.permission_denied_message)
-            return redirect(self.permission_denied_redirect_url)
+        return redirect(self.permission_denied_redirect_url)
 
 
 class RedirectOnProtectedMixin:
