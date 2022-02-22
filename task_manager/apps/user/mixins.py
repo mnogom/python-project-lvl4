@@ -1,8 +1,6 @@
 """Mixins."""
 
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
-from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         UserPassesTestMixin)
@@ -39,19 +37,16 @@ class UserPermissionEditSelfMixin(UserPassesTestMixin):
         return True
 
 
-class UserIsAuthorMixin:
+class UserIsAuthorMixin(UserPassesTestMixin):
     """Mixin to give permission to author edit only his tasks.
 
     TODO: make from user pass tests.
     """
 
-    def dispatch(self, request, *args, **kwargs):
-        """Dispatch method."""
-
+    def test_func(self):
         task = self.get_object()
-        if task.author_id == int(self.request.user.pk):
-            return super().dispatch(request, *args, **kwargs)
-
-        messages.warning(request=request,
-                         message=_('Only author can edit task'))
-        return redirect(reverse_lazy('task:list'))
+        if task.author_id != int(self.request.user.pk):
+            self.permission_denied_message = _('Only author can edit task')
+            self.permission_denied_redirect_url = reverse_lazy('task:list')
+            return False
+        return True
