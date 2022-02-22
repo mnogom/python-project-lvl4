@@ -51,7 +51,7 @@ class CreateTaskView(SuccessMessageMixin,
 class UpdateTaskView(SuccessMessageMixin,
                      PermissionDeniedMixin,
                      UserLoginRequiredMixin,
-                     UserIsAuthorMixin,  # TODO: Remove it
+                     UserIsAuthorMixin,
                      UpdateView):
     """Update task view."""
 
@@ -60,10 +60,6 @@ class UpdateTaskView(SuccessMessageMixin,
     template_name = 'task/update.html'
     success_url = reverse_lazy('task:list')
     success_message = _('Task was updated')
-
-    def form_valid(self, form):
-        # form.set_author(self.request.user.pk)
-        return super().form_valid(form)
 
 
 class DeleteTaskView(SuccessMessageMixin,

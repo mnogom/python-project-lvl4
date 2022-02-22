@@ -92,7 +92,6 @@ def get_form_errors(response) -> list:
     if form_errors:
         for key, values in form_errors.items():
             for value in values:
-                # TODO: [fix] ¯\_(ツ)_/¯
                 errors.append(
                     '{}:{}'.format(key, *value)
                 )
