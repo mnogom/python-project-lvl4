@@ -180,6 +180,6 @@ rollbar.init(**ROLLBAR)
 
 # Silk settings
 # https://github.com/jazzband/django-silk#authenticationauthorisation
-SILKY_META = True
 SILKY_AUTHENTICATION = True  # User must login
 SILKY_AUTHORISATION = True  # User must have permissions
+SILKY_META = True
