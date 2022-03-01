@@ -32,3 +32,5 @@ urlpatterns = [
     path('login/', LoginUserView.as_view(), name='login'),
     path('logout/', LogoutUserView.as_view(), name='logout'),
 ]
+
+urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]

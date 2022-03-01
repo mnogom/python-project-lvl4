@@ -9,13 +9,9 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
 class UserLoginRequiredMixin(LoginRequiredMixin):
     """User login required mixin."""
 
-    raise_exception = False
-
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            self.permission_denied_message = _('You need to login to do this')
-            self.permission_denied_redirect_url = reverse_lazy('login')
-            return self.handle_no_permission()
+        self.permission_denied_message = _('You need to login to do this')
+        self.permission_denied_redirect_url = reverse_lazy('login')
         return super().dispatch(request, *args, **kwargs)
 
 

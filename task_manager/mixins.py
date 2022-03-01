@@ -48,20 +48,23 @@ class RedirectOnProtectedMixin:
     denied_url = None
 
     def delete(self, request, *args, **kwargs):
-        """Delete method."""
-
         self.object = self.get_object()
-        # TODO: Research: https://github.com/jazzband/django-silk -- calculate SQL speed
-        try:
-            self.object.delete()
-        except ProtectedError:
 
-            self.permission_denied_message = MESSAGES_ON_PROTECT_DELETE.get(
-                self.model.__name__,
-                '')
-            self.permission_denied_redirect_url = REDIRECT_ON_PROTECT_DELETE.get(
-                self.model.__name__,
-                reverse_lazy('index'))
-            return super().handle_no_permission()
-        success_url = self.get_success_url()
-        return HttpResponseRedirect(success_url)
+
+    # def delete(self, request, *args, **kwargs):
+    #     """Delete method."""
+    #
+    #     self.object = self.get_object()
+    #     # TODO: Research: https://github.com/jazzband/django-silk -- calculate SQL speed
+    #     try:
+    #         self.object.delete()
+    #     except ProtectedError:
+    #         self.permission_denied_message = MESSAGES_ON_PROTECT_DELETE.get(
+    #             self.model.__name__,
+    #             '')
+    #         self.permission_denied_redirect_url = REDIRECT_ON_PROTECT_DELETE.get(
+    #             self.model.__name__,
+    #             reverse_lazy('index'))
+    #         return super().handle_no_permission()
+    #     success_url = self.get_success_url()
+    #     return HttpResponseRedirect(success_url)

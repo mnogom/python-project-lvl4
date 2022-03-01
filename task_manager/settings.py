@@ -49,11 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'django_filters',
+    'silk',
     'task_manager',
     'task_manager.apps.user',
     'task_manager.apps.status',
     'task_manager.apps.label',
     'task_manager.apps.task',
+
 ]
 
 MIDDLEWARE = [
@@ -65,7 +67,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 if not DEBUG:
     MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
