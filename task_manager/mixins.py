@@ -34,7 +34,7 @@ class SuccessMessageMixin:
         return self.success_url
 
 
-class PermissionDeniedMixin:
+class PermissionDeniedMessageMixin:
     def handle_no_permission(self):
         if self.permission_denied_message:
             messages.error(request=self.request,
