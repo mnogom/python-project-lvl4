@@ -32,7 +32,7 @@
                         {% for cur_label in object_list %}
                             <tr title="{{ cur_label.description }}">
                                 <th scope="row" class="align-middle">{{ cur_label.pk }}</th>
-                                <td class="align-middle"> {# TODO: [fix] make block for label #}
+                                <td class="align-middle">
                                     <a href="{% url 'task:list' %}?label={{ cur_label.pk }}" class="badge badge-primary">{{ cur_label.name }}</a>
                                 </td>
                                 <td class="align-middle">{{ cur_label.created_at|date:'d b Y' }}</td>
