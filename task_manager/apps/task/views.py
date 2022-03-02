@@ -8,9 +8,9 @@ from django.views.generic import (DetailView,
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.mixins import (CheckIfObjectInUseMixin,
-                                 PermissionDeniedMessageMixin,
                                  SuccessMessageMixin)
 from task_manager.apps.user.mixins import (UserLoginRequiredMixin,
+                                           UserPermissionDeniedMessageMixin,
                                            UserIsAuthorMixin)
 
 from django_filters.views import FilterView
@@ -20,7 +20,7 @@ from .models import Task
 from .filters import TaskFilter
 
 
-class ListTaskView(PermissionDeniedMessageMixin,
+class ListTaskView(UserPermissionDeniedMessageMixin,
                    UserLoginRequiredMixin,
                    FilterView):
     """List tasks filter view."""
@@ -32,7 +32,7 @@ class ListTaskView(PermissionDeniedMessageMixin,
 
 
 class CreateTaskView(SuccessMessageMixin,
-                     PermissionDeniedMessageMixin,
+                     UserPermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
                      CreateView):
     """Create task view."""
@@ -49,7 +49,7 @@ class CreateTaskView(SuccessMessageMixin,
 
 
 class UpdateTaskView(SuccessMessageMixin,
-                     PermissionDeniedMessageMixin,
+                     UserPermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
                      UserIsAuthorMixin,
                      UpdateView):
@@ -63,7 +63,7 @@ class UpdateTaskView(SuccessMessageMixin,
 
 
 class DeleteTaskView(SuccessMessageMixin,
-                     PermissionDeniedMessageMixin,
+                     UserPermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
                      CheckIfObjectInUseMixin,
                      UserIsAuthorMixin,
@@ -78,7 +78,7 @@ class DeleteTaskView(SuccessMessageMixin,
     denied_message = _('Task in use. You can not delete it.')
 
 
-class TaskView(PermissionDeniedMessageMixin,
+class TaskView(UserPermissionDeniedMessageMixin,
                UserLoginRequiredMixin,
                DetailView):
     """Task view."""

@@ -36,7 +36,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{% translate 'Labels' %}:
-                {% for cur_label in task.labels.all %} {# TODO: [fix] make block for label #}
+                {% for cur_label in task.labels.all %}
                     <a href="{% url 'task:list' %}?label={{ cur_label.pk }}" class="badge badge-primary">{{ cur_label.name }}</a>
                 {% endfor %}
             </li>

@@ -42,13 +42,3 @@ class SuccessMessageMixin:
             messages.success(request=self.request,
                              message=self.success_message)
         return self.success_url
-
-
-class PermissionDeniedMessageMixin:
-    """TODO: look up success message mixin"""
-
-    def handle_no_permission(self):
-        if self.permission_denied_message:
-            messages.error(request=self.request,
-                           message=self.permission_denied_message)
-        return redirect(self.permission_denied_redirect_url)

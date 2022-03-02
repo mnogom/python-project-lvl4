@@ -7,9 +7,6 @@ from .models import Task
 
 class TaskForm(ModelForm):
     """Model form.
-
-    TODO: [fix] Edit translation 'имя' to 'название'
-     in 'task:create' page.
     """
 
     class Meta:

@@ -4,6 +4,9 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         UserPassesTestMixin)
+from django.contrib import messages
+
+from django.shortcuts import redirect
 
 
 class UserLoginRequiredMixin(LoginRequiredMixin):
@@ -18,7 +21,7 @@ class UserLoginRequiredMixin(LoginRequiredMixin):
         return super().handle_no_permission()
 
 
-class UserPermissionEditSelfMixin(UserPassesTestMixin):
+class UserPermissionModifySelfMixin(UserPassesTestMixin):
     """User permission edit only self mixin."""
 
     def dispatch(self, request, *args, **kwargs):
@@ -43,3 +46,12 @@ class UserIsAuthorMixin(UserPassesTestMixin):
 
     def test_func(self):
         return self.get_object().author == self.request.user
+
+
+class UserPermissionDeniedMessageMixin:
+
+    def handle_no_permission(self):
+        if self.permission_denied_message:
+            messages.error(request=self.request,
+                           message=self.permission_denied_message)
+        return redirect(self.permission_denied_redirect_url)

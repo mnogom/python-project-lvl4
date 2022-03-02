@@ -11,14 +11,14 @@ from django.contrib.auth.views import (LoginView,
                                        LogoutView)
 
 from task_manager.mixins import (SuccessMessageMixin,
-                                 PermissionDeniedMessageMixin,
                                  CheckIfObjectInUseMixin)
 
 from .models import User
 from .forms import UserCreateForm
 from .services import login_user
 from .mixins import (UserLoginRequiredMixin,
-                     UserPermissionEditSelfMixin)
+                     UserPermissionModifySelfMixin,
+                     UserPermissionDeniedMessageMixin)
 
 
 class ListUsersView(ListView):
@@ -32,11 +32,6 @@ class ListUsersView(ListView):
 class CreateUserView(SuccessMessageMixin,
                      CreateView):
     """New user view."""
-    # TODO: [hexlet-check]
-    #  To pass hexlet check
-    #  you must have access to registration page if
-    #  you are already logged in
-    #  if it fix you can add 'UserLoginUnRequiredMixin'
 
     model = User
     form_class = UserCreateForm
@@ -46,8 +41,8 @@ class CreateUserView(SuccessMessageMixin,
 
 
 class UpdateUserView(SuccessMessageMixin,
-                     PermissionDeniedMessageMixin,
-                     UserPermissionEditSelfMixin,
+                     UserPermissionDeniedMessageMixin,
+                     UserPermissionModifySelfMixin,
                      UserLoginRequiredMixin,
                      UpdateView):
     """Edit user view."""
@@ -68,8 +63,8 @@ class UpdateUserView(SuccessMessageMixin,
 
 class DeleteUserView(SuccessMessageMixin,
                      CheckIfObjectInUseMixin,
-                     PermissionDeniedMessageMixin,
-                     UserPermissionEditSelfMixin,
+                     UserPermissionDeniedMessageMixin,
+                     UserPermissionModifySelfMixin,
                      UserLoginRequiredMixin,
                      DeleteView):
     """Delete user view."""
@@ -85,9 +80,6 @@ class DeleteUserView(SuccessMessageMixin,
 class LoginUserView(SuccessMessageMixin,
                     LoginView):
     """Login view.
-
-    TODO: don't show 'applied status' at fields in form
-      when user input is not valid to login
     """
 
     template_name = 'user/login.html'
@@ -97,7 +89,7 @@ class LoginUserView(SuccessMessageMixin,
 
 
 class LogoutUserView(SuccessMessageMixin,
-                     PermissionDeniedMessageMixin,
+                     UserPermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
                      LogoutView):
     """Logout view."""
@@ -109,13 +101,12 @@ class LogoutUserView(SuccessMessageMixin,
         """Dispatch method."""
 
         if request.method == 'GET':
-            # TODO: [fix] make error page
             return super().http_method_not_allowed(request, *args, **kwargs)
         self.get_success_url()
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserView(PermissionDeniedMessageMixin,
+class UserView(UserPermissionDeniedMessageMixin,
                UserLoginRequiredMixin,
                DetailView):
     """User view."""

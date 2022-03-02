@@ -9,9 +9,6 @@ from django.utils.translation import gettext_lazy as _
 
 class User(AbstractUser):
     """User model."""
-    # TODO: [hexlet-check]
-    #  To pass hexlet check you need keep
-    #  email 'unique=False', 'blank=True', 'null=True'
 
     username_validator = UnicodeUsernameValidator()
     email_validator = EmailValidator()
