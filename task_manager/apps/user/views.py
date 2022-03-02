@@ -12,7 +12,7 @@ from django.contrib.auth.views import (LoginView,
 
 from task_manager.mixins import (SuccessMessageMixin,
                                  PermissionDeniedMessageMixin,
-                                 RedirectOnProtectedMixin)
+                                 CheckIfObjectInUseMixin)
 
 from .models import User
 from .forms import UserCreateForm
@@ -67,7 +67,7 @@ class UpdateUserView(SuccessMessageMixin,
 
 
 class DeleteUserView(SuccessMessageMixin,
-                     RedirectOnProtectedMixin,
+                     CheckIfObjectInUseMixin,
                      PermissionDeniedMessageMixin,
                      UserPermissionEditSelfMixin,
                      UserLoginRequiredMixin,
@@ -78,6 +78,8 @@ class DeleteUserView(SuccessMessageMixin,
     template_name = 'user/delete.html'
     success_message = _('User was deleted')
     success_url = reverse_lazy('user:list')
+    object_in_use_url = reverse_lazy('user:list')
+    object_in_use_message = _('User in use. You can not delete it.')
 
 
 class LoginUserView(SuccessMessageMixin,

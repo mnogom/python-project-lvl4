@@ -7,7 +7,7 @@ from django.views.generic import (ListView,
                                   UpdateView,
                                   DeleteView)
 
-from task_manager.mixins import (RedirectOnProtectedMixin,
+from task_manager.mixins import (CheckIfObjectInUseMixin,
                                  SuccessMessageMixin,
                                  PermissionDeniedMessageMixin)
 from task_manager.apps.user.mixins import UserLoginRequiredMixin
@@ -53,7 +53,7 @@ class UpdateStatusView(SuccessMessageMixin,
 
 
 class DeleteStatusView(SuccessMessageMixin,
-                       RedirectOnProtectedMixin,
+                       CheckIfObjectInUseMixin,
                        PermissionDeniedMessageMixin,
                        UserLoginRequiredMixin,
                        DeleteView):
@@ -63,3 +63,5 @@ class DeleteStatusView(SuccessMessageMixin,
     template_name = 'status/delete.html'
     success_url = reverse_lazy('status:list')
     success_message = _('Status was deleted.')
+    object_in_use_url = reverse_lazy('status:list')
+    object_in_use_message = _('Status in use. You can not delete it.')

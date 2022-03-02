@@ -7,7 +7,7 @@ from django.views.generic import (DetailView,
                                   DeleteView)
 from django.utils.translation import gettext_lazy as _
 
-from task_manager.mixins import (RedirectOnProtectedMixin,
+from task_manager.mixins import (CheckIfObjectInUseMixin,
                                  PermissionDeniedMessageMixin,
                                  SuccessMessageMixin)
 from task_manager.apps.user.mixins import (UserLoginRequiredMixin,
@@ -65,7 +65,7 @@ class UpdateTaskView(SuccessMessageMixin,
 class DeleteTaskView(SuccessMessageMixin,
                      PermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
-                     RedirectOnProtectedMixin,
+                     CheckIfObjectInUseMixin,
                      UserIsAuthorMixin,
                      DeleteView):
     """Delete task view."""
