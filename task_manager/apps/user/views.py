@@ -22,8 +22,6 @@ from .mixins import (UserLoginRequiredMixin,
 
 
 class ListUsersView(ListView):
-    """List of users view."""
-
     model = User
     ordering = 'pk'
     template_name = 'user/list.html'
@@ -31,8 +29,6 @@ class ListUsersView(ListView):
 
 class CreateUserView(SuccessMessageMixin,
                      CreateView):
-    """New user view."""
-
     model = User
     form_class = UserCreateForm
     template_name = 'user/create.html'
@@ -45,8 +41,6 @@ class UpdateUserView(SuccessMessageMixin,
                      UserPermissionModifySelfMixin,
                      UserLoginRequiredMixin,
                      UpdateView):
-    """Edit user view."""
-
     model = User
     form_class = UserCreateForm
     template_name = 'user/update.html'
@@ -54,7 +48,7 @@ class UpdateUserView(SuccessMessageMixin,
     success_message = _('User profile was updated')
 
     def post(self, request, *args, **kwargs):
-        """Auto log in on success updating user."""
+        """Force re-login user after user profile update."""
 
         response = super().post(request, *args, **kwargs)
         login_user(request)
@@ -67,8 +61,6 @@ class DeleteUserView(SuccessMessageMixin,
                      UserPermissionModifySelfMixin,
                      UserLoginRequiredMixin,
                      DeleteView):
-    """Delete user view."""
-
     model = User
     template_name = 'user/delete.html'
     success_message = _('User was deleted')
@@ -79,9 +71,6 @@ class DeleteUserView(SuccessMessageMixin,
 
 class LoginUserView(SuccessMessageMixin,
                     LoginView):
-    """Login view.
-    """
-
     template_name = 'user/login.html'
     redirect_authenticated_user = True
     success_url = reverse_lazy('index')
@@ -92,13 +81,15 @@ class LogoutUserView(SuccessMessageMixin,
                      UserPermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
                      LogoutView):
-    """Logout view."""
-
     success_message = _('You are logged out')
-    http_method_names = ['POST', ]
 
     def dispatch(self, request, *args, **kwargs):
-        """Dispatch method."""
+        """Disable GET method for logout view
+        and add success_message to response
+
+        Default dispatch method in LogoutView don't call 'get_success_message'
+        and don't filter request methods.
+        """
 
         if request.method == 'GET':
             return super().http_method_not_allowed(request, *args, **kwargs)
@@ -109,7 +100,5 @@ class LogoutUserView(SuccessMessageMixin,
 class UserView(UserPermissionDeniedMessageMixin,
                UserLoginRequiredMixin,
                DetailView):
-    """User view."""
-
     template_name = 'user/read.html'
     model = User

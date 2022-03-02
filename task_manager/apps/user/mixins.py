@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 
 
 class UserLoginRequiredMixin(LoginRequiredMixin):
-    """User login required mixin."""
+    """Mixin to check if user is logged in."""
 
     def dispatch(self, request, *args, **kwargs):
         self.permission_denied_message = _('You need to login to do this')
@@ -22,7 +22,9 @@ class UserLoginRequiredMixin(LoginRequiredMixin):
 
 
 class UserPermissionModifySelfMixin(UserPassesTestMixin):
-    """User permission edit only self mixin."""
+    """Mixin to protect the change of user's profile that is not his own.
+    This is universal mixin for 'update' and 'delete' profile
+    """
 
     def dispatch(self, request, *args, **kwargs):
         self.permission_denied_redirect_url = reverse_lazy('user:list')
@@ -37,7 +39,7 @@ class UserPermissionModifySelfMixin(UserPassesTestMixin):
 
 
 class UserIsAuthorMixin(UserPassesTestMixin):
-    """Mixin to give permission to author edit only his tasks."""
+    """Mixin to give to user permission edit only tasks where he is author."""
 
     def dispatch(self, request, *args, **kwargs):
         self.permission_denied_message = _('Only author can edit task')
@@ -49,6 +51,7 @@ class UserIsAuthorMixin(UserPassesTestMixin):
 
 
 class UserPermissionDeniedMessageMixin:
+    """Mixin to redirect and add message if any permission is denied."""
 
     def handle_no_permission(self):
         if self.permission_denied_message:

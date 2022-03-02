@@ -5,7 +5,6 @@ from .models import Status
 
 
 class StatusAdmin(admin.ModelAdmin):
-    """Admin panel for label."""
     pass
 
 

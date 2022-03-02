@@ -6,20 +6,22 @@ from django.shortcuts import redirect
 
 
 class CheckIfObjectInUseMixin:
-    """Mixin to redirect if object is protected."""
+    """Mixin to add message and make redirect if
+    object for delete is used by another objects.
+    """
 
     object_in_use_message = None
     object_in_use_url = None
 
     def redirect_on_protected_error(self):
+        """Add message to response and get redirect url."""
+
         if self.object_in_use_message:
             messages.error(self.request,
                            message=self.object_in_use_message)
         return redirect(self.object_in_use_url)
 
     def delete(self, request, *args, **kwargs):
-        """Delete method."""
-
         self.object = self.get_object()
         try:
             self.object.delete()
@@ -30,7 +32,12 @@ class CheckIfObjectInUseMixin:
 
 
 class SuccessMessageMixin:
-    """Mixin to add success message to response."""
+    """Mixin to add success message to response
+    if View call 'get_success_url' method.
+
+    Default SuccessMessageMixin add message only if form is valid.
+    This one can add message to any View that called 'get_success_url' method
+    """
 
     success_url = None
     success_message = None

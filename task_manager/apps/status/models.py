@@ -5,8 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Status(models.Model):
-    """Status model."""
-
     name = models.CharField(verbose_name=_('name'),
                             max_length=300,
                             unique=True,
@@ -20,11 +18,4 @@ class Status(models.Model):
                                   editable=False)
 
     def __str__(self):
-        """Representation method."""
-
         return self.name
-
-    class Meta:
-        """Meta class."""
-
-        verbose_name_plural = 'Statuses'

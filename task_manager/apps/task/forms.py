@@ -6,12 +6,7 @@ from .models import Task
 
 
 class TaskForm(ModelForm):
-    """Model form.
-    """
-
     class Meta:
-        """Meta class."""
-
         model = Task
         fields = ('name',
                   'description',
@@ -20,7 +15,7 @@ class TaskForm(ModelForm):
                   'labels',)
 
     def set_author(self, author_pk: int):
-        """Set author for task method.
+        """Add author for task object.
 
         :param author_pk: author pk (id)
         """

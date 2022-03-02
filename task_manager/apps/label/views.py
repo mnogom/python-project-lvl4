@@ -19,8 +19,6 @@ from .models import Label
 class ListLabelView(UserPermissionDeniedMessageMixin,
                     UserLoginRequiredMixin,
                     ListView):
-    """List label view."""
-
     model = Label
     ordering = 'pk'
     template_name = 'label/list.html'
@@ -30,8 +28,6 @@ class CreateLabelView(SuccessMessageMixin,
                       UserPermissionDeniedMessageMixin,
                       UserLoginRequiredMixin,
                       CreateView):
-    """Create label view."""
-
     model = Label
     form_class = LabelForm
     template_name = 'label/create.html'
@@ -43,8 +39,6 @@ class UpdateLabelView(SuccessMessageMixin,
                       UserPermissionDeniedMessageMixin,
                       UserLoginRequiredMixin,
                       UpdateView):
-    """Update label view."""
-
     model = Label
     form_class = LabelForm
     template_name = 'label/update.html'
@@ -57,8 +51,6 @@ class DeleteLabelView(SuccessMessageMixin,
                       UserPermissionDeniedMessageMixin,
                       UserLoginRequiredMixin,
                       DeleteView):
-    """Delete label view."""
-
     model = Label
     template_name = 'label/delete.html'
     success_url = reverse_lazy('label:list')

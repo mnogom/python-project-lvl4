@@ -5,8 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Task(models.Model):
-    """Task model."""
-
     name = models.CharField(verbose_name=_('name'),
                             max_length=300,
                             blank=False,
@@ -38,14 +36,10 @@ class Task(models.Model):
                                   editable=False)
 
     def __str__(self):
-        """representation method."""
-
         return self.name
 
 
 class TaskLabel(models.Model):
-    """Task <-> Label model."""
-
     task = models.ForeignKey('task.Task',
                              on_delete=models.CASCADE)
     label = models.ForeignKey('label.Label',

@@ -9,8 +9,6 @@ from task_manager.apps.label.models import Label
 
 
 class TaskFilter(django_filters.FilterSet):
-    """Task filter."""
-
     self_tasks = django_filters.BooleanFilter(label=_('Only my tasks'),
                                               method='choose_user_as_author',
                                               widget=forms.CheckboxInput)
@@ -19,8 +17,6 @@ class TaskFilter(django_filters.FilterSet):
                                              method='choose_label')
 
     class Meta:
-        """Meta class."""
-
         model = Task
         fields = (
             'author',

@@ -19,8 +19,6 @@ from .models import Status
 class ListStatusView(UserPermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
                      ListView):
-    """List of statuses view."""
-
     model = Status
     ordering = 'pk'
     template_name = 'status/list.html'
@@ -30,8 +28,6 @@ class CreateStatusView(SuccessMessageMixin,
                        UserPermissionDeniedMessageMixin,
                        UserLoginRequiredMixin,
                        CreateView):
-    """Create status view."""
-
     model = Status
     form_class = StatusForm
     template_name = 'status/create.html'
@@ -43,8 +39,6 @@ class UpdateStatusView(SuccessMessageMixin,
                        UserPermissionDeniedMessageMixin,
                        UserLoginRequiredMixin,
                        UpdateView):
-    """Update status view."""
-
     model = Status
     form_class = StatusForm
     template_name = 'status/update.html'
@@ -57,8 +51,6 @@ class DeleteStatusView(SuccessMessageMixin,
                        UserPermissionDeniedMessageMixin,
                        UserLoginRequiredMixin,
                        DeleteView):
-    """Delete status view"""
-
     model = Status
     template_name = 'status/delete.html'
     success_url = reverse_lazy('status:list')

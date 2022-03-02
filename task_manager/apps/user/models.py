@@ -8,11 +8,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
-    """User model."""
-
     username_validator = UnicodeUsernameValidator()
     email_validator = EmailValidator()
-
     username = models.CharField(verbose_name=_('username'),
                                 max_length=150,
                                 unique=True,
@@ -31,11 +28,7 @@ class User(AbstractUser):
                                  'unique': _('A user with that email already exists.'), })
 
     def __str__(self):
-        """representation method."""
-
         return self.get_full_name() or f'@{self.username}'
 
     class Meta(AbstractUser.Meta):
-        """Meta class."""
-
         swappable = 'AUTH_USER_MODEL'

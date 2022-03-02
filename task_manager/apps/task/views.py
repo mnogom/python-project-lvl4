@@ -23,8 +23,6 @@ from .filters import TaskFilter
 class ListTaskView(UserPermissionDeniedMessageMixin,
                    UserLoginRequiredMixin,
                    FilterView):
-    """List tasks filter view."""
-
     model = Task
     ordering = 'pk'
     filterset_class = TaskFilter
@@ -35,8 +33,6 @@ class CreateTaskView(SuccessMessageMixin,
                      UserPermissionDeniedMessageMixin,
                      UserLoginRequiredMixin,
                      CreateView):
-    """Create task view."""
-
     model = Task
     form_class = TaskForm
     template_name = 'task/create.html'
@@ -53,8 +49,6 @@ class UpdateTaskView(SuccessMessageMixin,
                      UserLoginRequiredMixin,
                      UserIsAuthorMixin,
                      UpdateView):
-    """Update task view."""
-
     model = Task
     form_class = TaskForm
     template_name = 'task/update.html'
@@ -68,8 +62,6 @@ class DeleteTaskView(SuccessMessageMixin,
                      CheckIfObjectInUseMixin,
                      UserIsAuthorMixin,
                      DeleteView):
-    """Delete task view."""
-
     model = Task
     template_name = 'task/delete.html'
     success_url = reverse_lazy('task:list')
@@ -81,7 +73,5 @@ class DeleteTaskView(SuccessMessageMixin,
 class TaskView(UserPermissionDeniedMessageMixin,
                UserLoginRequiredMixin,
                DetailView):
-    """Task view."""
-
     template_name = 'task/read.html'
     model = Task

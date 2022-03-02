@@ -5,7 +5,6 @@ from .models import Task
 
 
 class TaskAdmin(admin.ModelAdmin):
-    """Admin panel for label."""
     pass
 
 

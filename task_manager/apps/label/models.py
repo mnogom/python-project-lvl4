@@ -5,8 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Label(models.Model):
-    """Label model."""
-
     name = models.CharField(verbose_name=_('name'),
                             max_length=50,
                             unique=True,
@@ -17,6 +15,4 @@ class Label(models.Model):
                                   editable=False)
 
     def __str__(self):
-        """representation method."""
-
         return self.name

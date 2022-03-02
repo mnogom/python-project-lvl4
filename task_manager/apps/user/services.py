@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 
 
 def login_user(request):
-    """Login user."""
+    """Auto-login user method."""
 
     username = request.POST.get('username')
     password = request.POST.get('password1')
