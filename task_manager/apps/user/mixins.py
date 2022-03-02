@@ -14,9 +14,17 @@ class UserLoginRequiredMixin(LoginRequiredMixin):
         self.permission_denied_redirect_url = reverse_lazy('login')
         return super().dispatch(request, *args, **kwargs)
 
+    def handle_no_permission(self):
+        return super().handle_no_permission()
+
 
 class UserPermissionEditSelfMixin(UserPassesTestMixin):
-    """User permission edit only self mixin."""
+    """User permission edit only self mixin.
+
+
+    TODO: разделить на два миксина (проверь, нужно ли прям делить на удалить/изменить + диспатч
+        UserCanEditSelfMixin
+    """
 
     raise_exception = False
 
@@ -33,15 +41,12 @@ class UserPermissionEditSelfMixin(UserPassesTestMixin):
 
 
 class UserIsAuthorMixin(UserPassesTestMixin):
-    """Mixin to give permission to author edit only his tasks.
+    """Mixin to give permission to author edit only his tasks."""
 
-    TODO: make from user pass tests.
-    """
+    def dispatch(self, request, *args, **kwargs):
+        self.permission_denied_message = _('Only author can edit task')
+        self.permission_denied_redirect_url = reverse_lazy('task:list')
+        return super().dispatch(request, *args, **kwargs)
 
     def test_func(self):
-        task = self.get_object()
-        if task.author_id != int(self.request.user.pk):
-            self.permission_denied_message = _('Only author can edit task')
-            self.permission_denied_redirect_url = reverse_lazy('task:list')
-            return False
-        return True
+        return self.get_object().author == self.request.user
