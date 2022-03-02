@@ -16,94 +16,95 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-        <a class="navbar-brand" href="{% url 'index' %}">Task Manager</a>
+    <a class="navbar-brand" href="{% url 'index' %}">Task Manager</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                {# NAME #}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {# NAME #}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">{% translate 'Home' %}</a>
+            </li>
+
+            {# USER APP #}
+            <li class="nav-item">
+                <a class="nav-item">
+                    <a class="nav-link" href="{% url 'user:list' %}">{% translate 'Users' %}</a>
+                </a>
+            </li>
+
+            {# STATUS APP #}
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="{% url 'status:list' %}">{% translate 'Statuses' %}</a>
+            </li>
+
+            {# LABEL APP #}
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="{% url 'label:list' %}">{% translate 'Labels' %}</a>
+            </li>
+
+            {# TASK APP #}
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="{% url 'task:list' %}">{% translate 'Tasks' %}</a>
+            </li>
+
+        </ul>
+
+        {# AUTH SHORTCATS #}
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'user:sample' user.pk %}">{% translate 'Profile' %}</a>
+                <div class="nav-item">
+                    <form action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="nav-link btn btn-link border-0" value="{% translate 'Logout' %}"/>
+                    </form>
+                </div>
+            {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">{% translate 'Home' %}</a>
+                    <a class="nav-link" href="{% url 'user:create' %}">{% translate 'Registration' %}</a>
                 </li>
-
-                {# USER APP #}
                 <li class="nav-item">
-                    <a class="nav-item">
-                        <a class="nav-link" href="{% url 'user:list' %}">{% translate 'Users' %}</a>
-                    </a>
+                    <a class="nav-link" href="{% url 'login' %}">{% translate 'Login' %}</a>
                 </li>
-
-                {# STATUS APP #}
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="{% url 'status:list' %}">{% translate 'Statuses' %}</a>
-                </li>
-
-                {# LABEL APP #}
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="{% url 'label:list' %}">{% translate 'Labels' %}</a>
-                </li>
-
-                {# TASK APP #}
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="{% url 'task:list' %}">{% translate 'Tasks' %}</a>
-                </li>
-
-            </ul>
-
-            {# AUTH SHORTCATS #}
-            <ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'user:sample' user.pk %}">{% translate 'Profile' %}</a>
-                    <div class="nav-item">
-                        <form action="{% url 'logout' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" class="nav-link btn btn-link border-0" value="{% translate 'Logout' %}"/>
-                        </form>
-                    </div>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user:create' %}">{% translate 'Registration' %}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">{% translate 'Login' %}</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-
-    </nav>
-
-    <div class="container flex-grow-1">
-
-        {# Display django.contrib.messages as Bootstrap alerts #}
-        <div class="mt-2 mx-5">
-            {% bootstrap_messages %}
-        </div>
-
-        <div class="mt-5">
-            {% block container %}{% endblock %}
-        </div>
+            {% endif %}
+        </ul>
     </div>
 
-    <footer>
-      <div class="mt-2 py-2 border-top bg-light text-center">
-          <small class="text-muted">
-              <a class="text-decoration-none text-reset" href="https://github.com/mnogom/python-project-lvl4" target="_blank">
-                  Task manager @ 2021 by m
-              </a>
-          </small>
-      </div>
-    </footer>
+</nav>
 
-    {# Load JavaScript #}
-    {% bootstrap_javascript jquery='full' %}
+<div class="container flex-grow-1">
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    <div class="mt-2 mx-5">
+        {% bootstrap_messages %}
+    </div>
+
+    <div class="mt-5">
+        {% block container %}{% endblock %}
+    </div>
+</div>
+
+<footer>
+    <div class="mt-2 py-2 border-top bg-light text-center">
+        <small class="text-muted">
+            <a class="text-decoration-none text-reset" href="https://github.com/mnogom/python-project-lvl4"
+               target="_blank">
+                Task manager @ 2021 by m
+            </a>
+        </small>
+    </div>
+</footer>
+
+{# Load JavaScript #}
+{% bootstrap_javascript jquery='full' %}
 
 </body>
 </html>

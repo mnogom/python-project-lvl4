@@ -4,13 +4,15 @@
 {% load i18n %}
 
 {% block title %}
-Task Manager
+    Task Manager
 {% endblock %}
 
 {% block container %}
     <div class="jumbotron shadow bg-light">
-        <h1 class="display-4">{% translate 'Hello! This is Educational project from' %} <a href="https://hexlet.io">Hexlet</a> </h1>
-        <p class="lead">{% translate 'All source code you can find on' %} <a href="https://github.com/mnogom/python-project-lvl4">github</a></p>
+        <h1 class="display-4">{% translate 'Hello! This is Educational project from' %} <a href="https://hexlet.io">Hexlet</a>
+        </h1>
+        <p class="lead">{% translate 'All source code you can find on' %} <a
+                href="https://github.com/mnogom/python-project-lvl4">github</a></p>
         <hr class="my-4">
         <h3 class="font-weight-light">{% translate 'You can start from here:' %}</h3>
         {% if user.is_authenticated %}
@@ -19,7 +21,8 @@ Task Manager
             <a class="btn btn-outline-primary btn-lg" href="{% url 'status:list' %}">{% translate 'Status list' %}</a>
         {% else %}
             <a class="btn btn-outline-primary btn-lg" href="{% url 'login' %}" role="button">{% translate 'Login' %}</a>
-            <a class="btn btn-primary btn-lg" href="{% url 'user:create' %}" role="button">{% translate 'Registration' %}</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'user:create' %}"
+               role="button">{% translate 'Registration' %}</a>
         {% endif %}
     </div>
 
@@ -69,7 +72,7 @@ Task Manager
                             <a class="btn btn-success" href="{% url 'user:sample' user.pk %}">profile</a>
                             <a class="btn btn-success" href="{% url 'user:update' user.pk %}">update user</a>
                             <a class="btn btn-success" href="{% url 'user:delete' user.pk %}">delete user</a>
-                        {%  endif %}
+                        {% endif %}
                     </div>
                     <form class="mt-1" action="{% url 'logout' %}" method="POST">
                         {% csrf_token %}

@@ -7,7 +7,7 @@
 {% load bootstrap4 %}
 
 {% block title %}
-{% translate 'Login' %}
+    {% translate 'Login' %}
 {% endblock %}
 
 {% block container %}
@@ -15,7 +15,8 @@
     <div class="card shadow">
         <div class="card-body">
             <h3 class="card-title">
-                {% translate 'Login or' %} <a class="text-decoration-none" href="{% url 'user:create' %}">{% translate 'Register' %}</a>
+                {% translate 'Login or' %} <a class="text-decoration-none"
+                                              href="{% url 'user:create' %}">{% translate 'Register' %}</a>
             </h3>
             <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}

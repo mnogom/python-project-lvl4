@@ -83,5 +83,5 @@ class TaskView(UserPermissionDeniedMessageMixin,
                DetailView):
     """Task view."""
 
-    template_name = 'task/sample.html'
+    template_name = 'task/read.html'
     model = Task

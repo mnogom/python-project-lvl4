@@ -7,7 +7,7 @@
 {% load bootstrap4 %}
 
 {% block title %}
-{% translate 'Edit label' %}
+    {% translate 'Edit label' %}
 {% endblock %}
 
 {% block container %}
@@ -20,7 +20,8 @@
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <input type="submit" class="btn btn-primary float-right mt-3 mx-1" value="{% translate 'Update' %}">
-                <a class="btn btn-outline-danger float-right mt-3 mx-1" href="{% url 'label:delete' label.pk %}">{% translate 'Delete' %}</a>
+                <a class="btn btn-outline-danger float-right mt-3 mx-1"
+                   href="{% url 'label:delete' label.pk %}">{% translate 'Delete' %}</a>
             </form>
         </div>
     </div>

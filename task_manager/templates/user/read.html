@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block title %}
-{% translate 'User' %}
+    {% translate 'User' %}
 {% endblock %}
 
 {% block container %}
@@ -12,7 +12,7 @@
     <div class="card shadow">
         <div class="card-header">
             {% translate 'User' %} # {{ user.pk }}
-            <a class="btn btn-sm btn-outline-primary float-right mx-1" href="{% url 'user:update' user.pk%}">
+            <a class="btn btn-sm btn-outline-primary float-right mx-1" href="{% url 'user:update' user.pk %}">
                 {% translate 'Update' %}
             </a>
             <a class="btn btn-sm btn-outline-danger float-right mx-1" href="{% url 'user:delete' user.pk %}">
@@ -33,28 +33,30 @@
             <div class="border-top pt-2"></div>
             <h6>
                 {% translate 'Created tasks' %}
-                <a href="{% url 'task:list' %}?author={{ user.id }}" class="badge badge-secondary ml-1">{{ user.author.count }}</a>
+                <a href="{% url 'task:list' %}?author={{ user.id }}"
+                   class="badge badge-secondary ml-1">{{ user.author.count }}</a>
             </h6>
-                <ul>
-                    {% for task in user.author.all %}
-                        <li class="">
-                            <a href="{% url 'task:sample' task.pk %}">{{ task.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <ul>
+                {% for task in user.author.all %}
+                    <li class="">
+                        <a href="{% url 'task:sample' task.pk %}">{{ task.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
 
             <div class="border-top pt-2"></div>
             <h6>
                 {% translate 'Executed tasks' %}
-                <a href="{% url 'task:list' %}?executor={{ user.id }}" class="badge badge-secondary ml-1">{{ user.executor.count }}</a>
+                <a href="{% url 'task:list' %}?executor={{ user.id }}"
+                   class="badge badge-secondary ml-1">{{ user.executor.count }}</a>
             </h6>
-                <ul>
-                    {% for task in user.executor.all %}
-                        <li>
-                            <a href="{% url 'task:sample' task.pk %}">{{ task.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <ul>
+                {% for task in user.executor.all %}
+                    <li>
+                        <a href="{% url 'task:sample' task.pk %}">{{ task.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
 
         <div class="card-footer text-muted">

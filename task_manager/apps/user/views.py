@@ -111,5 +111,5 @@ class UserView(UserPermissionDeniedMessageMixin,
                DetailView):
     """User view."""
 
-    template_name = 'user/sample.html'
+    template_name = 'user/read.html'
     model = User
