@@ -116,18 +116,17 @@ Django = ">=2.2"
 
 [[package]]
 name = "django-silk"
-version = "4.2.0"
+version = "4.3.0"
 description = "Silky smooth profiling for the Django Framework"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 autopep8 = "*"
 Django = ">=2.2"
 gprof2dot = ">=2017.09.19"
 Jinja2 = "*"
-Pygments = "*"
 python-dateutil = "*"
 pytz = "*"
 requests = "*"
@@ -229,14 +228,6 @@ description = "passive checker of Python programs"
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-
-[[package]]
-name = "pygments"
-version = "2.11.2"
-description = "Pygments is a syntax highlighting package written in Python."
-category = "main"
-optional = false
-python-versions = ">=3.5"
 
 [[package]]
 name = "python-dateutil"
@@ -459,8 +450,8 @@ django-filter = [
     {file = "django_filter-2.4.0-py3-none-any.whl", hash = "sha256:e00d32cebdb3d54273c48f4f878f898dced8d5dfaad009438fe61ebdf535ace1"},
 ]
 django-silk = [
-    {file = "django-silk-4.2.0.tar.gz", hash = "sha256:fcc2e3b2d20aab24a0b4b856d9692c532f8071b0e678cb5f4de47b802e85fe3e"},
-    {file = "django_silk-4.2.0-py3-none-any.whl", hash = "sha256:5e70b5351f04e3c4ea4fe6bc16c95bfee776006422dd5e7827e6e3db23dc41ec"},
+    {file = "django-silk-4.3.0.tar.gz", hash = "sha256:15ce316ac56d202bc7f0edab52d90d9b5282a41cbef9e38faab27e642d8a4e2b"},
+    {file = "django_silk-4.3.0-py3-none-any.whl", hash = "sha256:b010e51d9a2408ca0471bc943941676950f1d2906af3d09f9ffcd56f232688fc"},
 ]
 flake8 = [
     {file = "flake8-3.9.2-py2.py3-none-any.whl", hash = "sha256:bf8fd333346d844f616e8d47905ef3a3384edae6b4e9beb0c5101e25e3110907"},
@@ -546,10 +537,6 @@ pycodestyle = [
 pyflakes = [
     {file = "pyflakes-2.3.1-py2.py3-none-any.whl", hash = "sha256:7893783d01b8a89811dd72d7dfd4d84ff098e5eed95cfa8905b22bbffe52efc3"},
     {file = "pyflakes-2.3.1.tar.gz", hash = "sha256:f5bc8ecabc05bb9d291eb5203d6810b49040f6ff446a756326104746cc00c1db"},
-]
-pygments = [
-    {file = "Pygments-2.11.2-py3-none-any.whl", hash = "sha256:44238f1b60a76d78fc8ca0528ee429702aae011c265fe6a8dd8b63049ae41c65"},
-    {file = "Pygments-2.11.2.tar.gz", hash = "sha256:4e426f72023d88d03b2fa258de560726ce890ff3b630f88c21cbb8b2503b8c6a"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
